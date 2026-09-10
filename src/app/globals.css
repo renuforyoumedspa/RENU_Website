@@ -1,49 +1,1610 @@
+/* ==========================================================================
+   RENU MEDICAL AESTHETICS — Homepage Redesign Prototype
+   Design Token Source of Truth
+
+   This :root block is the literal spec that gets translated into Divi 5's
+   global Design System variables (Divi Theme Builder > Design System >
+   Colors / Fonts / Spacing) when the real module build starts. Treat every
+   value below as a named token, not a convenience — nothing in this file
+   should hardcode a raw hex/px value that isn't defined here first.
+   ========================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+
+  /* --- COLOR: Brand -------------------------------------------------------
+     SUPERSEDES the two earlier rounds (client swatch pass, then "more
+     purple" pass). Source: design_handoff_renu_redesign/README.md — a
+     finalized handoff produced in a proper design tool. Per that doc:
+     "Colors, typography, spacing, and copy are final unless flagged as
+     placeholder." These are lifted verbatim from its token table, not
+     re-derived.
+
+     Notable change: the original #D1D1D1 gray page background is DROPPED
+     per the handoff's explicit note — "the gray flattens the cards and is
+     a large part of why the current site doesn't read as upscale." Page
+     ground is now white, with #F7F3F6 as the alternate section tint.
+     --renu-mauve-soft (#A192A1) survives from the client's original swatch
+     essentially unchanged — it was already correct, just under-saturated
+     for use as the *primary* brand color. It now does the job the handoff
+     assigns it: eyebrows and meta text, not buttons or bands.
+  ------------------------------------------------------------------------ */
+  --renu-purple: #7E5A7C;        /* Plum (primary) — buttons, active pills, accents, links */
+  --renu-purple-deep: #5B3C59;   /* Deep plum — dark bands, hero scrim, headings-on-light hover, footer accent */
+  --renu-purple-mid: #6E4C6C;    /* Plum mid — video-fallback background only */
+  --renu-purple-tint: #EEE6ED;   /* Tint — section bands, chips, active nav */
+  --renu-purple-tint-light: #F7F3F6; /* Tint light — alternate section band, hover fill, panels */
+  --renu-mauve-soft: #A192A1;    /* Mauve — eyebrows, meta text */
+  --renu-mauve-deep: #8B7A89;    /* Mauve deep — meta text on tinted grounds */
+  --renu-lilac-light: #DCC1D8;   /* Lilac light — eyebrows on dark */
+  --renu-lilac: #DCC3D7;         /* Lilac — hero italic ("only rested.") */
+  --renu-lilac-pale: #E4D8E3;    /* Lilac pale — body copy on dark */
+  --renu-warm-accent: #B9866B;   /* Warm accent — star ratings + hero eyebrow dot ONLY. Scarcity is deliberate. */
+  --renu-utility-text: #EDE4EC;  /* Utility bar text (on the deep-plum utility bar specifically) */
+  --renu-black: #000000;         /* reserved — not used as a section color in the finalized palette */
+  --renu-white: #FFFFFF;         /* page ground, card surfaces */
+  --renu-gray-bg: #D1D1D1;       /* DEPRECATED — kept only so nothing referencing it hard-fails; do not use in new work */
+  --renu-gray-light: #F1F0EF;    /* DEPRECATED — use --renu-purple-tint-light (#F7F3F6) instead */
+  --renu-gray-border: #E7E1E6;   /* Border — card and section borders (was #BFBBBE against the old gray ground) */
+
+  /* --- COLOR: Text ---------------------------------------------------------
+     Ink/body-gray/meta-gray form a 3-step text hierarchy per the handoff —
+     use ink for primary copy and headings-on-light, body-gray for running
+     paragraphs, meta-gray for the smallest/quietest print.
+  ------------------------------------------------------------------------ */
+  --renu-ink: #221F22;           /* Ink — body text, footer, sticky bar */
+  --renu-ink-muted: #5B555A;     /* Body gray — paragraphs */
+  --renu-meta-gray: #6E5F6C;     /* Meta gray — small print, captions */
+  --renu-ink-on-purple: #FFFFFF;
+  --renu-ink-on-dark: #FFFFFF;
+
+  /* --- COLOR: Borders -------------------------------------------------------- */
+  --renu-border: #E7E1E6;        /* Border — card and section borders */
+  --renu-border-light: #F0EBEF;  /* Border light — inner dividers */
+  --renu-border-input: #D5CBD3;  /* Input border — form fields, "off" pills */
+  --renu-border-on-tint: #D5C6D3; /* Border on tint — dividers on tinted bands */
+  --renu-border-dark: #3A343A;   /* Border dark — footer divider */
+  --renu-border-chip: #E0D8DF;   /* index-card tech chip border (spec-literal, distinct from --renu-border) */
+  --renu-border-muted: #C9BDC7;  /* outlined-button border on white surfaces (detail aside, index cards) */
+  --renu-meta-faint: #8F868D;    /* footer bottom-bar copyright/build-note text (spec-literal, one-off use) */
+
+  /* --- COLOR: Semantic aliases ----------------------------------------------
+     What components should reference. Re-pointing these is how a future
+     theme change cascades everywhere.
+  ------------------------------------------------------------------------ */
+  --color-bg-page: var(--renu-white);
+  --color-bg-surface: var(--renu-white);
+  --color-bg-surface-alt: var(--renu-purple-tint-light);
+  --color-bg-band: var(--renu-purple);
+  --color-bg-band-deep: var(--renu-purple-deep);
+  --color-text-body: var(--renu-ink);
+  --color-text-muted: var(--renu-ink-muted);
+  --color-text-on-band: var(--renu-ink-on-purple);
+  --color-border: var(--renu-border);
+  --color-cta-primary-bg: var(--renu-purple);
+  --color-cta-primary-text: var(--renu-white);
+  --color-cta-secondary-bg: transparent;
+  --color-cta-secondary-text: var(--renu-purple-deep);
+  --color-cta-secondary-border: var(--renu-purple);
+
+  /* --- TYPE: Families -----------------------------------------------------
+     Revised from the first pass: Poppins reads as a startup/app product
+     font (rounded geometry, very common in SaaS UI). Swapped for Jost — a
+     geometric humanist sans in the same family as Avenir/Futura, which is
+     what boutique med-spa and wellness sites (incl. the Beverly Hills Medi
+     Spa reference) actually run on. Playfair Display stays for headings —
+     a light editorial serif is what keeps this feeling like a spa brand
+     and not a dashboard, paired with a lighter default weight than before.
+  ------------------------------------------------------------------------ */
+  /* Resolved by next/font/google in layout.tsx (self-hosted at build time,
+     not a runtime Google Fonts request) — --font-display-family/--font-
+     body-family are the CSS variables next/font generates, already
+     carrying their own fallback stacks. */
+  --font-display: var(--font-display-family), Georgia, 'Times New Roman', serif;
+  --font-body: var(--font-body-family), 'Century Gothic', 'Segoe UI', system-ui, sans-serif;
+
+  /* --- TYPE: Scale (fluid via clamp — mobile-first, scales to desktop) --
+     Pixel targets lifted verbatim from the handoff's type scale: H1
+     clamp(40,5.4vw,68) hero / clamp(32,4vw,52) interior · H2
+     clamp(28,3.2vw,44) · H3 20-30px · body 15-17.5px · small 13-14.5px ·
+     eyebrow 11-12.5px uppercase. Maps to Divi 5 Design System > Fonts.
+  ------------------------------------------------------------------------ */
+  --text-xs:   0.75rem;                                      /* 12px — eyebrows, fine print */
+  --text-sm:   0.875rem;                                      /* 14px — nav, small print (13-14.5px band) */
+  --text-base: 1rem;                                          /* 16px — body copy (15-17.5px band) */
+  --text-md:   clamp(1rem, 0.97rem + 0.2vw, 1.094rem);        /* 16-17.5px — lead paragraphs */
+  --text-lg:   clamp(1.25rem, 1.1rem + 0.8vw, 1.875rem);      /* 20-30px — H3 */
+  --text-xl:   clamp(1.75rem, 1.5rem + 1.2vw, 2.75rem);       /* 28-44px — H2 */
+  --text-2xl:  clamp(2rem, 1.6rem + 1.9vw, 3.25rem);          /* 32-52px — H1 interior (index/detail headers) */
+  --text-3xl:  clamp(2.5rem, 1.9rem + 2.9vw, 4.25rem);        /* 40-68px — H1 hero (home only) */
+
+  --leading-tight: 1.1;    /* headings: 1.04-1.14 per spec */
+  --leading-snug: 1.35;
+  --leading-normal: 1.65;  /* body: 1.6-1.75 per spec */
+
+  --weight-light: 300;
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  /* --- SPACING: Scale (8px base) — maps to Divi 5 Design System > Spacing */
+  --space-3xs: 0.25rem;  /* 4px */
+  --space-2xs: 0.5rem;   /* 8px */
+  --space-xs:  0.75rem;  /* 12px */
+  --space-sm:  1rem;     /* 16px */
+  --space-md:  1.5rem;   /* 24px */
+  --space-lg:  2rem;     /* 32px */
+  --space-xl:  3rem;     /* 48px */
+  --space-2xl: 4rem;     /* 64px */
+  --space-3xl: 6rem;     /* 96px */
+  --space-4xl: 8rem;     /* 128px */
+
+  /* --- LAYOUT -------------------------------------------------------------- */
+  --container-max: 1240px;
+  --container-pad: var(--space-md);
+  --header-height: 76px;
+  --header-height-mobile: 64px;
+
+  /* --- RADIUS / BORDERS ----------------------------------------------------
+     Per the handoff: "999px pills and buttons, 4px hamburger, 0 everywhere
+     else. Square corners on cards are intentional and a large part of the
+     upscale read; do not round them." --radius-md/--radius-lg are kept as
+     aliases (both now 0) rather than deleted, so nothing referencing them
+     silently breaks — but treat them as retired; new component CSS should
+     reach for --radius-pill, --radius-hamburger, or no radius at all.
+  ------------------------------------------------------------------------ */
+  --radius-sm: 0px;         /* retired alias — square, per spec */
+  --radius-md: 0px;         /* retired alias — square, per spec */
+  --radius-lg: 0px;         /* retired alias — square, per spec */
+  --radius-hamburger: 4px;  /* the one non-pill, non-zero radius in the system */
+  --radius-pill: 999px;
+  --border-width: 1px;
+
+  /* --- SHADOW ----------------------------------------------------------------
+     The finalized design is deliberately flat — hairline borders instead of
+     elevation. Only the nav dropdown panel gets real shadow; the rest of
+     these are legacy from the earlier passes, kept as retired aliases.
+  ------------------------------------------------------------------------ */
+  --shadow-sm: none;   /* retired — the finalized design uses hairline borders, not card elevation */
+  --shadow-md: none;   /* retired */
+  --shadow-lg: none;   /* retired */
+  --shadow-band: none; /* retired */
+  --shadow-dropdown: 0 16px 38px rgba(34, 31, 34, 0.16); /* the one real shadow in the system — nav dropdown panel only */
+
+  /* --- MOTION ---------------------------------------------------------------- */
+  --transition-fast: 150ms ease;
+  --transition-base: 220ms ease;
+  --transition-slow: 400ms ease;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* One keyframe in the whole system, per the handoff's own note ("the
+   design is deliberately still otherwise"). Used only by the booking
+   confirmation and quiz results. */
+@keyframes renuFade {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
 }
+
+/* ==========================================================================
+   RESET / BASE
+   ========================================================================== */
+
+*, *::before, *::after { box-sizing: border-box; }
 
 html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--header-height-mobile) + var(--space-sm));
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+  color: var(--color-text-body);
+  background: var(--color-bg-page);
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: inherit; text-decoration: none; }
+
+ul { list-style: none; margin: 0; padding: 0; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  line-height: var(--leading-tight);
+  margin: 0;
+  font-weight: var(--weight-medium); /* lighter default than the first pass — quieter, more editorial */
+}
+
+p { margin: 0; }
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+input { font-family: inherit; }
+
+:focus-visible {
+  outline: 3px solid var(--renu-purple-deep);
+  outline-offset: 2px;
+}
+
+.container {
+  max-width: var(--container-max);
+  margin-inline: auto;
+  padding-inline: var(--container-pad);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-sm);
+  top: -60px;
+  background: var(--renu-black);
+  color: var(--renu-white);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  z-index: 1000;
+  transition: top var(--transition-fast);
+}
+.skip-link:focus { top: var(--space-sm); }
+
+/* Section rhythm -----------------------------------------------------------
+   Bumped up from the first pass — the Beverly Hills Medi Spa reference
+   leans on generous whitespace between blocks; tighter padding was part of
+   what made the layout feel like a dense product page. */
+.section {
+  padding-block: var(--space-3xl);
+}
+.section--tight { padding-block: var(--space-2xl); }
+.section--bg-surface { background: var(--color-bg-surface); }
+.section--bg-alt { background: var(--color-bg-surface-alt); }
+.section--bg-band { background: var(--color-bg-band); color: var(--color-text-on-band); }
+
+.section-head {
+  max-width: 640px;
+  margin-bottom: var(--space-xl);
+}
+.section-head--center { margin-inline: auto; text-align: center; }
+
+.eyebrow {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--renu-purple-deep);
+  margin-bottom: var(--space-2xs);
+}
+.section--bg-band .eyebrow { color: var(--renu-white); opacity: 0.85; }
+
+.section-title {
+  font-size: var(--text-xl);
+  margin-bottom: var(--space-2xs);
+}
+
+.section-sub {
+  color: var(--color-text-muted);
+  font-size: var(--text-md);
+}
+.section--bg-band .section-sub { color: var(--renu-white); opacity: 0.9; }
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+
+/* Buttons — SUPERSEDES the previous "de-pilled" pass. The finalized handoff
+   (design_handoff_renu_redesign/README.md) specifies pill buttons
+   throughout ("999px pills and buttons... square corners on cards are
+   intentional") — the earlier small-radius rework was a good-faith guess
+   at "less SaaS" that the actual finished design doesn't share. Restraint
+   in this system comes from flat color + hairline borders elsewhere
+   (cards, dropdowns), not from de-rounding the buttons.
+   Per spec: filled buttons darken #7E5A7C -> #5B3C59 on hover; outlined
+   buttons gain a light fill (#EEE6ED or #F7F3F6) on hover. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.95em 1.9em;
+  border-radius: var(--radius-pill);
+  border: var(--border-width) solid transparent;
+  transition: background-color var(--transition-base), color var(--transition-base), border-color var(--transition-base), opacity var(--transition-base);
+  white-space: nowrap;
+}
+.btn:active { opacity: 0.85; }
+
+.btn--primary {
+  background: var(--color-cta-primary-bg);
+  color: var(--color-cta-primary-text);
+}
+.btn--primary:hover { background: var(--renu-purple-deep); }
+
+.btn--secondary {
+  background: var(--color-cta-secondary-bg);
+  color: var(--color-cta-secondary-text);
+  border-color: var(--color-cta-secondary-border);
+}
+.btn--secondary:hover { background: var(--renu-purple-tint); }
+
+.btn--on-band {
+  background: var(--renu-white);
+  color: var(--renu-purple-deep);
+}
+.btn--on-band:hover { background: var(--renu-purple-tint); color: var(--renu-purple-deep); }
+
+.btn--ghost-on-band {
+  background: transparent;
+  color: var(--renu-white);
+  border-color: rgba(255,255,255,0.6);
+}
+.btn--ghost-on-band:hover { background: rgba(255,255,255,0.14); border-color: var(--renu-white); }
+
+.btn--sm { padding: 0.6em 1.2em; font-size: var(--text-xs); }
+.btn--block { width: 100%; }
+
+/* Chrome-specific pill variants — exact paddings/sizes per the handoff's
+   header and sticky-book-bar specs (these don't share numbers with the
+   homepage's own hero/section buttons above, so they're their own
+   classes rather than forced through .btn--sm/--primary). */
+.btn--pill-primary {
+  padding: 11px 20px;
+  background: var(--renu-purple);
+  color: var(--renu-white);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+}
+.btn--pill-primary:hover { background: var(--renu-purple-deep); }
+
+.btn--pill-outline {
+  padding: 10px 15px;
+  background: transparent;
+  color: var(--renu-purple-deep);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--renu-purple);
+}
+.btn--pill-outline:hover { background: var(--renu-purple-tint); }
+
+.btn--pill-white {
+  padding: 11px 24px;
+  background: var(--renu-white);
+  color: var(--renu-ink);
+  font-size: 12.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  border: 1px solid transparent;
+}
+.btn--pill-white:hover { background: var(--renu-purple-tint); color: var(--renu-ink); }
+
+.btn--pill-ghost-dark {
+  padding: 11px 24px;
+  background: transparent;
+  color: var(--renu-white);
+  font-size: 12.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(255,255,255,0.4);
+}
+.btn--pill-ghost-dark:hover { background: rgba(255,255,255,0.14); }
+
+.btn-group {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   HEADER
+   ========================================================================== */
+
+/* SUPERSEDES the previous header build (bespoke per-page markup, location-
+   aware Book Now toggle, deep purple full-bleed band). This is now shared
+   chrome rendered by chrome.js into `[data-chrome="utility-header"]` on
+   every page — see that file's header comment. Class names below
+   (chrome-*) match what chrome.js emits; spec values are lifted verbatim
+   from design_handoff_renu_redesign/README.md's "Global chrome" section.
+   The 940px breakpoint is a plain media query per the handoff's own note
+   ("a normal media query at 940px is fine" — its ResizeObserver approach
+   was a prototype-frame artifact, not a production recommendation). */
+
+.chrome-utility {
+  background: var(--renu-purple-deep);
+  color: var(--renu-utility-text);
+  padding: 8px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 22px;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.chrome-utility a { color: var(--renu-utility-text); }
+.chrome-utility__quiz-link {
+  color: var(--renu-lilac-light) !important;
+  border-bottom: 1px solid rgba(201, 169, 196, 0.5);
+}
+
+.chrome-header {
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  background: var(--renu-white);
+  border-bottom: 1px solid var(--renu-border);
+  padding: 11px 22px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.chrome-logo { display: flex; align-items: center; flex-shrink: 0; }
+.chrome-logo img { height: 42px; width: auto; display: block; }
+
+.chrome-nav {
+  display: none;
+  align-items: center;
+  gap: 2px;
+}
+@media (min-width: 940px) { .chrome-nav { display: flex; } }
+
+.chrome-nav__item { position: relative; }
+
+.chrome-nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 10px 14px;
+  font-size: 14px;
+  letter-spacing: 0.04em;
+  border-radius: var(--radius-pill);
+  color: var(--renu-ink-muted);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+.chrome-nav__link.is-active { color: var(--renu-purple-deep); background: var(--renu-purple-tint); }
+.chrome-nav__link:hover:not(.is-active) { color: var(--renu-ink); }
+.chrome-caret { font-size: 11px; }
+
+.chrome-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 244px;
+  background: var(--renu-white);
+  border: 1px solid var(--renu-border);
+  box-shadow: var(--shadow-dropdown);
+  z-index: 70;
+  display: none;
+  flex-direction: column;
+  padding: 6px;
+}
+.chrome-dropdown[data-open="true"] { display: flex; }
+.chrome-dropdown__item {
+  padding: 13px 15px;
+  font-size: 14.5px;
+  color: var(--renu-ink);
+}
+.chrome-dropdown__item:hover { background: var(--renu-purple-tint-light); }
+
+.chrome-header__actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.chrome-find-pill { display: none; }
+@media (min-width: 1040px) { .chrome-find-pill { display: inline-flex; } }
+.chrome-book-pill { display: none; }
+@media (min-width: 940px) { .chrome-book-pill { display: inline-flex; } }
+
+.chrome-hamburger {
+  display: flex;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--renu-border-input);
+  background: var(--renu-white);
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border-radius: var(--radius-hamburger);
+}
+@media (min-width: 940px) { .chrome-hamburger { display: none; } }
+.chrome-hamburger span { width: 18px; height: 1.5px; background: var(--renu-purple-deep); display: block; }
+
+/* Mobile nav drawer ---------------------------------------------------------- */
+.chrome-mobile-nav {
+  display: none;
+  flex-direction: column;
+  border-bottom: 1px solid var(--renu-border);
+  background: var(--renu-white);
+  padding: 8px 22px 16px;
+}
+.chrome-mobile-nav[data-open="true"] { display: flex; }
+@media (min-width: 940px) { .chrome-mobile-nav { display: none !important; } }
+
+.chrome-mobile-nav__group { display: flex; flex-direction: column; border-bottom: 1px solid var(--renu-border-light); }
+.chrome-mobile-nav__link { padding: 15px 2px; font-size: 16.5px; color: var(--renu-ink); }
+.chrome-mobile-nav__link.is-active { color: var(--renu-purple-deep); }
+.chrome-mobile-nav__children { display: none; flex-direction: column; }
+.chrome-mobile-nav__group.is-open .chrome-mobile-nav__children { display: flex; }
+.chrome-mobile-nav__child {
+  padding: 11px 2px 11px 18px;
+  font-size: 15px;
+  color: var(--renu-ink-muted);
+  border-top: 1px solid var(--renu-purple-tint-light);
+}
+.chrome-mobile-nav__cta { margin-top: 14px; text-align: center; }
+
+[data-unbuilt="true"] { cursor: default; }
+
+/* Sticky mobile booking bar — always present, per spec hidden only on the
+   (not-yet-built) booking screen. */
+.chrome-sticky-bar {
+  position: sticky;
+  bottom: 0;
+  z-index: 50;
+  background: var(--renu-ink);
+  color: var(--renu-white);
+  padding: 14px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
+  align-items: center;
+  justify-content: center;
+}
+.chrome-sticky-bar__text { font-size: 14.5px; color: var(--renu-lilac-pale); }
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+
+/* SUPERSEDES the previous pass — this section predates the design-handoff
+   token/spec rewrite (that work was scoped to the data model + index/detail
+   templates) and never got reconciled, which caused two real bugs:
+
+   1. Content was centered instead of left-aligned. `.hero__content` used
+      to carry the shared `.container` class for its max-width, but
+      `.container` also sets `margin-inline: auto` — which centers a
+      640px-wide box inside the full-width hero regardless of the parent
+      flex container's own alignment. Fixed by giving `.hero__content` its
+      own positioning instead of inheriting `.container`'s centering.
+   2. The scrim still hardcoded the PRE-redesign purple hex (#452C44, i.e.
+      rgb(69,44,68)) blended with black — both stale and, mixed with black
+      at those opacities, barely reads as purple at all. Replaced with the
+      handoff spec's actual scrim: a strong, left-weighted wash of the
+      *current* --renu-purple-deep (#5B3C59), no black in the mix, fading
+      out toward the right so the video shows through on that side —
+      which is also what makes left-aligned text sit on a legible,
+      visibly-purple ground instead of competing with raw video color. */
+.hero {
+  position: relative;
+  min-height: 640px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  background: var(--renu-purple-deep); /* fallback, matches spec, shows briefly before video/scrim paint */
+}
+
+.hero__video-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero__video-bg video {
+  width: 100%;
   height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+/* Scrim — left-weighted purple-deep wash (105deg: mostly left-to-right,
+   slight downward tilt), strongest where the text sits, fading out to the
+   right so the video reads through there. rgb(91,60,89) = --renu-purple-
+   deep's literal value; hardcoded because CSS can't vary a var()'s alpha
+   per gradient stop without color-mix(), and this needs three distinct
+   opacities in one gradient. */
+.hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, rgba(91,60,89,.86) 0%, rgba(91,60,89,.66) 42%, rgba(91,60,89,.28) 100%);
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+/* Video is decorative — respect reduced-motion and just show the purple
+   fallback + scrim instead of an animated background. */
+@media (prefers-reduced-motion: reduce) {
+  .hero__video-bg video { display: none; }
 }
 
-body {
-  min-height: 100%;
+.hero__content {
+  position: relative;
+  z-index: 1;
+  max-width: 780px;
+  padding: var(--space-xl) var(--space-md);
+  color: var(--renu-white);
+}
+@media (min-width: 640px) {
+  .hero__content { padding: 92px 56px; }
+}
+
+.hero__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 12.5px;
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--renu-lilac-light);
+  margin-bottom: var(--space-sm);
+}
+/* The warm accent is used in exactly two places in this design on
+   purpose (star ratings + this dot) — keeping it scarce is what makes it
+   read as intentional. Don't reach for it elsewhere. */
+.hero__eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--renu-warm-accent); }
+
+.hero__title {
+  font-family: var(--font-display);
+  font-weight: var(--weight-regular);
+  font-size: var(--text-3xl);
+  line-height: 1.04;
+  letter-spacing: -0.015em;
+  color: var(--renu-white);
+  margin-bottom: var(--space-md);
+}
+.hero__title em { font-style: italic; color: var(--renu-lilac); }
+
+.hero__subhead {
+  font-size: 17.5px;
+  font-weight: var(--weight-light);
+  line-height: 1.65;
+  color: var(--renu-lilac-pale);
+  max-width: 46ch;
+  margin-bottom: var(--space-lg);
+}
+
+.hero__ctas { margin-bottom: var(--space-lg); }
+.hero__ctas .btn { padding: 16px 30px; font-size: 13.5px; letter-spacing: 0.1em; }
+
+.hero__trustline {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--text-sm);
+  color: var(--renu-lilac-pale);
+}
+.hero__trustline strong { color: var(--renu-white); }
+
+/* ==========================================================================
+   TRUST STAT BAR
+   ========================================================================== */
+
+/* Trust stat bar — first pass used a solid black block, which read like a
+   product-analytics KPI row. Softened to a quiet tinted band with hairline
+   rules, letting the numbers (not a dark background) carry the emphasis —
+   closer to how the Beverly Hills Medi Spa reference presents credibility
+   stats inline with the page rather than as a dashboard callout. */
+.stat-bar {
+  background: var(--renu-purple-tint);
+  color: var(--color-text-body);
+  border-block: 1px solid var(--color-border);
+}
+.stat-bar .container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-lg) var(--space-md);
+  padding-block: var(--space-xl);
+}
+@media (min-width: 720px) {
+  .stat-bar .container { grid-template-columns: repeat(4, 1fr); }
+}
+
+.stat {
+  text-align: center;
+  border-left: 1px solid var(--color-border);
+  padding-left: var(--space-md);
+}
+.stat:first-child { border-left: none; padding-left: 0; }
+@media (max-width: 719px) {
+  .stat:nth-child(odd) { border-left: none; padding-left: 0; }
+}
+
+.stat__number {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-2xl);
+  color: var(--renu-purple-deep);
+  margin-bottom: var(--space-3xs);
+}
+.stat__label {
+  font-size: var(--text-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ==========================================================================
+   PATIENT FAVORITES
+   ========================================================================== */
+
+/* "View all treatments" — links the home page's 6-card teaser into the
+   full index template (treatments.html). Typography per the handoff's
+   Patient Favorites header-row spec, though this pass keeps the existing
+   centered section-head layout rather than rebuilding it as the spec's
+   right-aligned flex row — that fuller Home-section rebuild is future
+   work, out of scope for this data-model/index/detail pass. */
+.favorites-view-all {
+  display: inline-block;
+  margin-top: var(--space-sm);
+  font-size: 13px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--renu-mauve-soft);
+  border-bottom: 1px solid var(--renu-mauve-soft);
+  padding-bottom: 4px;
+}
+.favorites-view-all:hover { color: var(--renu-purple-deep); border-color: var(--renu-purple-deep); }
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+}
+@media (min-width: 640px) { .favorites-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .favorites-grid { grid-template-columns: repeat(3, 1fr); } }
+
+/* SUPERSEDES the previous pass — same story as the hero fix: this card was
+   built before the design-handoff spec existed and never got reconciled,
+   so it drifted from every other card component on the site (idx-card,
+   shop-card, team-card, location-card), which all use the handoff's real
+   "Card anatomy" spec directly. Rebuilt to match that spec exactly:
+   square corners + hairline border (not shadow), stripe placeholder
+   (matching every other placeholder image site-wide, not a one-off soft
+   gradient), an area eyebrow above the title, and the treatment's own cta
+   verb AS the primary button — not a separate label floating above a
+   generic "Book" button. */
+.favorite-card {
+  background: var(--renu-white);
+  border: 1px solid var(--renu-border);
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  transition: border-color var(--transition-fast);
+}
+.favorite-card:hover { border-color: var(--renu-purple); }
+
+.favorite-card__media {
+  height: 188px;
+  background: repeating-linear-gradient(135deg, var(--renu-purple-tint) 0 12px, var(--renu-lilac-pale) 12px 24px);
+  position: relative;
+}
+.favorite-card__media span {
+  position: absolute;
+  bottom: 12px; left: 12px;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  color: var(--renu-ink);
+  background: rgba(255,255,255,0.8);
+  padding: 3px 10px;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+.favorite-card__body {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
 }
 
-a {
+.favorite-card__area {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--renu-mauve-soft);
+}
+.favorite-card__name { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: 24px; }
+.favorite-card__benefit { color: var(--renu-ink-muted); font-size: 15px; line-height: 1.6; flex: 1; }
+
+.favorite-card__actions {
+  display: flex;
+  gap: 10px;
+  margin-top: var(--space-2xs);
+}
+.favorite-card__actions .btn { flex: 1; padding: 12px 10px; font-size: 12.5px; letter-spacing: 0.08em; }
+
+/* ==========================================================================
+   PILL — shared component (design_handoff_renu_redesign/README.md: "used
+   in filters, booking, and contact"). Generic on purpose: treatments.html
+   uses it for the area/concern/technology filter bar today; the booking
+   and contact forms (future pages) reuse the identical component rather
+   than reinventing a pill control per page.
+   ========================================================================== */
+
+.pill {
+  padding: 9px 16px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  border: 1px solid var(--renu-border-input);
+  background: var(--renu-white);
+  color: var(--renu-ink-muted);
+  transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
+}
+.pill:hover { border-color: var(--renu-purple); }
+.pill[aria-pressed="true"] {
+  border-color: var(--renu-purple);
+  background: var(--renu-purple);
+  color: var(--renu-white);
+}
+
+/* ==========================================================================
+   TREATMENT INDEX (treatments.html) — the collapsed "one template, N
+   treatments" grid. See treatments.js. Card anatomy is the "denser
+   variant" the handoff specifies for this page specifically (138px image,
+   two metadata chips) — distinct from the home page's Patient Favorites
+   card (.favorite-card, single eyebrow, bigger image, unique CTA copy).
+   ========================================================================== */
+
+.idx-header {
+  background: var(--renu-purple-tint);
+  padding: 62px 40px 46px;
+}
+.idx-header__inner { max-width: 1180px; margin: 0 auto; }
+.idx-header__eyebrow { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--renu-mauve-deep); }
+.idx-header__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: var(--text-2xl); line-height: 1.1; margin: 12px 0 14px; }
+.idx-header__lead { margin: 0; max-width: 60ch; font-size: 17px; line-height: 1.65; color: var(--renu-ink-muted); }
+
+.idx-filter-bar {
+  position: sticky;
+  top: var(--chrome-header-h, 62px);
+  z-index: 40;
+  background: var(--renu-white);
+  border-bottom: 1px solid var(--renu-border);
+  padding: 20px 40px;
+}
+.idx-filter-bar__inner { max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
+.idx-filter-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.idx-filter-row__label {
+  min-width: 84px;
+  font-size: 11.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--renu-mauve-soft);
+}
+
+.idx-results { padding: 34px 40px 90px; background: var(--renu-white); }
+.idx-results__inner { max-width: 1180px; margin: 0 auto; }
+.idx-results__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 22px;
+}
+.idx-results__count { margin: 0; font-size: 14px; color: var(--renu-meta-gray); }
+.idx-results__count strong { color: var(--renu-purple-deep); }
+.idx-results__clear { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--renu-purple); }
+
+.idx-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+@media (min-width: 620px) { .idx-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .idx-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.idx-card {
+  border: 1px solid var(--renu-border);
+  display: flex;
+  flex-direction: column;
+  transition: border-color var(--transition-fast);
+}
+.idx-card:hover { border-color: var(--renu-purple); }
+.idx-card[hidden] { display: none; }
+
+.idx-card__media {
+  height: 138px;
+  background: repeating-linear-gradient(135deg, var(--renu-purple-tint) 0 12px, var(--renu-lilac-pale) 12px 24px);
+}
+
+.idx-card__body { padding: 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.idx-card__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.idx-chip {
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+}
+.idx-chip--area { color: var(--renu-purple); background: var(--renu-purple-tint); }
+.idx-chip--tech { color: var(--renu-meta-gray); border: 1px solid var(--renu-border-chip); }
+
+.idx-card__name { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: 21px; margin: 4px 0 0; }
+.idx-card__blurb { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--renu-ink-muted); flex: 1; }
+
+.idx-card__actions { display: flex; gap: 8px; margin-top: 8px; }
+.idx-card__actions .btn { flex: 1; padding: 11px 8px; font-size: 12px; letter-spacing: 0.08em; }
+.idx-card__actions .btn--secondary { border-color: var(--renu-border-muted); }
+
+.idx-empty {
+  padding: 60px 20px;
+  text-align: center;
+  border: 1px dashed var(--renu-border-on-tint);
+}
+.idx-empty p { margin: 0 0 16px; font-size: 17px; color: var(--renu-ink-muted); }
+.idx-empty a { font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--renu-purple); }
+
+/* ==========================================================================
+   BEFORE & AFTER TEASER
+   ========================================================================== */
+
+.ba-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+@media (min-width: 780px) { .ba-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.ba-tile {
+  display: block;
   color: inherit;
   text-decoration: none;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  aspect-ratio: 3 / 4;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+.ba-tile__split {
+  position: absolute; inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.ba-tile__split div:first-child { background: linear-gradient(160deg, #B9AEBB, var(--renu-gray-bg)); }
+.ba-tile__split div:last-child { background: linear-gradient(160deg, var(--renu-purple), var(--renu-purple-deep)); }
+.ba-tile__divider {
+  position: absolute; top: 0; bottom: 0; left: 50%;
+  width: 2px; background: var(--renu-white);
+  transform: translateX(-1px);
+}
+.ba-tile__labels {
+  position: absolute; top: var(--space-2xs); left: var(--space-2xs); right: var(--space-2xs);
+  display: flex; justify-content: space-between;
+  font-size: var(--text-xs); color: var(--renu-white);
+  text-transform: uppercase; letter-spacing: 0.06em;
+}
+.ba-tile__caption {
+  position: absolute; bottom: var(--space-2xs); left: var(--space-2xs); right: var(--space-2xs);
+  font-size: var(--text-xs); color: var(--renu-white);
+  background: rgba(0,0,0,0.35);
+  padding: 4px 8px; border-radius: var(--radius-sm);
+  text-align: center;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+.ba-footer {
+  margin-top: var(--space-lg);
+  text-align: center;
 }
+
+/* ==========================================================================
+   PROVIDER SPOTLIGHT
+   ========================================================================== */
+
+.provider {
+  display: grid;
+  gap: var(--space-2xl);
+  align-items: center;
+}
+@media (min-width: 960px) {
+  .provider { grid-template-columns: 0.85fr 1.15fr; }
+}
+
+.provider__media {
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-md);
+  background: linear-gradient(160deg, var(--renu-gray-light), var(--renu-purple-tint) 60%, var(--renu-mauve-soft) 130%);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-lg);
+  position: relative;
+}
+.provider__media-label {
+  color: var(--renu-ink-muted);
+  font-size: var(--text-xs);
+  letter-spacing: 0.06em;
+  font-style: italic;
+}
+
+/* Credential list — first pass used bordered pill "chips" with an icon dot,
+   a pattern borrowed from product feature lists. Replaced with a plain
+   uppercase text line separated by hairline dividers, closer to how a
+   clinical practice prints credentials under a provider's name. */
+.provider__credentials {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-sm);
+  margin: var(--space-md) 0 var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--color-border);
+}
+.provider__credential {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--renu-ink-muted);
+}
+.provider__credential .icon-dot { width: 1px; height: 12px; background: var(--color-border); flex-shrink: 0; }
+.provider__credential:first-child .icon-dot { display: none; }
+
+.provider__quote {
+  font-family: var(--font-display);
+  font-size: var(--text-lg);
+  line-height: var(--leading-snug);
+  color: var(--renu-ink);
+  margin-bottom: var(--space-lg);
+  padding-left: var(--space-md);
+  border-left: 3px solid var(--renu-purple-deep);
+}
+
+/* ==========================================================================
+   TESTIMONIALS
+   ========================================================================== */
+
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+}
+@media (min-width: 720px) { .testimonial-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.testimonial-card {
+  background: var(--renu-white);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.testimonial-card__stars {
+  color: var(--renu-purple-deep);
+  font-size: var(--text-sm);
+  letter-spacing: 2px;
+}
+
+.testimonial-card__quote {
+  font-size: var(--text-sm);
+  color: var(--renu-ink);
+  flex: 1;
+}
+
+.testimonial-card__author {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+.testimonial-card__avatar {
+  width: 42px; height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--renu-purple), var(--renu-purple-deep));
+  flex-shrink: 0;
+}
+.testimonial-card__author strong { display: block; font-size: var(--text-sm); }
+.testimonial-card__author span { display: block; font-size: var(--text-xs); color: var(--color-text-muted); }
+
+/* ==========================================================================
+   MEMBERSHIP TEASER (speculative — see HTML comment / brief)
+   ========================================================================== */
+
+.membership {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-xl) var(--space-md);
+  background: var(--renu-purple-tint);
+}
+
+/* Still flagged as a working note, just styled as an outline badge rather
+   than a solid black "status chip" — quieter, but still unmissable. */
+.membership__flag {
+  display: inline-block;
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border: 1px solid var(--renu-purple-deep);
+  color: var(--renu-purple-deep);
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  margin-bottom: var(--space-sm);
+}
+
+.membership-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+@media (min-width: 780px) { .membership-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.membership-tier {
+  background: var(--renu-white);
+  border-radius: var(--radius-md);
+  padding: var(--space-lg);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+.membership-tier--featured { box-shadow: var(--shadow-lg); border: 2px solid var(--renu-purple-deep); }
+.membership-tier__name { font-family: var(--font-display); font-size: var(--text-lg); margin-bottom: var(--space-2xs); }
+.membership-tier__price { font-size: var(--text-2xl); font-family: var(--font-display); color: var(--renu-purple-deep); margin-bottom: var(--space-sm); }
+.membership-tier__price small { font-size: var(--text-sm); color: var(--color-text-muted); font-family: var(--font-body); }
+.membership-tier ul { display: flex; flex-direction: column; gap: var(--space-2xs); margin-bottom: var(--space-md); font-size: var(--text-sm); color: var(--color-text-muted); }
+
+/* ==========================================================================
+   FOOTER
+   ========================================================================== */
+
+/* SUPERSEDES the previous per-page footer. Shared chrome rendered by
+   chrome.js into `[data-chrome="footer"]` — see chrome.js header comment.
+   No longer needs the old "leave room for the fixed sticky bar" padding
+   hack: the sticky bar is `position: sticky` in normal flow now (see
+   .chrome-sticky-bar above), not fixed on top of the footer. */
+.chrome-footer {
+  background: var(--renu-ink);
+  color: #CFC6CD;
+  padding: 64px 40px 32px;
+}
+
+.chrome-footer__grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 40px;
+}
+
+.chrome-footer__brand { display: flex; flex-direction: column; gap: 16px; }
+/* Supplied logo is dark; inverted for the dark footer per the handoff's
+   explicit note — "request a proper white/reversed logo and an SVG for
+   production" rather than shipping this filter long-term. */
+.chrome-footer__logo { height: 46px; width: auto; align-self: flex-start; display: block; filter: invert(1); }
+.chrome-footer__tagline { margin: 0; font-size: 14.5px; line-height: 1.65; max-width: 30ch; }
+.chrome-footer__phone { color: var(--renu-white); font-size: 16px; }
+.chrome-footer__email { color: #CFC6CD; font-size: 15px; }
+
+.chrome-footer__heading {
+  font-size: 11.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--renu-mauve-soft);
+  margin-bottom: 16px;
+}
+.chrome-footer__links { display: flex; flex-direction: column; gap: 10px; }
+.chrome-footer__links a { color: #CFC6CD; font-size: 14.5px; }
+.chrome-footer__links a:hover { color: var(--renu-white); text-decoration: none; }
+
+.chrome-footer__clinics { display: flex; flex-direction: column; gap: 16px; font-size: 14.5px; line-height: 1.6; }
+
+.chrome-footer__bottom {
+  max-width: 1180px;
+  margin: 40px auto 0;
+  padding-top: 22px;
+  border-top: 1px solid var(--renu-border-dark);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 24px;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--renu-meta-faint);
+}
+
+/* ==========================================================================
+   TREATMENT DETAIL (treatment.html) — one template, 29 instances via
+   ?slug=. See treatment.js. Shares .btn, .pill, .detail-placeholder-caption
+   (below) with the rest of the system rather than inventing page-local
+   equivalents.
+   ========================================================================== */
+
+/* Monospace placeholder-image caption — reused wherever this prototype
+   stands in a real photo with a labeled stripe block (treatment hero image
+   here; the same pattern applies to portraits/headshots on pages not yet
+   built). Named generically so it isn't re-invented per page. */
+.detail-placeholder-caption {
+  font-family: ui-monospace, 'SF Mono', Menlo, monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.detail-breadcrumb {
+  background: var(--renu-purple-tint-light);
+  border-bottom: 1px solid var(--renu-border);
+  padding: 14px 40px;
+  font-size: 13px;
+  color: var(--renu-meta-gray);
+}
+.detail-breadcrumb a { color: var(--renu-purple); }
+.detail-breadcrumb a:hover { color: var(--renu-purple-deep); text-decoration: underline; }
+.detail-breadcrumb__sep { opacity: 0.5; }
+.detail-breadcrumb__current { color: var(--renu-purple-deep); }
+
+.detail-hero {
+  background: var(--renu-purple-deep);
+  color: var(--renu-white);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+}
+.detail-hero__content {
+  flex: 1 1 400px;
+  padding: 62px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  justify-content: center;
+}
+.detail-hero__eyebrow { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--renu-lilac-light); }
+.detail-hero__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(2.125rem, 1.7rem + 1.9vw, 3.5rem); line-height: 1.06; margin: 0; }
+.detail-hero__blurb { margin: 0; max-width: 44ch; font-size: 17.5px; line-height: 1.65; color: var(--renu-lilac-pale); font-weight: var(--weight-light); }
+.detail-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
+.detail-hero__actions .btn { padding: 15px 28px; font-size: 13px; letter-spacing: 0.1em; }
+
+.detail-hero__media {
+  flex: 1 1 340px;
+  min-height: 380px;
+  background: repeating-linear-gradient(135deg, var(--renu-purple-mid) 0 14px, var(--renu-purple) 14px 28px);
+  display: flex;
+  align-items: flex-end;
+  padding: 22px;
+}
+
+.detail-facts { background: var(--renu-purple-tint); display: flex; flex-wrap: wrap; }
+.detail-facts__cell { flex: 1 1 200px; padding: 28px 32px; border-left: 1px solid var(--renu-border-on-tint); }
+.detail-facts__key { font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--renu-mauve-deep); }
+.detail-facts__value { margin-top: 8px; font-family: var(--font-display); font-size: 22px; color: var(--renu-purple-deep); }
+
+.detail-body { padding: 72px 40px; background: var(--renu-white); }
+.detail-body__inner { max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 56px; }
+.detail-body__main { flex: 1 1 440px; display: flex; flex-direction: column; gap: 34px; }
+.detail-h2 { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: 30px; margin: 0 0 14px; }
+
+.detail-treats__p { margin: 0 0 16px; font-size: 16.5px; line-height: 1.72; color: var(--renu-ink-muted); }
+.detail-treats__list { margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.9; color: var(--renu-ink-muted); }
+
+/* Astro renders each treatment's Markdown body (the "What it treats"
+   copy, now real per-treatment content editable via Decap) into this
+   wrapper — same visual treatment as the two rules above, just targeting
+   whatever tags the rendered Markdown produces. */
+.detail-treats__prose p { margin: 0 0 16px; font-size: 16.5px; line-height: 1.72; color: var(--renu-ink-muted); }
+.detail-treats__prose ul, .detail-treats__prose ol { margin: 0; padding-left: 20px; font-size: 16px; line-height: 1.9; color: var(--renu-ink-muted); }
+.detail-treats__prose p:last-child { margin-bottom: 0; }
+
+.detail-steps { display: flex; flex-direction: column; gap: 1px; background: var(--renu-border); border: 1px solid var(--renu-border); }
+.detail-steps__row { background: var(--renu-white); padding: 18px 20px; display: flex; gap: 16px; align-items: baseline; }
+.detail-steps__num { font-family: var(--font-display); font-size: 20px; color: var(--renu-mauve-soft); min-width: 26px; }
+.detail-steps__text { font-size: 15.5px; line-height: 1.6; color: var(--renu-ink); }
+
+.detail-faqs { display: flex; flex-direction: column; }
+.detail-faqs details { border-bottom: 1px solid var(--renu-border); padding: 16px 0; }
+.detail-faqs summary { cursor: pointer; font-size: 16.5px; color: var(--renu-ink); list-style: none; }
+.detail-faqs summary::-webkit-details-marker { display: none; }
+.detail-faqs p { margin: 12px 0 0; font-size: 15.5px; line-height: 1.7; color: var(--renu-ink-muted); }
+
+.detail-aside {
+  flex: 1 1 280px;
+  align-self: flex-start;
+  position: sticky;
+  top: calc(var(--chrome-header-h, 62px) + 24px);
+  border: 1px solid var(--renu-border);
+  background: var(--renu-purple-tint-light);
+  padding: 28px;
+}
+.detail-aside__eyebrow { font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--renu-mauve-soft); }
+.detail-aside__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: 26px; margin: 10px 0 16px; }
+.detail-aside__actions { display: flex; flex-direction: column; gap: 10px; }
+.detail-aside__actions a {
+  padding: 14px 18px;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  background: var(--renu-purple);
+  color: var(--renu-white);
+}
+.detail-aside__actions a:hover { background: var(--renu-purple-deep); }
+.detail-aside__actions a.detail-aside__call {
+  background: transparent;
+  color: var(--renu-purple-deep);
+  border: 1px solid var(--renu-border-muted);
+}
+.detail-aside__actions a.detail-aside__call:hover { background: transparent; border-color: var(--renu-purple); }
+.detail-aside__note { margin: 18px 0 0; font-size: 13.5px; line-height: 1.6; color: var(--renu-meta-gray); }
+
+.detail-ba { background: var(--renu-purple-tint-light); padding: 72px 40px; }
+.detail-ba__inner { max-width: 1180px; margin: 0 auto; }
+.detail-ba__header { display: flex; flex-wrap: wrap; gap: 16px; align-items: baseline; justify-content: space-between; margin-bottom: 28px; }
+.detail-ba__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(1.625rem, 1.4rem + 0.9vw, 2.375rem); margin: 0; }
+.detail-ba__note { font-size: 13px; color: var(--renu-meta-gray); }
+.detail-ba__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+.detail-ba__pair { display: flex; gap: 2px; }
+.detail-ba__half { flex: 1; height: 200px; }
+.detail-ba__half--before { background: repeating-linear-gradient(135deg, var(--renu-lilac-pale) 0 12px, #D8C8D6 12px 24px); }
+.detail-ba__half--after { background: repeating-linear-gradient(135deg, var(--renu-purple-tint) 0 12px, #E0D2DE 12px 24px); }
+.detail-ba__caption { padding-top: 10px; font-size: 13px; color: var(--renu-meta-gray); }
+
+.detail-related { background: var(--renu-white); padding: 72px 40px; }
+.detail-related__inner { max-width: 1180px; margin: 0 auto; }
+.detail-related__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(1.625rem, 1.4rem + 0.9vw, 2.375rem); margin: 0 0 26px; }
+.detail-related__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+.detail-related__card { display: block; border: 1px solid var(--renu-border); padding: 22px; }
+.detail-related__card:hover { border-color: var(--renu-purple); background: var(--renu-purple-tint-light); }
+.detail-related__area { font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--renu-mauve-soft); }
+.detail-related__name { font-family: var(--font-display); font-size: 21px; margin: 8px 0 6px; color: var(--renu-ink); }
+.detail-related__blurb { font-size: 14px; line-height: 1.55; color: var(--renu-ink-muted); }
+
+@media (max-width: 720px) {
+  .detail-aside { position: static; }
+}
+
+/* ==========================================================================
+   SHARED PAGE COMPONENTS — used across book/quiz/shop/about/team/
+   financing/privacy/contact rather than re-invented per page.
+   ========================================================================== */
+
+/* Generic light section header band ("#EEE6ED header, 58px 40px" pattern —
+   shop, team, contact all specify this identically; also close enough to
+   privacy's plainer header to share). */
+.page-header { background: var(--renu-purple-tint); padding: 58px 40px; }
+.page-header__inner { max-width: 1180px; margin: 0 auto; }
+.page-header--narrow .page-header__inner { max-width: 820px; }
+.page-header__eyebrow { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--renu-mauve-deep); }
+.page-header__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: var(--text-2xl); line-height: 1.1; margin: 12px 0 14px; }
+.page-header__lead { margin: 0; max-width: 60ch; font-size: 17px; line-height: 1.65; color: var(--renu-ink-muted); }
+
+/* Split hero — deep-plum content block + placeholder media, reused by
+   about.html and (structurally) matches detail-hero's proportions without
+   the fact band. */
+.split-hero { display: flex; flex-wrap: wrap; align-items: stretch; background: var(--renu-purple-deep); color: var(--renu-white); }
+.split-hero__content { flex: 1 1 400px; padding: 66px 48px; display: flex; flex-direction: column; gap: 18px; justify-content: center; }
+.split-hero__eyebrow { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--renu-lilac-light); }
+.split-hero__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(2.125rem, 1.7rem + 1.9vw, 3.5rem); line-height: 1.08; margin: 0; }
+.split-hero__lead { margin: 0; max-width: 46ch; font-size: 17.5px; line-height: 1.65; color: var(--renu-lilac-pale); font-weight: var(--weight-light); }
+.split-hero__media { flex: 1 1 340px; min-height: 400px; background: repeating-linear-gradient(135deg, var(--renu-purple-mid) 0 14px, var(--renu-purple) 14px 28px); display: flex; align-items: flex-end; padding: 22px; }
+
+/* Simple flat hero band (booking, quiz, financing — plum bg, no split
+   media) */
+.simple-hero { background: var(--renu-purple-deep); color: var(--renu-white); padding: 56px 40px; }
+.simple-hero--plum { background: var(--renu-purple); }
+.simple-hero__inner { max-width: 900px; margin: 0 auto; }
+.simple-hero__eyebrow { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--renu-lilac-light); }
+.simple-hero__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(2rem, 1.6rem + 1.9vw, 3.125rem); line-height: 1.1; margin: 12px 0 14px; }
+.simple-hero__lead { margin: 0; font-size: 17px; line-height: 1.65; color: var(--renu-lilac-pale); }
+
+/* Two-column body layout — about/financing/contact all use a left content
+   column + right supporting panel at similar proportions. */
+.split-body { max-width: 1180px; margin: 0 auto; padding: 72px 40px; display: flex; flex-wrap: wrap; gap: 48px; }
+.split-body__main { flex: 1 1 420px; display: flex; flex-direction: column; gap: 20px; }
+.split-body__aside { flex: 1 1 300px; }
+
+/* Credential grid — "a 4-cell credential grid (repeat(auto-fit,
+   minmax(150px, 1fr)), gap: 1px, background: #E7E1E6 — the 1px gap over a
+   gray background creates hairline dividers between white cells)". */
+.credential-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--renu-border); border: 1px solid var(--renu-border); }
+.credential-grid__cell { background: var(--renu-white); padding: 18px 20px; }
+.credential-grid__key { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--renu-mauve-deep); }
+.credential-grid__value { margin-top: 6px; font-family: var(--font-display); font-size: 18px; color: var(--renu-purple-deep); }
+
+/* --- FORM CONTROLS — booking, quiz-adjacent, and contact forms all share
+   these. Pill inputs (clinic/patient-status/source selects) use .pill;
+   this covers the free-text fields. --------------------------------- */
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 18px; }
+.form-field { display: flex; flex-direction: column; gap: 6px; }
+.form-field--wide { grid-column: 1 / -1; }
+.form-field label { font-size: 13px; letter-spacing: 0.04em; color: var(--renu-ink-muted); }
+.form-field input[type="text"],
+.form-field input[type="tel"],
+.form-field input[type="email"],
+.form-field textarea {
+  font-size: 15px;
+  padding: 12px 14px;
+  border: 1px solid var(--renu-border-input);
+  background: var(--renu-white);
+  color: var(--renu-ink);
+  width: 100%;
+}
+.form-field input:focus,
+.form-field textarea:focus { outline: none; border-color: var(--renu-purple); }
+.form-field textarea { resize: vertical; min-height: 6.5em; }
+.form-field__error { font-size: 12.5px; color: #B3453F; display: none; }
+.form-field.has-error input,
+.form-field.has-error textarea { border-color: #B3453F; }
+.form-field.has-error .form-field__error { display: block; }
+
+.pill-group { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.checkbox-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid var(--renu-border-input);
+  padding: 14px 16px;
+  font-size: 14px;
+  color: var(--renu-ink-muted);
+}
+.checkbox-row input { width: 18px; height: 18px; accent-color: var(--renu-purple); flex-shrink: 0; margin-top: 1px; }
+
+.form-callout {
+  background: var(--renu-purple-tint-light);
+  border-left: 3px solid var(--renu-purple);
+  padding: 18px 20px;
+  font-size: 14.5px;
+  color: var(--renu-ink-muted);
+}
+
+.form-actions { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.form-actions--end { justify-content: flex-end; }
+
+.book-wrap { max-width: 900px; margin: 0 auto; padding: 56px 40px 90px; }
+.book-step { display: none; flex-direction: column; gap: 22px; }
+.book-step[data-active="true"] { display: flex; }
+
+/* --- STEP INDICATOR (booking) --------------------------------------- */
+.step-indicator { display: flex; gap: 2px; margin-bottom: 38px; flex-wrap: wrap; }
+.step-indicator__cell { flex: 1 1 160px; padding: 14px 16px; background: #F1EDF0; color: var(--renu-mauve-deep); }
+.step-indicator__cell[data-state="current"] { background: var(--renu-purple-deep); color: var(--renu-white); }
+.step-indicator__cell[data-state="done"] { background: var(--renu-purple); color: var(--renu-white); }
+.step-indicator__num { display: block; font-size: 11px; text-transform: uppercase; opacity: 0.75; }
+.step-indicator__label { display: block; font-size: 15px; margin-top: 2px; }
+
+/* --- CONFIRMATION PANEL (booking + quiz results) -------------------- */
+.confirm-panel { background: var(--renu-purple-tint); padding: 40px; text-align: center; animation: renuFade 320ms ease both; }
+.confirm-panel__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: 34px; margin: 0 0 10px; }
+.confirm-panel__text { margin: 0; font-size: 16px; color: var(--renu-ink-muted); }
+
+.crm-table { width: 100%; border-collapse: collapse; margin-top: 32px; font-size: 14.5px; }
+.crm-table th { text-align: left; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--renu-mauve-deep); padding: 10px 0; border-bottom: 1px solid var(--renu-border); }
+.crm-table td { padding: 10px 0; border-bottom: 1px solid var(--renu-border-light); color: var(--renu-ink); vertical-align: top; }
+.crm-table td:first-child { color: var(--renu-meta-gray); white-space: nowrap; padding-right: 20px; }
+
+/* --- QUIZ progress ---------------------------------------------------- */
+.quiz-progress-track { height: 3px; background: var(--renu-purple-tint); }
+.quiz-progress-fill { height: 100%; background: var(--renu-purple); transition: width var(--transition-base); }
+.quiz-options { display: flex; flex-direction: column; gap: 10px; }
+.quiz-option {
+  text-align: left;
+  padding: 20px 22px;
+  border: 1px solid var(--renu-border-input);
+  font-size: 17px;
+  background: var(--renu-white);
+  color: var(--renu-ink);
+}
+.quiz-option:hover { border-color: var(--renu-purple); background: var(--renu-purple-tint-light); }
+.quiz-answer-chip { display: inline-block; background: var(--renu-purple-tint); padding: 8px 14px; font-size: 13px; border-radius: var(--radius-pill); margin: 0 8px 8px 0; }
+
+/* ==========================================================================
+   BOOKING / SHOP / TEAM / FINANCING / PRIVACY / CONTACT — page-specific
+   pieces that don't fit the shared components above.
+   ========================================================================== */
+
+/* Shop -------------------------------------------------------------------- */
+.shop-brand-chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 0; }
+.shop-brand-chip { border: 1px solid var(--renu-border-chip); padding: 10px 18px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--renu-meta-gray); }
+
+.shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; padding: 40px; max-width: 1180px; margin: 0 auto; }
+.shop-card { border: 1px solid var(--renu-border); display: flex; flex-direction: column; }
+.shop-card__media { height: 220px; background: repeating-linear-gradient(135deg, var(--renu-purple-tint) 0 12px, var(--renu-lilac-pale) 12px 24px); }
+.shop-card__body { padding: 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.shop-card__brand { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--renu-mauve-soft); }
+.shop-card__name { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: 20px; }
+.shop-card__note { font-size: 14px; color: var(--renu-ink-muted); flex: 1; }
+.shop-card__bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 8px; }
+.shop-card__price { font-family: var(--font-display); font-size: 20px; color: var(--renu-purple-deep); }
+.shop-card__buy { padding: 11px 18px; font-size: 12px; letter-spacing: 0.06em; }
+
+.shop-crosssell { max-width: 1180px; margin: 0 40px 72px; background: var(--renu-purple-tint-light); border: 1px solid var(--renu-border); padding: 32px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between; align-items: center; }
+@media (min-width: 1220px) { .shop-crosssell { margin-inline: auto; } }
+.shop-crosssell__text strong { display: block; font-family: var(--font-display); font-size: 20px; font-weight: var(--weight-medium); margin-bottom: 4px; }
+.shop-crosssell__text span { font-size: 14.5px; color: var(--renu-ink-muted); }
+
+/* Team ---------------------------------------------------------------- */
+.team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; padding: 40px; max-width: 1180px; margin: 0 auto; }
+.team-card { border: 1px solid var(--renu-border); display: flex; flex-direction: column; }
+.team-card__media { height: 290px; background: repeating-linear-gradient(135deg, var(--renu-purple-tint) 0 12px, var(--renu-lilac-pale) 12px 24px); }
+.team-card__body { padding: 22px; }
+.team-card__name { font-family: var(--font-display); font-size: 21px; margin: 0; }
+.team-card__role { font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--renu-mauve-soft); margin: 4px 0 10px; }
+.team-card__bio { font-size: 14.5px; line-height: 1.6; color: var(--renu-ink-muted); }
+.team-card--placeholder .team-card__bio { font-style: italic; }
+
+/* Financing ------------------------------------------------------------- */
+.financing-disclaimer { font-size: 13.5px; color: var(--renu-meta-faint); }
+.financing-panel { background: var(--renu-purple-tint-light); border: 1px solid var(--renu-border); padding: 28px; }
+.financing-panel__title { font-family: var(--font-display); font-size: 20px; margin: 0 0 16px; }
+.financing-plan-row { display: flex; justify-content: space-between; align-items: baseline; padding: 14px 0; border-bottom: 1px solid var(--renu-border); }
+.financing-plan-row__term { font-size: 15px; color: var(--renu-ink); }
+.financing-plan-row__rate { font-family: var(--font-display); font-size: 19px; color: var(--renu-purple-deep); }
+.financing-accepted { margin-top: 24px; border: 1px solid var(--renu-border); padding: 20px; font-size: 14px; line-height: 1.7; color: var(--renu-ink-muted); }
+.financing-accepted strong { color: var(--renu-ink); }
+
+/* Privacy ----------------------------------------------------------------- */
+.privacy-section { display: flex; flex-direction: column; gap: 34px; }
+.privacy-section h2 { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: 26px; }
+.privacy-section p { margin: 10px 0 0; font-size: 16.5px; line-height: 1.75; color: var(--renu-ink-muted); }
+
+/* Contact ------------------------------------------------------------------ */
+.location-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px; padding: 40px; max-width: 1180px; margin: 0 auto; }
+.location-card { border: 1px solid var(--renu-border); }
+.location-card__media { height: 240px; background: repeating-linear-gradient(135deg, var(--renu-gray-light) 0 12px, var(--renu-purple-tint) 12px 24px); display: flex; align-items: flex-end; padding: 16px; }
+.location-card__body { padding: 28px; display: flex; flex-direction: column; gap: 14px; }
+.location-card__city { font-family: var(--font-display); font-size: 30px; margin: 0; }
+/* Mauve, not the warm accent — that color is reserved for exactly two
+   uses site-wide (star ratings on testimonials, the hero eyebrow dot) by
+   design, and scarcity is what makes it read as intentional. */
+.location-card__reviews { margin: 0; font-size: 13px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--renu-mauve-deep); }
+.location-card__address { font-size: 16px; color: var(--renu-ink-muted); margin: 0; }
+.location-card__meta { font-size: 15px; color: var(--renu-ink-muted); margin: 0; }
+.location-card__meta a { color: var(--renu-purple); }
+.location-card__actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+.contact-panel { background: var(--renu-purple-tint-light); padding: 28px; display: flex; flex-direction: column; gap: 20px; }
+.contact-panel h3 { font-family: var(--font-display); font-size: 20px; margin: 0; }
+.contact-panel__row strong { display: block; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--renu-mauve-deep); margin-bottom: 4px; }
+.contact-panel__row span, .contact-panel__row a { font-size: 15px; color: var(--renu-ink); }
+.contact-panel__row a.contact-panel__link { color: var(--renu-purple); }
+
+/* Blog — new in the Astro rebuild (the static prototype never had a blog;
+   it deferred to the WordPress site's /blog/, which no longer exists once
+   WordPress is fully retired). Reuses established patterns: idx-card's
+   media/chip anatomy for the list, detail-treats__prose for the body. */
+.blog-grid { display: grid; grid-template-columns: 1fr; gap: 18px; padding: 40px; max-width: 1180px; margin: 0 auto; }
+@media (min-width: 620px) { .blog-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1080px) { .blog-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.blog-card { border: 1px solid var(--renu-border); display: flex; flex-direction: column; transition: border-color var(--transition-fast); }
+.blog-card:hover { border-color: var(--renu-purple); }
+.blog-card__media { height: 160px; background: repeating-linear-gradient(135deg, var(--renu-purple-tint) 0 12px, var(--renu-lilac-pale) 12px 24px); }
+.blog-card__body { padding: 20px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+.blog-card__date { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--renu-mauve-soft); }
+.blog-card__title { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: 21px; margin: 0; }
+.blog-card__desc { font-size: 14.5px; line-height: 1.55; color: var(--renu-ink-muted); flex: 1; }
+
+.blog-post { max-width: 720px; margin: 0 auto; padding: 56px 40px 90px; }
+.blog-post__date { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--renu-mauve-soft); }
+.blog-post__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(1.75rem, 1.4rem + 1.7vw, 2.75rem); margin: 10px 0 30px; }
+.blog-post__back { display: inline-block; margin-top: 40px; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--renu-purple); }

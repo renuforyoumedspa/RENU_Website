@@ -1,0 +1,118 @@
+'use client';
+
+import Link from 'next/link';
+import { useMemo, useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import type { Treatment } from '@/sanity/lib/queries';
+
+const AREAS = ['Face', 'Body', 'Skin'];
+const CONCERNS = ['Lines & wrinkles', 'Volume loss', 'Sagging & laxity', 'Texture & tone', 'Pigment', 'Acne scars', 'Lips', 'Contour', 'Hair loss', 'Cellulite'];
+const TECHS = ['Injectable', 'Laser', 'Energy', 'Thread', 'Topical'];
+
+const AXES = [
+  { key: 'area', label: 'Area', values: AREAS },
+  { key: 'concern', label: 'Concern', values: CONCERNS },
+  { key: 'tech', label: 'Technology', values: TECHS }
+] as const;
+
+export default function TreatmentsGrid({ treatments }: { treatments: Treatment[] }) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const [filters, setFilters] = useState({
+    area: searchParams.get('area') || 'All',
+    concern: searchParams.get('concern') || 'All',
+    tech: searchParams.get('tech') || 'All'
+  });
+
+  // Keep state in sync if the URL changes out from under us (back/forward nav).
+  useEffect(() => {
+    setFilters({
+      area: searchParams.get('area') || 'All',
+      concern: searchParams.get('concern') || 'All',
+      tech: searchParams.get('tech') || 'All'
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchParams]);
+
+  function setAxis(axis: 'area' | 'concern' | 'tech', value: string) {
+    const next = { ...filters, [axis]: value };
+    setFilters(next);
+    const params = new URLSearchParams();
+    if (next.area !== 'All') params.set('area', next.area);
+    if (next.concern !== 'All') params.set('concern', next.concern);
+    if (next.tech !== 'All') params.set('tech', next.tech);
+    const qs = params.toString();
+    router.replace(qs ? `/treatments/?${qs}` : '/treatments/', { scroll: false });
+  }
+
+  function clearAll() {
+    setFilters({ area: 'All', concern: 'All', tech: 'All' });
+    router.replace('/treatments/', { scroll: false });
+  }
+
+  const shown = useMemo(
+    () =>
+      treatments.filter(
+        (t) =>
+          (filters.area === 'All' || t.area === filters.area) &&
+          (filters.concern === 'All' || t.concern === filters.concern) &&
+          (filters.tech === 'All' || t.tech === filters.tech)
+      ),
+    [treatments, filters]
+  );
+
+  return (
+    <>
+      <section className="idx-filter-bar">
+        <div className="idx-filter-bar__inner">
+          {AXES.map((axis) => (
+            <div className="idx-filter-row" role="group" aria-label={`Filter by ${axis.label}`} key={axis.key}>
+              <span className="idx-filter-row__label">{axis.label}</span>
+              <button type="button" className="pill" aria-pressed={filters[axis.key] === 'All'} onClick={() => setAxis(axis.key, 'All')}>All</button>
+              {axis.values.map((v) => (
+                <button key={v} type="button" className="pill" aria-pressed={filters[axis.key] === v} onClick={() => setAxis(axis.key, v)}>{v}</button>
+              ))}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="idx-results">
+        <div className="idx-results__inner">
+          <div className="idx-results__meta">
+            <p className="idx-results__count">Showing <strong>{shown.length}</strong> of {treatments.length} treatments</p>
+            <a href="#" className="idx-results__clear" onClick={(e) => { e.preventDefault(); clearAll(); }}>Clear filters</a>
+          </div>
+
+          {shown.length > 0 ? (
+            <div className="idx-grid">
+              {shown.map((t) => (
+                <article className="idx-card" key={t._id}>
+                  <div className="idx-card__media"></div>
+                  <div className="idx-card__body">
+                    <div className="idx-card__chips">
+                      <span className="idx-chip idx-chip--area">{t.area}</span>
+                      <span className="idx-chip idx-chip--tech">{t.tech}</span>
+                    </div>
+                    <h3 className="idx-card__name">{t.name}</h3>
+                    <p className="idx-card__blurb">{t.blurb}</p>
+                    <div className="idx-card__actions">
+                      <Link href={`/treatments/${t.slug}/`} className="btn btn--primary">See treatment</Link>
+                      <Link href={`/book/?treatment=${t.slug}`} className="btn btn--secondary">Book visit</Link>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <div className="idx-empty">
+              <p>No treatment matches that combination.</p>
+              <a href="#" onClick={(e) => { e.preventDefault(); clearAll(); }}>Reset filters</a>
+            </div>
+          )}
+        </div>
+      </section>
+    </>
+  );
+}
