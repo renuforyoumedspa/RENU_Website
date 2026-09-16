@@ -23,18 +23,25 @@
      per the handoff's explicit note — "the gray flattens the cards and is
      a large part of why the current site doesn't read as upscale." Page
      ground is now white, with #F7F3F6 as the alternate section tint.
-     --renu-mauve-soft (#A192A1) survives from the client's original swatch
-     essentially unchanged — it was already correct, just under-saturated
-     for use as the *primary* brand color. It now does the job the handoff
-     assigns it: eyebrows and meta text, not buttons or bands.
+
+     UPDATE (client feedback, Sept 2026): "color needs to be more vibrant."
+     The values below were sitting at 7-21% HSL saturation — genuinely a
+     "dusty," desaturated plum, which read as flat rather than intentional.
+     Boosted saturation to ~50-60% at the same hue (~303-304°, still
+     unmistakably purple) and similar lightness, so the palette's contrast
+     relationships (button text on primary, headings on white, etc.) stay
+     valid — checked against WCAG AA and all still clear it comfortably
+     (white-on-primary 6.3:1, deep-on-white 10.8:1). Tint/lilac tokens
+     below (used as pale backgrounds or text-on-dark) are intentionally
+     left alone — they're meant to recede, not compete with the primary.
   ------------------------------------------------------------------------ */
-  --renu-purple: #7E5A7C;        /* Plum (primary) — buttons, active pills, accents, links */
-  --renu-purple-deep: #5B3C59;   /* Deep plum — dark bands, hero scrim, headings-on-light hover, footer accent */
-  --renu-purple-mid: #6E4C6C;    /* Plum mid — video-fallback background only */
+  --renu-purple: #A12B9B;        /* Plum (primary) — buttons, active pills, accents, links. Was #7E5A7C. */
+  --renu-purple-deep: #671E62;   /* Deep plum — dark bands, hero scrim, headings-on-light hover, footer accent. Was #5B3C59. */
+  --renu-purple-mid: #822B7C;    /* Plum mid — video-fallback background only. Was #6E4C6C. */
   --renu-purple-tint: #EEE6ED;   /* Tint — section bands, chips, active nav */
   --renu-purple-tint-light: #F7F3F6; /* Tint light — alternate section band, hover fill, panels */
-  --renu-mauve-soft: #A192A1;    /* Mauve — eyebrows, meta text */
-  --renu-mauve-deep: #8B7A89;    /* Mauve deep — meta text on tinted grounds */
+  --renu-mauve-soft: #AB7CA9;    /* Mauve — eyebrows, meta text. Modest boost only — stays quiet by design. Was #A192A1. */
+  --renu-mauve-deep: #936290;    /* Mauve deep — meta text on tinted grounds. Was #8B7A89. */
   --renu-lilac-light: #DCC1D8;   /* Lilac light — eyebrows on dark */
   --renu-lilac: #DCC3D7;         /* Lilac — hero italic ("only rested.") */
   --renu-lilac-pale: #E4D8E3;    /* Lilac pale — body copy on dark */
@@ -145,6 +152,14 @@
   --header-height: 76px;
   --header-height-mobile: 64px;
 
+  /* Section horizontal padding — 20px on phones, 40px from 640px up. Many
+     section rules had 40px hardcoded regardless of viewport (client
+     feedback: needs to be easy to use on the phone) — this single token
+     fixes all of them at once instead of patching each rule with its own
+     media query. Redefined under the same breakpoint used everywhere
+     else in this file. */
+  --section-pad-x: 20px;
+
   /* --- RADIUS / BORDERS ----------------------------------------------------
      Per the handoff: "999px pills and buttons, 4px hamburger, 0 everywhere
      else. Square corners on cards are intentional and a large part of the
@@ -175,6 +190,10 @@
   --transition-fast: 150ms ease;
   --transition-base: 220ms ease;
   --transition-slow: 400ms ease;
+}
+
+@media (min-width: 640px) {
+  :root { --section-pad-x: 40px; }
 }
 
 /* One keyframe in the whole system, per the handoff's own note ("the
@@ -323,6 +342,7 @@ input { font-family: inherit; }
   align-items: center;
   justify-content: center;
   gap: var(--space-2xs);
+  min-height: 44px; /* comfortable touch target on phones — was landing around 36px */
   font-size: var(--text-xs);
   font-weight: var(--weight-medium);
   letter-spacing: 0.08em;
@@ -526,8 +546,8 @@ input { font-family: inherit; }
 
 .chrome-hamburger {
   display: flex;
-  width: 42px;
-  height: 42px;
+  width: 44px;
+  height: 44px;
   border: 1px solid var(--renu-border-input);
   background: var(--renu-white);
   cursor: pointer;
@@ -587,9 +607,7 @@ input { font-family: inherit; }
    HERO
    ========================================================================== */
 
-/* SUPERSEDES the previous pass — this section predates the design-handoff
-   token/spec rewrite (that work was scoped to the data model + index/detail
-   templates) and never got reconciled, which caused two real bugs:
+/* SUPERSEDES the previous pass. History:
 
    1. Content was centered instead of left-aligned. `.hero__content` used
       to carry the shared `.container` class for its max-width, but
@@ -597,21 +615,21 @@ input { font-family: inherit; }
       640px-wide box inside the full-width hero regardless of the parent
       flex container's own alignment. Fixed by giving `.hero__content` its
       own positioning instead of inheriting `.container`'s centering.
-   2. The scrim still hardcoded the PRE-redesign purple hex (#452C44, i.e.
-      rgb(69,44,68)) blended with black — both stale and, mixed with black
-      at those opacities, barely reads as purple at all. Replaced with the
-      handoff spec's actual scrim: a strong, left-weighted wash of the
-      *current* --renu-purple-deep (#5B3C59), no black in the mix, fading
-      out toward the right so the video shows through on that side —
-      which is also what makes left-aligned text sit on a legible,
-      visibly-purple ground instead of competing with raw video color. */
+   2. Client feedback (Sept 2026): "remove the purple tint overlay on the
+      home page hero section video" — the scrim was a left-weighted wash
+      of --renu-purple-deep, which was covering too much of the actual
+      footage in purple. Replaced with a neutral near-black wash (same
+      left-weighted shape, so left-aligned text stays legible) — the video
+      itself now reads in its own true colors, with no purple cast. Fallback
+      background (shown briefly before the video paints) switched from
+      purple-deep to the same neutral ink tone for the same reason. */
 .hero {
   position: relative;
   min-height: 640px;
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: var(--renu-purple-deep); /* fallback, matches spec, shows briefly before video/scrim paint */
+  background: var(--renu-ink); /* fallback — neutral, not purple, shows briefly before video/scrim paint */
 }
 
 .hero__video-bg {
@@ -626,19 +644,19 @@ input { font-family: inherit; }
   object-position: center;
   display: block;
 }
-/* Scrim — left-weighted purple-deep wash (105deg: mostly left-to-right,
-   slight downward tilt), strongest where the text sits, fading out to the
-   right so the video reads through there. rgb(91,60,89) = --renu-purple-
-   deep's literal value; hardcoded because CSS can't vary a var()'s alpha
-   per gradient stop without color-mix(), and this needs three distinct
-   opacities in one gradient. */
+/* Scrim — left-weighted NEUTRAL wash (105deg: mostly left-to-right, slight
+   downward tilt), strongest where the text sits, fading out to the right
+   so the video reads through there in its true color. rgb(34,31,34) =
+   --renu-ink's literal value; hardcoded because CSS can't vary a var()'s
+   alpha per gradient stop without color-mix(), and this needs three
+   distinct opacities in one gradient. */
 .hero__scrim {
   position: absolute;
   inset: 0;
-  background: linear-gradient(105deg, rgba(91,60,89,.86) 0%, rgba(91,60,89,.66) 42%, rgba(91,60,89,.28) 100%);
+  background: linear-gradient(105deg, rgba(34,31,34,.75) 0%, rgba(34,31,34,.5) 42%, rgba(34,31,34,.15) 100%);
 }
 
-/* Video is decorative — respect reduced-motion and just show the purple
+/* Video is decorative — respect reduced-motion and just show the neutral
    fallback + scrim instead of an animated background. */
 @media (prefers-reduced-motion: reduce) {
   .hero__video-bg video { display: none; }
@@ -850,7 +868,15 @@ input { font-family: inherit; }
    ========================================================================== */
 
 .pill {
-  padding: 9px 16px;
+  /* min-height 44px — the standard minimum comfortable touch target
+     (Apple HIG / Material both recommend it); the old 9px vertical
+     padding landed around 35px tall, easy to mis-tap on a phone,
+     especially in dense pill groups (filters, quiz interests). */
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 9px 18px;
   border-radius: var(--radius-pill);
   cursor: pointer;
   font-size: 13px;
@@ -877,7 +903,7 @@ input { font-family: inherit; }
 
 .idx-header {
   background: var(--renu-purple-tint);
-  padding: 62px 40px 46px;
+  padding: 62px var(--section-pad-x) 46px;
 }
 .idx-header__inner { max-width: 1180px; margin: 0 auto; }
 .idx-header__eyebrow { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--renu-mauve-deep); }
@@ -890,7 +916,7 @@ input { font-family: inherit; }
   z-index: 40;
   background: var(--renu-white);
   border-bottom: 1px solid var(--renu-border);
-  padding: 20px 40px;
+  padding: 20px var(--section-pad-x);
 }
 .idx-filter-bar__inner { max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
 .idx-filter-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
@@ -902,7 +928,7 @@ input { font-family: inherit; }
   color: var(--renu-mauve-soft);
 }
 
-.idx-results { padding: 34px 40px 90px; background: var(--renu-white); }
+.idx-results { padding: 34px var(--section-pad-x) 90px; background: var(--renu-white); }
 .idx-results__inner { max-width: 1180px; margin: 0 auto; }
 .idx-results__meta {
   display: flex;
@@ -1188,7 +1214,7 @@ input { font-family: inherit; }
 .chrome-footer {
   background: var(--renu-ink);
   color: #CFC6CD;
-  padding: 64px 40px 32px;
+  padding: 64px var(--section-pad-x) 32px;
 }
 
 .chrome-footer__grid {
@@ -1255,10 +1281,11 @@ input { font-family: inherit; }
 .detail-breadcrumb {
   background: var(--renu-purple-tint-light);
   border-bottom: 1px solid var(--renu-border);
-  padding: 14px 40px;
+  padding: 14px 20px;
   font-size: 13px;
   color: var(--renu-meta-gray);
 }
+@media (min-width: 640px) { .detail-breadcrumb { padding: 14px 40px; } }
 .detail-breadcrumb a { color: var(--renu-purple); }
 .detail-breadcrumb a:hover { color: var(--renu-purple-deep); text-decoration: underline; }
 .detail-breadcrumb__sep { opacity: 0.5; }
@@ -1273,12 +1300,13 @@ input { font-family: inherit; }
 }
 .detail-hero__content {
   flex: 1 1 400px;
-  padding: 62px 48px;
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   gap: 18px;
   justify-content: center;
 }
+@media (min-width: 640px) { .detail-hero__content { padding: 62px 48px; } }
 .detail-hero__eyebrow { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--renu-lilac-light); }
 .detail-hero__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(2.125rem, 1.7rem + 1.9vw, 3.5rem); line-height: 1.06; margin: 0; }
 .detail-hero__blurb { margin: 0; max-width: 44ch; font-size: 17.5px; line-height: 1.65; color: var(--renu-lilac-pale); font-weight: var(--weight-light); }
@@ -1299,7 +1327,7 @@ input { font-family: inherit; }
 .detail-facts__key { font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--renu-mauve-deep); }
 .detail-facts__value { margin-top: 8px; font-family: var(--font-display); font-size: 22px; color: var(--renu-purple-deep); }
 
-.detail-body { padding: 72px 40px; background: var(--renu-white); }
+.detail-body { padding: 72px var(--section-pad-x); background: var(--renu-white); }
 .detail-body__inner { max-width: 1180px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 56px; }
 .detail-body__main { flex: 1 1 440px; display: flex; flex-direction: column; gap: 34px; }
 .detail-h2 { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: 30px; margin: 0 0 14px; }
@@ -1356,7 +1384,7 @@ input { font-family: inherit; }
 .detail-aside__actions a.detail-aside__call:hover { background: transparent; border-color: var(--renu-purple); }
 .detail-aside__note { margin: 18px 0 0; font-size: 13.5px; line-height: 1.6; color: var(--renu-meta-gray); }
 
-.detail-ba { background: var(--renu-purple-tint-light); padding: 72px 40px; }
+.detail-ba { background: var(--renu-purple-tint-light); padding: 72px var(--section-pad-x); }
 .detail-ba__inner { max-width: 1180px; margin: 0 auto; }
 .detail-ba__header { display: flex; flex-wrap: wrap; gap: 16px; align-items: baseline; justify-content: space-between; margin-bottom: 28px; }
 .detail-ba__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(1.625rem, 1.4rem + 0.9vw, 2.375rem); margin: 0; }
@@ -1368,7 +1396,7 @@ input { font-family: inherit; }
 .detail-ba__half--after { background: repeating-linear-gradient(135deg, var(--renu-purple-tint) 0 12px, #E0D2DE 12px 24px); }
 .detail-ba__caption { padding-top: 10px; font-size: 13px; color: var(--renu-meta-gray); }
 
-.detail-related { background: var(--renu-white); padding: 72px 40px; }
+.detail-related { background: var(--renu-white); padding: 72px var(--section-pad-x); }
 .detail-related__inner { max-width: 1180px; margin: 0 auto; }
 .detail-related__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(1.625rem, 1.4rem + 0.9vw, 2.375rem); margin: 0 0 26px; }
 .detail-related__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
@@ -1390,7 +1418,7 @@ input { font-family: inherit; }
 /* Generic light section header band ("#EEE6ED header, 58px 40px" pattern —
    shop, team, contact all specify this identically; also close enough to
    privacy's plainer header to share). */
-.page-header { background: var(--renu-purple-tint); padding: 58px 40px; }
+.page-header { background: var(--renu-purple-tint); padding: 58px var(--section-pad-x); }
 .page-header__inner { max-width: 1180px; margin: 0 auto; }
 .page-header--narrow .page-header__inner { max-width: 820px; }
 .page-header__eyebrow { font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--renu-mauve-deep); }
@@ -1401,7 +1429,8 @@ input { font-family: inherit; }
    about.html and (structurally) matches detail-hero's proportions without
    the fact band. */
 .split-hero { display: flex; flex-wrap: wrap; align-items: stretch; background: var(--renu-purple-deep); color: var(--renu-white); }
-.split-hero__content { flex: 1 1 400px; padding: 66px 48px; display: flex; flex-direction: column; gap: 18px; justify-content: center; }
+.split-hero__content { flex: 1 1 400px; padding: 40px 20px; display: flex; flex-direction: column; gap: 18px; justify-content: center; }
+@media (min-width: 640px) { .split-hero__content { padding: 66px 48px; } }
 .split-hero__eyebrow { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--renu-lilac-light); }
 .split-hero__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(2.125rem, 1.7rem + 1.9vw, 3.5rem); line-height: 1.08; margin: 0; }
 .split-hero__lead { margin: 0; max-width: 46ch; font-size: 17.5px; line-height: 1.65; color: var(--renu-lilac-pale); font-weight: var(--weight-light); }
@@ -1409,7 +1438,10 @@ input { font-family: inherit; }
 
 /* Simple flat hero band (booking, quiz, financing — plum bg, no split
    media) */
-.simple-hero { background: var(--renu-purple-deep); color: var(--renu-white); padding: 56px 40px; }
+/* Mobile-first: 40px of horizontal padding ate too much of a narrow phone
+   screen at the old flat value — scales up past 640px instead. */
+.simple-hero { background: var(--renu-purple-deep); color: var(--renu-white); padding: 40px 20px; }
+@media (min-width: 640px) { .simple-hero { padding: 56px 40px; } }
 .simple-hero--plum { background: var(--renu-purple); }
 .simple-hero__inner { max-width: 900px; margin: 0 auto; }
 .simple-hero__eyebrow { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--renu-lilac-light); }
@@ -1418,7 +1450,7 @@ input { font-family: inherit; }
 
 /* Two-column body layout — about/financing/contact all use a left content
    column + right supporting panel at similar proportions. */
-.split-body { max-width: 1180px; margin: 0 auto; padding: 72px 40px; display: flex; flex-wrap: wrap; gap: 48px; }
+.split-body { max-width: 1180px; margin: 0 auto; padding: 72px var(--section-pad-x); display: flex; flex-wrap: wrap; gap: 48px; }
 .split-body__main { flex: 1 1 420px; display: flex; flex-direction: column; gap: 20px; }
 .split-body__aside { flex: 1 1 300px; }
 
@@ -1480,7 +1512,7 @@ input { font-family: inherit; }
 .form-actions { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .form-actions--end { justify-content: flex-end; }
 
-.book-wrap { max-width: 900px; margin: 0 auto; padding: 56px 40px 90px; }
+.book-wrap { max-width: 900px; margin: 0 auto; padding: 56px var(--section-pad-x) 90px; }
 .book-step { display: none; flex-direction: column; gap: 22px; }
 .book-step[data-active="true"] { display: flex; }
 
@@ -1604,7 +1636,7 @@ input { font-family: inherit; }
 .blog-card__title { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: 21px; margin: 0; }
 .blog-card__desc { font-size: 14.5px; line-height: 1.55; color: var(--renu-ink-muted); flex: 1; }
 
-.blog-post { max-width: 720px; margin: 0 auto; padding: 56px 40px 90px; }
+.blog-post { max-width: 720px; margin: 0 auto; padding: 56px var(--section-pad-x) 90px; }
 .blog-post__date { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--renu-mauve-soft); }
 .blog-post__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(1.75rem, 1.4rem + 1.7vw, 2.75rem); margin: 10px 0 30px; }
 .blog-post__back { display: inline-block; margin-top: 40px; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--renu-purple); }

@@ -36,9 +36,8 @@ export default async function HomePage() {
           <span className="hero__eyebrow"><span className="dot" aria-hidden="true"></span>Stuart &amp; Tequesta, Florida</span>
           <h1 className="hero__title">Look like you,<br /><em>only rested.</em></h1>
           <p className="hero__subhead">
-            Board-certified, non-surgical aesthetics from Dr. Valerie Barrett — 25 years
-            and tens of thousands of procedures behind every treatment plan, tailored to
-            your face, your goals, your timeline.
+            25 years of board-certified, non-surgical care from Dr. Valerie Barrett —
+            tailored to your face, your goals, your timeline.
           </p>
           <div className="hero__ctas btn-group">
             <Link href="/book/" className="btn btn--on-band">Book a Consultation</Link>
@@ -76,10 +75,8 @@ export default async function HomePage() {
               rested, confident version of yourself.&quot;
             </p>
             <p className="section-sub" style={{ marginBottom: 'var(--space-lg)' }}>
-              25 years of hands-on experience and tens of thousands of procedures
-              performed across her Stuart and Tequesta practices — Dr. Barrett
-              builds every treatment plan around natural-looking, personalized results,
-              not a one-size-fits-all menu.
+              25 years, tens of thousands of procedures, two Florida practices —
+              every plan is personalized, never one-size-fits-all.
             </p>
             <div className="btn-group">
               <Link href="/book/" className="btn btn--primary">Book a Consultation</Link>

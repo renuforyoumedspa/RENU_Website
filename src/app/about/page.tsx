@@ -14,7 +14,7 @@ export default function AboutPage() {
         <div className="split-hero__content">
           <span className="split-hero__eyebrow">About the Practice</span>
           <h1 className="split-hero__title">Dr. Valerie Barrett, MD</h1>
-          <p className="split-hero__lead">Board-certified, non-surgical care spanning Botox®, Radiesse®, Ultherapy®, Sculptra® and fractional CO2 laser resurfacing — with 25 years of experience behind every plan.</p>
+          <p className="split-hero__lead">25 years of board-certified, non-surgical care — Botox®, Radiesse®, Ultherapy®, Sculptra®, and fractional CO2 laser resurfacing.</p>
         </div>
         <div className="split-hero__media">
           <span className="detail-placeholder-caption">portrait — Dr. Valerie Barrett</span>
@@ -40,23 +40,15 @@ export default function AboutPage() {
               rested, confident version of yourself.&quot;
             </p>
             <p className="section-sub" style={{ marginBottom: 'var(--space-md)' }}>
-              For 25 years, Dr. Valerie Barrett has built RENU Medical Aesthetics around a simple
-              idea: results should look like you, not like &quot;work.&quot; She&apos;s board-certified, and in
-              a field where treatments are increasingly handed off to techs and injectors, she
-              performs every injectable, laser, and energy-based treatment herself — at both the
-              Stuart and Tequesta locations.
-            </p>
-            <p className="section-sub" style={{ marginBottom: 'var(--space-md)' }}>
-              That hands-on approach is why so many of RENU&apos;s patients have been coming back for
-              years, not months — some for six years and longer. Tens of thousands of procedures
-              in, Dr. Barrett still starts every relationship the same way: a real conversation
-              about what you want, followed by a conservative plan that can always add more later,
-              rather than a dramatic one you can&apos;t take back.
+              For 25 years, Dr. Barrett has built RENU around one idea: results should
+              look like you, not like &quot;work.&quot; Board-certified, she performs every
+              injectable, laser, and energy-based treatment herself — at both Stuart
+              and Tequesta.
             </p>
             <p className="section-sub" style={{ marginBottom: 'var(--space-lg)' }}>
-              It&apos;s also why RENU&apos;s before-and-after results hold up over time — patients who
-              started with Dr. Barrett years ago still look years younger than their own
-              starting point, not just weeks out from a single visit.
+              That&apos;s why patients return for years, not months — and why RENU&apos;s
+              before-and-after results hold up over time. Some patients still look
+              younger than their starting point, years later.
             </p>
             <div className="btn-group">
               <Link href="/book/" className="btn btn--primary">Book a Consultation</Link>
