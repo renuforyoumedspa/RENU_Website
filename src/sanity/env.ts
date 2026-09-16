@@ -25,3 +25,10 @@ function assertValue<T>(v: T | undefined, errorMessage: string): T {
   }
   return v;
 }
+
+// True only when a real project ID has actually been set via .env.local —
+// lets queries.ts fall back to local mock content instead of hitting a
+// Sanity project that doesn't exist yet. Remove no code to "turn this
+// off" later — it turns itself off the moment NEXT_PUBLIC_SANITY_PROJECT_ID
+// is set for real.
+export const isSanityConfigured = Boolean(process.env.NEXT_PUBLIC_SANITY_PROJECT_ID);
