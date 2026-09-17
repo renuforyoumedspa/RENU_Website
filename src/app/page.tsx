@@ -1,6 +1,9 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Metadata } from 'next';
-import { getAllTreatments, getTreatmentBySlug } from '@/sanity/lib/queries';
+import { getAllTreatments, getTreatmentBySlug, getGalleryTiles, getHomepageFeaturedBeforeAfters } from '@/sanity/lib/queries';
+import { imageSrc } from '@/sanity/lib/image';
+import { resolveBeforeAfter } from '@/lib/before-after';
 import { getCombinedReviews } from '@/data/site-data';
 
 export const metadata: Metadata = {
@@ -21,6 +24,8 @@ export default async function HomePage() {
   const allTreatments = await getAllTreatments();
   const reviews = getCombinedReviews();
   const favorites = (await Promise.all(FAVORITE_IDS.map((slug) => getTreatmentBySlug(slug)))).filter((t) => t !== null);
+  const galleryTiles = await getGalleryTiles();
+  const featuredBeforeAfters = await getHomepageFeaturedBeforeAfters();
 
   return (
     <>
@@ -58,8 +63,14 @@ export default async function HomePage() {
 
       <section className="section section--bg-surface" id="provider" aria-labelledby="provider-heading">
         <div className="container provider">
-          <div className="provider__media" role="img" aria-label="Placeholder portrait of Dr. Valerie Barrett">
-            <span className="provider__media-label">Photography placeholder</span>
+          <div className="provider__media">
+            <Image
+              src="/assets/dr-valerie-barrett.jpg"
+              alt="Dr. Valerie Barrett, MD, founder of RENU Medical Aesthetics"
+              fill
+              sizes="(min-width: 960px) 40vw, 90vw"
+              priority
+            />
           </div>
           <div className="provider__content">
             <span className="eyebrow">Meet Your Provider</span>
@@ -114,6 +125,17 @@ export default async function HomePage() {
         </div>
       </section>
 
+      <section className="full-bleed-banner" aria-label="Face, Skin, Body">
+        <Image
+          src="/assets/face-skin-body-banner.png"
+          alt="RENU Medical Aesthetics treatment categories: Face, Skin, and Body"
+          width={1838}
+          height={681}
+          sizes="100vw"
+          style={{ width: '100%', height: 'auto' }}
+        />
+      </section>
+
       <section className="section section--bg-alt" aria-labelledby="ba-heading">
         <div className="container">
           <div className="section-head section-head--center">
@@ -123,30 +145,33 @@ export default async function HomePage() {
           </div>
 
           <div className="ba-grid">
-            <Link className="ba-tile" href="/treatments/botox/" aria-label="Placeholder before and after image for Botox — view Botox treatment page">
-              <div className="ba-tile__split"><div></div><div></div></div>
-              <div className="ba-tile__divider" aria-hidden="true"></div>
-              <div className="ba-tile__labels"><span>Before</span><span>After</span></div>
-              <div className="ba-tile__caption">Botox® — 6 weeks apart</div>
-            </Link>
-            <Link className="ba-tile" href="/treatments/renulift/" aria-label="Placeholder before and after image for RENUlift, 9 years apart — view RENUlift treatment page">
-              <div className="ba-tile__split"><div></div><div></div></div>
-              <div className="ba-tile__divider" aria-hidden="true"></div>
-              <div className="ba-tile__labels"><span>Before</span><span>After</span></div>
-              <div className="ba-tile__caption">RENUlift™ — 9 years apart</div>
-            </Link>
-            <Link className="ba-tile" href="/treatments/sculptra/" aria-label="Placeholder before and after image for Dermal Fillers — view Sculptra treatment page">
-              <div className="ba-tile__split"><div></div><div></div></div>
-              <div className="ba-tile__divider" aria-hidden="true"></div>
-              <div className="ba-tile__labels"><span>Before</span><span>After</span></div>
-              <div className="ba-tile__caption">Dermal Fillers — 3 months apart</div>
-            </Link>
-            <Link className="ba-tile" href="/treatments/resurfacing/" aria-label="Placeholder before and after image for Laser Skin Resurfacing — view treatment page">
-              <div className="ba-tile__split"><div></div><div></div></div>
-              <div className="ba-tile__divider" aria-hidden="true"></div>
-              <div className="ba-tile__labels"><span>Before</span><span>After</span></div>
-              <div className="ba-tile__caption">Laser Resurfacing — 8 months apart</div>
-            </Link>
+            {featuredBeforeAfters.map((f) => {
+              const resolved = resolveBeforeAfter(f.entry);
+              return (
+                <Link
+                  className="ba-tile"
+                  href={`/treatments/${f.treatmentSlug}/`}
+                  aria-label={`Before and after photos for ${f.label} — view ${f.label} treatment page`}
+                  key={f.treatmentSlug}
+                >
+                  {resolved.mode === 'paired' ? (
+                    <div className="ba-tile__paired">
+                      <Image src={resolved.src} alt={`${f.label} before and after`} fill sizes="(min-width: 780px) 25vw, 50vw" />
+                    </div>
+                  ) : (
+                    <>
+                      <div className="ba-tile__split">
+                        <div>{resolved.mode === 'separate' && <Image src={resolved.beforeSrc} alt={`${f.label} before`} fill sizes="(min-width: 780px) 12.5vw, 25vw" />}</div>
+                        <div>{resolved.mode === 'separate' && <Image src={resolved.afterSrc} alt={`${f.label} after`} fill sizes="(min-width: 780px) 12.5vw, 25vw" />}</div>
+                      </div>
+                      <div className="ba-tile__divider" aria-hidden="true"></div>
+                    </>
+                  )}
+                  <div className="ba-tile__labels"><span>Before</span><span>After</span></div>
+                  <div className="ba-tile__caption">{f.label} — {f.entry.timeframe}</div>
+                </Link>
+              );
+            })}
           </div>
 
           <div className="ba-footer">
@@ -155,39 +180,35 @@ export default async function HomePage() {
         </div>
       </section>
 
-      <section className="section section--bg-alt" aria-labelledby="testimonials-heading">
+      <section className="section section--bg-alt" id="testimonials" aria-labelledby="testimonials-heading">
         <div className="container">
           <div className="section-head section-head--center">
             <span className="eyebrow">Patient Stories</span>
             <h2 className="section-title" id="testimonials-heading">What patients are saying</h2>
-            <p className="section-sub">A sample of reviews from RENU patients in Stuart and Tequesta.</p>
+            <p className="section-sub">Real reviews from RENU patients in Stuart and Tequesta, alongside the team behind them.</p>
           </div>
 
-          <div className="testimonial-grid">
-            <article className="testimonial-card">
-              <div className="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
-              <p className="testimonial-card__quote">&quot;Dr. Barrett really takes the time to understand your expectations. I&apos;ve never felt rushed, and the results always look natural.&quot; <em>(placeholder — pending final client-approved copy)</em></p>
-              <div className="testimonial-card__author">
-                <div className="testimonial-card__avatar" role="img" aria-label="Placeholder avatar photo"></div>
-                <div><strong>Gary L.</strong><span>Stuart patient</span></div>
-              </div>
-            </article>
-            <article className="testimonial-card">
-              <div className="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
-              <p className="testimonial-card__quote">&quot;I&apos;ve been coming to RENU for over six years. The whole team makes you feel welcome, not just like another appointment.&quot; <em>(placeholder)</em></p>
-              <div className="testimonial-card__author">
-                <div className="testimonial-card__avatar" role="img" aria-label="Placeholder avatar photo"></div>
-                <div><strong>Patient placeholder</strong><span>Tequesta patient</span></div>
-              </div>
-            </article>
-            <article className="testimonial-card">
-              <div className="testimonial-card__stars" aria-label="5 out of 5 stars">★★★★★</div>
-              <p className="testimonial-card__quote">&quot;Professional, welcoming, and the results speak for themselves. I recommend RENU to everyone who asks.&quot; <em>(placeholder)</em></p>
-              <div className="testimonial-card__author">
-                <div className="testimonial-card__avatar" role="img" aria-label="Placeholder avatar photo"></div>
-                <div><strong>Patient placeholder</strong><span>Stuart patient</span></div>
-              </div>
-            </article>
+          <div className="gallery-masonry">
+            {galleryTiles.map((tile) => {
+              if (tile.kind === 'photo') {
+                const src = imageSrc(tile.image);
+                return (
+                  <div className={`gallery-tile gallery-tile--photo gallery-tile--${tile.shape}`} key={tile._id}>
+                    {src && <Image src={src} alt={tile.alt} fill sizes="(min-width: 1080px) 25vw, (min-width: 640px) 33vw, 90vw" />}
+                  </div>
+                );
+              }
+              return (
+                <article className="gallery-tile gallery-tile--review" key={tile._id}>
+                  <div className="gallery-tile__stars" aria-label="5 out of 5 stars">★★★★★</div>
+                  <p className="gallery-tile__quote">&quot;{tile.quote}&quot;</p>
+                  <div className="gallery-tile__author">
+                    <strong>{tile.reviewerName}</strong>
+                    <span>{tile.source}</span>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>

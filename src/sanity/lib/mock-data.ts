@@ -7,7 +7,7 @@
 // Type-only import — erased at compile time, so this doesn't create a real
 // circular runtime dependency with queries.ts (which imports the mock data
 // arrays back from this file).
-import type { Treatment, BlogPost, Product } from './queries';
+import type { Treatment, BlogPost, Product, TeamMember, GalleryTile, FeaturedBeforeAfter } from './queries';
 
 const FACTS = {
   Injectable: { visitLength: '20–40 min', downtime: 'Minimal', resultsShow: '3–14 days', lasts: '3–12 months' },
@@ -38,10 +38,10 @@ export const MOCK_TREATMENTS: Treatment[] = [
   t('lips', 'Lip Injections', 'Face', 'Lips', 'Injectable', 'Perfect my lips', 'Shape, hydration and definition — sized to your face, not a trend.'),
   t('renulift', 'RENUlift™', 'Face', 'Sagging & laxity', 'Thread', 'Lift without surgery', "RENU's signature non-surgical lift — repositions the midface with no incisions.", {
     beforeAfters: [
-      { patient: 'Patient A', timeframe: '6 weeks apart' },
-      { patient: 'Patient E', timeframe: '9 years apart' },
-      { patient: 'Patient B', timeframe: '3 months apart' },
-      { patient: 'Patient D', timeframe: '1 year apart' }
+      { patient: 'Patient A', timeframe: '6 weeks apart', layout: 'separate' },
+      { patient: 'Patient E', timeframe: '9 years apart', layout: 'separate' },
+      { patient: 'Patient B', timeframe: '3 months apart', layout: 'separate' },
+      { patient: 'Patient D', timeframe: '1 year apart', layout: 'separate' }
     ]
   }),
   t('templelift', 'RENU Temple Lift', 'Face', 'Sagging & laxity', 'Thread', 'Open my eyes', 'Restores temple hollowing and lifts the brow tail for a rested upper face.'),
@@ -81,4 +81,41 @@ export const MOCK_PRODUCTS: Product[] = [
   { _id: 'eltamd-uv-clear-spf46', slug: 'eltamd-uv-clear-spf46', brand: 'EltaMD', name: 'UV Clear Broad-Spectrum SPF 46', note: 'The daily sunscreen Dr. Barrett recommends for every patient, every day.', price: '$43' },
   { _id: 'renu-post-care-balm', slug: 'renu-post-care-balm', brand: 'RENU Post-Care', name: 'Post-Treatment Recovery Balm', note: "RENU's own after-care balm, sent home with every laser, microneedling and thread-lift patient.", price: '$38' },
   { _id: 'zo-exfoliating-polish', slug: 'zo-exfoliating-polish', brand: 'ZO Skin Health', name: 'Exfoliating Polish', note: 'A gentle at-home resurfacing scrub that keeps results from in-office treatments going between visits.', price: '$72' }
+];
+
+// Same 3-placeholder set the About page rendered inline before team
+// members moved to Sanity — kept identical so nothing visually changes
+// until the practice supplies real names/photos in the Studio.
+export const MOCK_TEAM_MEMBERS: TeamMember[] = [1, 2, 3].map((i) => ({
+  _id: `team-placeholder-${i}`,
+  name: '[Team Member — Name Pending]',
+  role: '[Role / Credential Pending]',
+  bio: 'Bio pending — name, credentials and headshot to be supplied by the practice before this ships.',
+  order: i
+}));
+
+// Same 7 tiles that were hardcoded directly in page.tsx — real reviews
+// sourced from RENU's public Google review history, plus the team/Val
+// photos and two stock treatment-room shots. Moved here so the homepage
+// reads through getGalleryTiles() like every other piece of content.
+export const MOCK_GALLERY_TILES: GalleryTile[] = [
+  { _id: 'gallery-1', kind: 'photo', order: 1, image: '/assets/renu-team-group.jpg', alt: 'The RENU Medical Aesthetics team', shape: 'wide' },
+  { _id: 'gallery-2', kind: 'review', order: 2, quote: 'I have been going to Renu Medical for a few years now. Dr. Barrett is an expert in her field. The staff is always so professional. I definitely recommend Renu.', reviewerName: 'Jamie S.', source: 'Verified Google review' },
+  { _id: 'gallery-3', kind: 'photo', order: 3, image: '/assets/gallery-treatment-room-1.webp', alt: 'A RENU patient during a consultation', shape: 'square' },
+  { _id: 'gallery-4', kind: 'review', order: 4, quote: 'Dr. Barrett and her staff are exceptional. Loved the results! Anxious to try other services they offer — very natural and soft results!', reviewerName: 'Lynn C.', source: 'Verified Google review' },
+  { _id: 'gallery-5', kind: 'photo', order: 5, image: '/assets/dr-valerie-barrett-lifestyle.jpg', alt: 'Dr. Valerie Barrett', shape: 'tall' },
+  { _id: 'gallery-6', kind: 'review', order: 6, quote: 'Dr. Barrett is wonderful. Took time to answer all my questions. The team is great. Extremely happy.', reviewerName: 'Verified Patient', source: 'Google review' },
+  { _id: 'gallery-7', kind: 'photo', order: 7, image: '/assets/gallery-treatment-room-2.webp', alt: 'A treatment in progress at RENU Medical Aesthetics', shape: 'wide' }
+];
+
+// Mirrors the 4 tiles that were hardcoded in the homepage's Before & After
+// section — same treatments, same captions, same order. `entry` has no
+// real photos yet (mock mode never does), so the frontend's placeholder
+// split-tile rendering kicks in exactly like it did before this moved to
+// Sanity.
+export const MOCK_HOMEPAGE_FEATURED_BEFORE_AFTERS: FeaturedBeforeAfter[] = [
+  { label: 'Botox®', treatmentSlug: 'botox', entry: { patient: 'Patient A', timeframe: '6 weeks apart', layout: 'separate' } },
+  { label: 'RENUlift™', treatmentSlug: 'renulift', entry: { patient: 'Patient E', timeframe: '9 years apart', layout: 'separate' } },
+  { label: 'Dermal Fillers', treatmentSlug: 'sculptra', entry: { patient: 'Patient B', timeframe: '3 months apart', layout: 'separate' } },
+  { label: 'Laser Resurfacing', treatmentSlug: 'resurfacing', entry: { patient: 'Patient C', timeframe: '8 months apart', layout: 'separate' } }
 ];

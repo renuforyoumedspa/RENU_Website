@@ -1,9 +1,11 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { useMemo, useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type { Treatment } from '@/sanity/lib/queries';
+import { imageSrc } from '@/sanity/lib/image';
 
 const AREAS = ['Face', 'Body', 'Skin'];
 const CONCERNS = ['Lines & wrinkles', 'Volume loss', 'Sagging & laxity', 'Texture & tone', 'Pigment', 'Acne scars', 'Lips', 'Contour', 'Hair loss', 'Cellulite'];
@@ -89,7 +91,9 @@ export default function TreatmentsGrid({ treatments }: { treatments: Treatment[]
             <div className="idx-grid">
               {shown.map((t) => (
                 <article className="idx-card" key={t._id}>
-                  <div className="idx-card__media"></div>
+                  <div className="idx-card__media">
+                    {imageSrc(t.image) && <Image src={imageSrc(t.image)!} alt={t.name} fill sizes="(min-width: 1080px) 33vw, (min-width: 620px) 50vw, 90vw" />}
+                  </div>
                   <div className="idx-card__body">
                     <div className="idx-card__chips">
                       <span className="idx-chip idx-chip--area">{t.area}</span>

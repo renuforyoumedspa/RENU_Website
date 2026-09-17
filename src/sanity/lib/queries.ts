@@ -1,6 +1,20 @@
 import { client } from './client';
 import { isSanityConfigured } from '../env';
-import { MOCK_TREATMENTS, MOCK_BLOG_POSTS, MOCK_PRODUCTS } from './mock-data';
+import { MOCK_TREATMENTS, MOCK_BLOG_POSTS, MOCK_PRODUCTS, MOCK_TEAM_MEMBERS, MOCK_GALLERY_TILES, MOCK_HOMEPAGE_FEATURED_BEFORE_AFTERS } from './mock-data';
+
+// Shared by treatment.beforeAfters and the homepage's featured picks — see
+// beforeAfterEntry.ts in renu-studio for why `layout` exists: some of
+// RENU's real photography is a single side-by-side composite, some is two
+// separate photos, and editors pick which per entry rather than the site
+// forcing one shape.
+export interface BeforeAfterEntry {
+  patient?: string;
+  timeframe?: string;
+  layout?: 'separate' | 'sideBySide';
+  beforeImage?: unknown;
+  afterImage?: unknown;
+  pairedImage?: unknown;
+}
 
 export interface Treatment {
   _id: string;
@@ -13,11 +27,31 @@ export interface Treatment {
   cta: string;
   blurb: string;
   image?: unknown;
+  contentImage?: unknown;
   facts?: { visitLength?: string; downtime?: string; resultsShow?: string; lasts?: string };
-  beforeAfters?: { patient: string; timeframe: string; beforeImage?: unknown; afterImage?: unknown }[];
+  beforeAfters?: BeforeAfterEntry[];
   visitSteps?: { text: string }[];
   faqs?: { q: string; a: string }[];
   body?: unknown;
+}
+
+export interface TeamMember {
+  _id: string;
+  name: string;
+  role?: string;
+  bio?: string;
+  photo?: unknown;
+  order: number;
+}
+
+export type GalleryTile =
+  | { _id: string; kind: 'photo'; order: number; image: unknown; alt: string; shape: 'wide' | 'tall' | 'square' }
+  | { _id: string; kind: 'review'; order: number; quote: string; reviewerName: string; source?: string };
+
+export interface FeaturedBeforeAfter {
+  label: string;
+  treatmentSlug: string;
+  entry: BeforeAfterEntry;
 }
 
 export interface BlogPost {
@@ -46,7 +80,7 @@ export interface Product {
 // consuming component from having to know Sanity's slug-is-an-object
 // shape — same flat shape the old treatments-data.js array had.
 const TREATMENT_PROJECTION = `{
-  _id, name, "slug": slug.current, legacyUrls, area, concern, tech, cta, blurb, image,
+  _id, name, "slug": slug.current, legacyUrls, area, concern, tech, cta, blurb, image, contentImage,
   facts, beforeAfters, visitSteps, faqs, body
 }`;
 
@@ -120,4 +154,34 @@ export async function getAllLegacyRedirects(): Promise<{ source: string; destina
     `*[_type == "treatment" && count(legacyUrls) > 0]{ "slug": slug.current, legacyUrls }`
   );
   return treatments.flatMap((t) => (t.legacyUrls || []).map((source) => ({ source, destination: `/treatments/${t.slug}` })));
+}
+
+export async function getTeamMembers(): Promise<TeamMember[]> {
+  if (!isSanityConfigured) return [...MOCK_TEAM_MEMBERS].sort((a, b) => a.order - b.order);
+  return client.fetch(`*[_type == "teamMember"] | order(order asc) { _id, name, role, bio, photo, order }`);
+}
+
+export async function getGalleryTiles(): Promise<GalleryTile[]> {
+  if (!isSanityConfigured) return [...MOCK_GALLERY_TILES].sort((a, b) => a.order - b.order);
+  return client.fetch(
+    `*[_type == "galleryTile"] | order(order asc) { _id, kind, order, image, alt, shape, quote, reviewerName, source }`
+  );
+}
+
+// Homepage's curated Before & After picks — a singleton document
+// (_id == "homepage") referencing whichever treatments the practice wants
+// featured, each paired with its own beforeAfterEntry (independent of that
+// treatment's own default beforeAfters array).
+export async function getHomepageFeaturedBeforeAfters(): Promise<FeaturedBeforeAfter[]> {
+  if (!isSanityConfigured) return MOCK_HOMEPAGE_FEATURED_BEFORE_AFTERS;
+  const doc = await client.fetch<{ featuredBeforeAfters?: { label?: string; treatment?: { name: string; slug: string }; entry: BeforeAfterEntry }[] }>(
+    `*[_type == "homepage"][0]{
+      featuredBeforeAfters[]{ label, "treatment": treatment->{ name, "slug": slug.current }, entry }
+    }`
+  );
+  return (doc?.featuredBeforeAfters || []).map((f) => ({
+    label: f.label || f.treatment?.name || '',
+    treatmentSlug: f.treatment?.slug || '',
+    entry: f.entry
+  }));
 }

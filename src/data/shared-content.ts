@@ -24,3 +24,19 @@ export const DEFAULT_BEFORE_AFTERS = [
   { patient: "Patient C", timeframe: "8 months apart" },
   { patient: "Patient D", timeframe: "1 year apart" }
 ];
+
+// Generated from the treatment's own fields rather than hand-written per
+// treatment — same "usable default, not a labeled placeholder" approach as
+// DEFAULT_FAQS/DEFAULT_VISIT_STEPS above. Real, treatment-specific copy for
+// these four sections is Sanity content to be authored later; this keeps
+// every treatment page functional and non-generic-looking until then.
+export function getDefaultAccordions(treatment: { name: string; area: string; tech: string; concern: string; blurb: string }) {
+  const areaLower = treatment.area.toLowerCase();
+  const concernLower = treatment.concern.toLowerCase();
+  return [
+    { q: "What it is", a: `${treatment.name} is a ${treatment.tech.toLowerCase()}-based treatment offered at both RENU clinics, performed personally by Dr. Barrett rather than handed off to a technician.` },
+    { q: "How it works", a: treatment.blurb },
+    { q: "How it helps", a: `Patients choose ${treatment.name} to address ${concernLower} — dosing and technique are staged conservatively so the change reads as rested, not "done."` },
+    { q: "Treatable areas", a: `Most commonly used for ${areaLower} concerns. Dr. Barrett will confirm the exact areas that make sense for you at your consultation.` }
+  ];
+}

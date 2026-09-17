@@ -1,5 +1,8 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Metadata } from 'next';
+import { getTeamMembers } from '@/sanity/lib/queries';
+import { imageSrc } from '@/sanity/lib/image';
 
 export const metadata: Metadata = {
   title: 'About the Practice',
@@ -7,7 +10,8 @@ export const metadata: Metadata = {
   alternates: { canonical: '/about/' }
 };
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const teamMembers = await getTeamMembers();
   return (
     <>
       <section className="split-hero">
@@ -23,8 +27,13 @@ export default function AboutPage() {
 
       <section className="section section--bg-surface" id="dr-barrett" aria-labelledby="dr-barrett-heading">
         <div className="container provider">
-          <div className="provider__media" role="img" aria-label="Placeholder portrait of Dr. Valerie Barrett">
-            <span className="provider__media-label">Photography placeholder</span>
+          <div className="provider__media">
+            <Image
+              src="/assets/dr-valerie-barrett-lifestyle.jpg"
+              alt="Dr. Valerie Barrett, MD, founder of RENU Medical Aesthetics"
+              fill
+              sizes="(min-width: 960px) 40vw, 90vw"
+            />
           </div>
           <div className="provider__content">
             <span className="eyebrow">25 Years of Experience</span>
@@ -82,17 +91,36 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <div className="team-group-photo">
+        <Image
+          src="/assets/renu-team-group.jpg"
+          alt="The RENU Medical Aesthetics team at the practice"
+          width={1200}
+          height={900}
+          sizes="(min-width: 1180px) 1180px, 100vw"
+        />
+      </div>
+
       <div className="team-grid">
-        {[1, 2, 3].map((i) => (
-          <article className="team-card team-card--placeholder" key={i}>
-            <div className="team-card__media"><span className="detail-placeholder-caption" style={{ display: 'block', padding: '16px', color: 'var(--renu-meta-gray)' }}>headshot — team member</span></div>
-            <div className="team-card__body">
-              <h3 className="team-card__name">[Team Member — Name Pending]</h3>
-              <p className="team-card__role">[Role / Credential Pending]</p>
-              <p className="team-card__bio">Bio pending — name, credentials and headshot to be supplied by the practice before this ships.</p>
-            </div>
-          </article>
-        ))}
+        {teamMembers.map((member) => {
+          const photoSrc = imageSrc(member.photo);
+          return (
+            <article className={`team-card${photoSrc ? '' : ' team-card--placeholder'}`} key={member._id}>
+              <div className="team-card__media">
+                {photoSrc ? (
+                  <Image src={photoSrc} alt={member.name} fill sizes="(min-width: 640px) 33vw, 90vw" />
+                ) : (
+                  <span className="detail-placeholder-caption" style={{ display: 'block', padding: '16px', color: 'var(--renu-meta-gray)' }}>headshot — team member</span>
+                )}
+              </div>
+              <div className="team-card__body">
+                <h3 className="team-card__name">{member.name}</h3>
+                <p className="team-card__role">{member.role}</p>
+                <p className="team-card__bio">{member.bio}</p>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </>
   );
