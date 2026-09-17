@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import ContactForm from '@/components/ContactForm';
 import { REVIEWS } from '@/data/site-data';
 
@@ -26,7 +27,9 @@ export default function ContactPage() {
 
       <div className="location-card-grid">
         <article className="location-card">
-          <div className="location-card__media"><span className="detail-placeholder-caption" style={{ color: 'var(--renu-meta-gray)' }}>map — Stuart</span></div>
+          <div className="location-card__media">
+            <Image src="/assets/location-stuart.jpg" alt="RENU Medical Aesthetics — Stuart location" fill sizes="(min-width: 640px) 50vw, 100vw" />
+          </div>
           <div className="location-card__body">
             <h2 className="location-card__city">Stuart</h2>
             <p className="location-card__reviews">{formatReviewLine(REVIEWS.stuart)}</p>
@@ -40,7 +43,9 @@ export default function ContactPage() {
         </article>
 
         <article className="location-card">
-          <div className="location-card__media"><span className="detail-placeholder-caption" style={{ color: 'var(--renu-meta-gray)' }}>map — Tequesta</span></div>
+          <div className="location-card__media">
+            <Image src="/assets/location-tequesta.jpg" alt="RENU Medical Aesthetics — Tequesta location" fill sizes="(min-width: 640px) 50vw, 100vw" />
+          </div>
           <div className="location-card__body">
             <h2 className="location-card__city">Tequesta</h2>
             <p className="location-card__reviews">{formatReviewLine(REVIEWS.tequesta)}</p>

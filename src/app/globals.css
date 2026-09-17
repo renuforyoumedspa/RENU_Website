@@ -1652,7 +1652,7 @@ input { font-family: inherit; }
 .step-indicator__label { display: block; font-size: 15px; margin-top: 2px; }
 
 /* --- CONFIRMATION PANEL (booking + quiz results) -------------------- */
-.confirm-panel { background: var(--renu-purple-tint); padding: 40px; text-align: center; animation: renuFade 320ms ease both; }
+.confirm-panel { background: var(--renu-purple-tint); padding: 40px; text-align: center; animation: renuFade 320ms ease both; border-radius: 22px; }
 .confirm-panel__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: 34px; margin: 0 0 10px; }
 .confirm-panel__text { margin: 0; font-size: 16px; color: var(--renu-ink-muted); }
 
@@ -1779,9 +1779,35 @@ input { font-family: inherit; }
 
 /* Contact ------------------------------------------------------------------ */
 .location-card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 26px; padding: 40px; max-width: 1180px; margin: 0 auto; }
-.location-card { border: 1px solid var(--renu-border); }
-.location-card__media { height: 240px; background: repeating-linear-gradient(135deg, var(--renu-gray-light) 0 12px, var(--renu-purple-tint) 12px 24px); display: flex; align-items: flex-end; padding: 16px; }
-.location-card__body { padding: 28px; display: flex; flex-direction: column; gap: 14px; }
+/* Floating-card treatment — same pattern as .favorite-card on the homepage
+   treatment section: rounded photo box overlapping a rounded content box
+   filled with the page's own background, only a hairline border revealing
+   its edge. */
+.location-card { background: transparent; border: none; overflow: visible; }
+.location-card__media {
+  aspect-ratio: 4 / 3;
+  border-radius: 22px;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  background: repeating-linear-gradient(135deg, var(--renu-gray-light) 0 12px, var(--renu-purple-tint) 12px 24px);
+  display: flex;
+  align-items: flex-end;
+  padding: 16px;
+}
+.location-card__media img { object-fit: cover; }
+.location-card__body {
+  background: var(--color-bg-page);
+  border: 1px solid var(--renu-border);
+  border-radius: 22px;
+  margin-top: -40px;
+  padding: 56px 28px 28px;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
 .location-card__city { font-family: var(--font-display); font-size: 30px; margin: 0; }
 /* Mauve, not the warm accent — that color is reserved for exactly two
    uses site-wide (star ratings on testimonials, the hero eyebrow dot) by
@@ -1792,7 +1818,7 @@ input { font-family: inherit; }
 .location-card__meta a { color: var(--renu-purple); }
 .location-card__actions { display: flex; gap: 10px; flex-wrap: wrap; }
 
-.contact-panel { background: var(--renu-purple-tint-light); padding: 28px; display: flex; flex-direction: column; gap: 20px; }
+.contact-panel { background: var(--renu-purple-tint-light); padding: 28px; display: flex; flex-direction: column; gap: 20px; border-radius: 22px; }
 .contact-panel h3 { font-family: var(--font-display); font-size: 20px; margin: 0; }
 .contact-panel__row strong { display: block; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--renu-mauve-deep); margin-bottom: 4px; }
 .contact-panel__row span, .contact-panel__row a { font-size: 15px; color: var(--renu-ink); }
