@@ -68,15 +68,23 @@ export default function TreatmentsGrid({ treatments }: { treatments: Treatment[]
     <>
       <section className="idx-filter-bar">
         <div className="idx-filter-bar__inner">
-          {AXES.map((axis) => (
-            <div className="idx-filter-row" role="group" aria-label={`Filter by ${axis.label}`} key={axis.key}>
-              <span className="idx-filter-row__label">{axis.label}</span>
-              <button type="button" className="pill" aria-pressed={filters[axis.key] === 'All'} onClick={() => setAxis(axis.key, 'All')}>All</button>
-              {axis.values.map((v) => (
-                <button key={v} type="button" className="pill" aria-pressed={filters[axis.key] === v} onClick={() => setAxis(axis.key, v)}>{v}</button>
-              ))}
-            </div>
-          ))}
+          <div className="idx-filter-row">
+            {AXES.map((axis) => (
+              <label className="idx-filter-select" key={axis.key}>
+                <span className="idx-filter-select__label">{axis.label}</span>
+                <select
+                  value={filters[axis.key]}
+                  onChange={(e) => setAxis(axis.key, e.target.value)}
+                  aria-label={`Filter by ${axis.label}`}
+                >
+                  <option value="All">All</option>
+                  {axis.values.map((v) => (
+                    <option key={v} value={v}>{v}</option>
+                  ))}
+                </select>
+              </label>
+            ))}
+          </div>
         </div>
       </section>
 

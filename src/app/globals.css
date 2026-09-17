@@ -608,6 +608,17 @@ input { font-family: inherit; }
   justify-content: center;
 }
 .chrome-sticky-bar__text { font-size: 14.5px; color: var(--renu-lilac-pale); }
+.chrome-sticky-bar__dismiss {
+  background: transparent;
+  border: none;
+  color: var(--renu-lilac-pale);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 4px 4px;
+  margin-left: auto;
+}
+.chrome-sticky-bar__dismiss:hover { color: var(--renu-white); }
 
 /* ==========================================================================
    HERO
@@ -832,6 +843,7 @@ input { font-family: inherit; }
   overflow: visible;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 
 .favorite-card__media {
@@ -865,6 +877,7 @@ input { font-family: inherit; }
   flex-direction: column;
   gap: 12px;
   flex: 1;
+  min-width: 0;
   transition: border-color var(--transition-fast);
 }
 .favorite-card:hover .favorite-card__body { border-color: var(--renu-purple); }
@@ -889,10 +902,11 @@ input { font-family: inherit; }
 
 .favorite-card__actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-top: var(--space-2xs);
 }
-.favorite-card__actions .btn { flex: 1; padding: 12px 10px; font-size: 12.5px; letter-spacing: 0.08em; }
+.favorite-card__actions .btn { flex: 1 1 120px; min-width: 0; padding: 12px 10px; font-size: 12.5px; letter-spacing: 0.08em; white-space: normal; }
 
 /* ==========================================================================
    PILL — shared component (design_handoff_renu_redesign/README.md: "used
@@ -945,23 +959,47 @@ input { font-family: inherit; }
 .idx-header__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: var(--text-2xl); line-height: 1.1; margin: 12px 0 14px; }
 .idx-header__lead { margin: 0; max-width: 60ch; font-size: 17px; line-height: 1.65; color: var(--renu-ink-muted); }
 
+/* Redesigned from a stack of wrapping pill-button rows (which, with the
+   Concern axis's 10 values, could run to 4-5 lines) to three compact
+   dropdowns in one horizontal row. This bar is sticky, so its height is
+   permanently "paid for" out of the viewport on every scroll position —
+   on a phone the old version could eat half the screen after filtering,
+   leaving barely any room to see the results underneath it. */
 .idx-filter-bar {
   position: sticky;
   top: var(--chrome-header-h, 62px);
   z-index: 40;
   background: var(--renu-white);
   border-bottom: 1px solid var(--renu-border);
-  padding: 20px var(--section-pad-x);
+  padding: 14px var(--section-pad-x);
 }
-.idx-filter-bar__inner { max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 14px; }
-.idx-filter-row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
-.idx-filter-row__label {
-  min-width: 84px;
-  font-size: 11.5px;
-  letter-spacing: 0.16em;
+.idx-filter-bar__inner { max-width: 1180px; margin: 0 auto; }
+.idx-filter-row { display: flex; flex-wrap: wrap; gap: 10px; }
+.idx-filter-select {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1 1 140px;
+  min-width: 0;
+}
+.idx-filter-select__label {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--renu-mauve-soft);
 }
+.idx-filter-select select {
+  width: 100%;
+  min-width: 0;
+  padding: 9px 12px;
+  border-radius: var(--radius-btn);
+  border: 1px solid var(--renu-border-input, var(--renu-border));
+  background: var(--renu-white);
+  font-size: 14px;
+  color: var(--renu-ink);
+  cursor: pointer;
+}
+.idx-filter-select select:focus-visible { outline: 2px solid var(--renu-purple); outline-offset: 1px; }
 
 .idx-results { padding: 34px var(--space-2xs) 90px; background: var(--renu-white); }
 .idx-results__inner { max-width: 1560px; margin: 0 auto; }
@@ -996,6 +1034,7 @@ input { font-family: inherit; }
   overflow: visible;
   display: flex;
   flex-direction: column;
+  min-width: 0;
 }
 .idx-card[hidden] { display: none; }
 
@@ -1020,6 +1059,7 @@ input { font-family: inherit; }
   flex-direction: column;
   gap: 10px;
   flex: 1;
+  min-width: 0;
   transition: border-color var(--transition-fast);
 }
 .idx-card:hover .idx-card__body { border-color: var(--renu-purple); }
@@ -1047,8 +1087,8 @@ input { font-family: inherit; }
   overflow: hidden;
 }
 
-.idx-card__actions { display: flex; gap: 8px; margin-top: 8px; }
-.idx-card__actions .btn { flex: 1; padding: 11px 8px; font-size: 12px; letter-spacing: 0.08em; }
+.idx-card__actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+.idx-card__actions .btn { flex: 1 1 100px; min-width: 0; padding: 11px 8px; font-size: 12px; letter-spacing: 0.08em; white-space: normal; }
 .idx-card__actions .btn--secondary { border-color: var(--renu-border-muted); }
 
 .idx-empty {
@@ -1783,7 +1823,7 @@ input { font-family: inherit; }
    treatment section: rounded photo box overlapping a rounded content box
    filled with the page's own background, only a hairline border revealing
    its edge. */
-.location-card { background: transparent; border: none; overflow: visible; }
+.location-card { background: transparent; border: none; overflow: visible; min-width: 0; }
 .location-card__media {
   aspect-ratio: 4 / 3;
   border-radius: 22px;
@@ -1817,6 +1857,7 @@ input { font-family: inherit; }
 .location-card__meta { font-size: 15px; color: var(--renu-ink-muted); margin: 0; }
 .location-card__meta a { color: var(--renu-purple); }
 .location-card__actions { display: flex; gap: 10px; flex-wrap: wrap; }
+.location-card__actions .btn { min-width: 0; }
 
 .contact-panel { background: var(--renu-purple-tint-light); padding: 28px; display: flex; flex-direction: column; gap: 20px; border-radius: 22px; }
 .contact-panel h3 { font-family: var(--font-display); font-size: 20px; margin: 0; }
