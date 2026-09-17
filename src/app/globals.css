@@ -566,7 +566,16 @@ input { font-family: inherit; }
 @media (min-width: 940px) { .chrome-hamburger { display: none; } }
 .chrome-hamburger span { width: 18px; height: 1.5px; background: var(--renu-purple-deep); display: block; }
 
-/* Mobile nav drawer ---------------------------------------------------------- */
+/* Mobile nav drawer ----------------------------------------------------------
+   .chrome-header is position:sticky, but this drawer is a plain sibling
+   below it in the document — normal flow, not sticky itself. Left alone,
+   opening it while scrolled down puts it at its original spot near the
+   top of the page (where the header originally sat), off-screen above
+   the current scroll position, rather than under the header wherever
+   that header has actually stuck to. Fixed to the viewport, pinned right
+   below the header's live height (--chrome-header-h, already tracked via
+   ResizeObserver for exactly this kind of use), fixes that regardless of
+   scroll position. */
 .chrome-mobile-nav {
   display: none;
   flex-direction: column;
@@ -574,7 +583,16 @@ input { font-family: inherit; }
   background: var(--renu-white);
   padding: 8px 22px 16px;
 }
-.chrome-mobile-nav[data-open="true"] { display: flex; }
+.chrome-mobile-nav[data-open="true"] {
+  display: flex;
+  position: fixed;
+  top: var(--chrome-header-h, 62px);
+  left: 0;
+  right: 0;
+  z-index: 59;
+  max-height: calc(100vh - var(--chrome-header-h, 62px));
+  overflow-y: auto;
+}
 @media (min-width: 940px) { .chrome-mobile-nav { display: none !important; } }
 
 .chrome-mobile-nav__group { display: flex; flex-direction: column; border-bottom: 1px solid var(--renu-border-light); }
@@ -600,7 +618,7 @@ input { font-family: inherit; }
   z-index: 50;
   background: var(--renu-ink);
   color: var(--renu-white);
-  padding: 14px 24px;
+  padding: 14px 44px;
   display: flex;
   flex-wrap: wrap;
   gap: 12px 20px;
@@ -608,7 +626,18 @@ input { font-family: inherit; }
   justify-content: center;
 }
 .chrome-sticky-bar__text { font-size: 14.5px; color: var(--renu-lilac-pale); }
+/* Taken out of the centered flex row entirely (was margin-left:auto,
+   which — once the text/buttons wrap onto their own centered lines on a
+   phone — left the dismiss button stranded on the far right of its own
+   line, looking staggered/off-balance against everything above it).
+   .chrome-sticky-bar is already a positioning context (position:sticky
+   works the same as relative for this), so this just pins to the
+   vertical center of the bar regardless of how the rest wraps. */
 .chrome-sticky-bar__dismiss {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
   background: transparent;
   border: none;
   color: var(--renu-lilac-pale);
@@ -616,7 +645,6 @@ input { font-family: inherit; }
   line-height: 1;
   cursor: pointer;
   padding: 4px 4px;
-  margin-left: auto;
 }
 .chrome-sticky-bar__dismiss:hover { color: var(--renu-white); }
 
