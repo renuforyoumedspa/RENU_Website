@@ -14,7 +14,7 @@ export default async function TreatmentsIndexPage() {
 
   return (
     <>
-      <section className="idx-header">
+      <section className="idx-header idx-header--dark">
         <div className="idx-header__inner">
           <span className="idx-header__eyebrow">All treatments</span>
           <h1 className="idx-header__title">Every treatment RENU offers, on one page.</h1>

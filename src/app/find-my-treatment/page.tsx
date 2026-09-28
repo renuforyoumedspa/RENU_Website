@@ -13,7 +13,7 @@ export default async function FindMyTreatmentPage() {
 
   return (
     <>
-      <section className="simple-hero simple-hero--plum">
+      <section className="simple-hero simple-hero--bronze">
         <div className="simple-hero__inner">
           <span className="simple-hero__eyebrow">Self assessment</span>
           <h1 className="simple-hero__title">Four questions. Then we&apos;ll point you somewhere.</h1>

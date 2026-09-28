@@ -30,7 +30,7 @@ export default function ContactForm() {
     return (
       <div className="confirm-panel" style={{ animation: 'renuFade 320ms ease both' }}>
         <h2 className="confirm-panel__title">Message received.</h2>
-        <p className="confirm-panel__text">Thanks — Dr. Barrett&apos;s office will get back to you shortly. For anything time-sensitive, call or text <a href="tel:5614066123" style={{ color: 'var(--renu-purple-deep)' }}>561-406-6123</a>.</p>
+        <p className="confirm-panel__text">Thanks — Dr. Barrett&apos;s office will get back to you shortly. For anything time-sensitive, call or text <a href="tel:5614066123" style={{ color: 'var(--renu-espresso)' }}>561-406-6123</a>.</p>
       </div>
     );
   }
@@ -38,7 +38,7 @@ export default function ContactForm() {
   return (
     <div>
       <h2 className="detail-h2">Send us a message</h2>
-      <p className="detail-treats__p" style={{ marginBottom: 20 }}>For appointment requests, the <a href="/book/" style={{ color: 'var(--renu-purple)' }}>booking form</a> gets Dr. Barrett&apos;s office back to you faster. Use this for everything else.</p>
+      <p className="detail-treats__p" style={{ marginBottom: 20 }}>For appointment requests, the <a href="/book/" style={{ color: 'var(--renu-bronze)' }}>booking form</a> gets Dr. Barrett&apos;s office back to you faster. Use this for everything else.</p>
 
       <form onSubmit={handleSubmit} noValidate>
         <div className="form-grid" style={{ marginBottom: 18 }}>

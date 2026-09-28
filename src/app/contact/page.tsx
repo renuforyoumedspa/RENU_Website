@@ -17,11 +17,11 @@ function formatReviewLine(review: { count: number; rating: number }) {
 export default function ContactPage() {
   return (
     <>
-      <section className="page-header">
+      <section className="page-header page-header--dark">
         <div className="page-header__inner">
           <span className="page-header__eyebrow">Contact Us</span>
           <h1 className="page-header__title">Two clinics, twenty minutes apart.</h1>
-          <p className="page-header__lead">Same team, same physician, same treatments at both locations. Call or text <a href="tel:5614066123" style={{ color: 'var(--renu-purple)' }}>561-406-6123</a>, or send a message below.</p>
+          <p className="page-header__lead">Same team, same physician, same treatments at both locations. Call or text <a href="tel:5614066123">561-406-6123</a>, or send a message below.</p>
         </div>
       </section>
 

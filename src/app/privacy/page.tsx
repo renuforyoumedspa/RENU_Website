@@ -60,7 +60,7 @@ export default function PrivacyPage() {
 
             <div className="financing-panel" style={{ marginTop: 24 }}>
               <div className="contact-panel__row"><strong>Phone</strong><a href="tel:5614066123">561-406-6123</a></div>
-              <div className="contact-panel__row" style={{ marginTop: 14 }}><strong>Email</strong><a href="mailto:info@RENUforyou.com" style={{ color: 'var(--renu-purple)' }}>info@RENUforyou.com</a></div>
+              <div className="contact-panel__row" style={{ marginTop: 14 }}><strong>Email</strong><a href="mailto:info@RENUforyou.com" style={{ color: 'var(--renu-bronze)' }}>info@RENUforyou.com</a></div>
               <div className="contact-panel__row" style={{ marginTop: 14 }}><strong>Stuart</strong><span>845 SE Osceola Street, Stuart, FL 34994</span></div>
               <div className="contact-panel__row" style={{ marginTop: 14 }}><strong>Tequesta</strong><span>304 Tequesta Drive, Suite 300, Tequesta, FL 33469</span></div>
             </div>

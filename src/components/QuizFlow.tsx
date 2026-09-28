@@ -38,7 +38,7 @@ export default function QuizFlow({ treatments }: { treatments: Treatment[] }) {
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24, animation: 'renuFade 320ms ease both' }}>
-        <span style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--renu-mauve-deep)' }}>Your assessment</span>
+        <span style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--renu-taupe-deep)' }}>Your assessment</span>
         <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 'var(--weight-regular)', fontSize: 'clamp(1.75rem, 1.4rem + 1.7vw, 2.5rem)', margin: 0 }}>
           For {concern.toLowerCase()}, start here.
         </h2>
@@ -66,7 +66,7 @@ export default function QuizFlow({ treatments }: { treatments: Treatment[] }) {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 30 }}>
       <div className="quiz-progress-track"><div className="quiz-progress-fill" style={{ width: `${Math.round((idx / QUIZ.length) * 100)}%` }} /></div>
-      <span style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--renu-mauve-soft)' }}>Question {idx + 1} of {QUIZ.length}</span>
+      <span style={{ fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.06em', color: 'var(--renu-taupe)' }}>Question {idx + 1} of {QUIZ.length}</span>
       <h2 style={{ fontFamily: 'var(--font-display)', fontWeight: 'var(--weight-regular)', fontSize: 'clamp(1.625rem, 1.3rem + 1.6vw, 2.375rem)', lineHeight: 1.2, margin: 0 }}>
         {q.q}
       </h2>

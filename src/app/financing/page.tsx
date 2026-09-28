@@ -32,7 +32,7 @@ export default function FinancingPage() {
             <a href="https://www.carecredit.com/apply/" target="_blank" rel="noopener" className="btn btn--primary">Apply Now with CareCredit®</a>
           </div>
 
-          <p className="detail-treats__p" style={{ marginTop: 28 }}>Dr. Valerie Barrett offers CareCredit® financing to patients in Jupiter, Port St. Lucie, Stuart, Tequesta, Palm Beach Gardens, and nearby Florida areas. <Link href="/contact/" style={{ color: 'var(--renu-purple)' }}>Contact us</Link> for a complimentary consultation and cost estimate.</p>
+          <p className="detail-treats__p" style={{ marginTop: 28 }}>Dr. Valerie Barrett offers CareCredit® financing to patients in Jupiter, Port St. Lucie, Stuart, Tequesta, Palm Beach Gardens, and nearby Florida areas. <Link href="/contact/" style={{ color: 'var(--renu-bronze)' }}>Contact us</Link> for a complimentary consultation and cost estimate.</p>
 
           <p className="financing-disclaimer">&quot;Apply Now&quot; currently links to CareCredit&apos;s general application — confirm and swap in RENU&apos;s own practice-specific CareCredit application link before this ships, so applications are credited to the correct provider.</p>
         </div>

@@ -13,7 +13,7 @@ export default async function ShopPage() {
 
   return (
     <>
-      <section className="page-header">
+      <section className="page-header page-header--bronze">
         <div className="page-header__inner">
           <span className="page-header__eyebrow">Shop</span>
           <h1 className="page-header__title">Medical-grade skincare, same shelf as the clinic.</h1>
