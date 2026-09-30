@@ -11,11 +11,18 @@ import path from 'node:path';
 // unrelated to anything in our own code). Config files should generally
 // stay free of importing app source for exactly this kind of reason.
 //
-// Redirects now come from a plain static JSON file instead — no bundling,
-// no TypeScript resolution, just a file read. legacy-redirects.json is
-// empty for now (no real Sanity project/legacy URL data exists yet); once
-// that data exists, regenerate this file with a script that fetches from
-// Sanity and writes plain JSON, then re-import here unchanged.
+// Redirects come from a plain static JSON file instead — no bundling, no
+// TypeScript resolution, just a file read.
+//
+// legacy-redirects.json maps ~350 URLs from the old WordPress site at
+// renuforyou.com to their closest page here, so the rankings and backlinks
+// those URLs earned carry over (301/308 passes them on; a 404 drops them).
+// Built Sept 2026 from: the Wayback Machine's full URL history for the
+// domain, the links on the old homepage's last archived version (Oct 2025),
+// and the URLs Google was showing in search results at launch. Services the
+// practice no longer offers point at /treatments/. To add one later, add a
+// { "source": "/old-path", "destination": "/new-path/" } entry — sources
+// are written without a trailing slash; both forms match.
 function readLegacyRedirects(): { source: string; destination: string }[] {
   try {
     const file = path.join(process.cwd(), 'legacy-redirects.json');
@@ -29,6 +36,13 @@ const nextConfig: NextConfig = {
   // Overridable so a production build can be checked locally (e.g.
   // NEXT_DIST_DIR=.next-check) without clobbering a running dev server's .next.
   distDir: process.env.NEXT_DIST_DIR || '.next',
+
+  // Every page is served at its trailing-slash URL (/treatments/botox/),
+  // matching the site's internal links, canonical tags and sitemap, and the
+  // old WordPress URL style. Without this, pages were served without the
+  // slash while canonicals pointed at the slash form — i.e. every canonical
+  // pointed at a redirect, which tells Google the canonical is wrong.
+  trailingSlash: true,
 
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'cdn.sanity.io' }]
@@ -45,7 +59,13 @@ const nextConfig: NextConfig = {
       // Shop removed from the public site (client request). Product data is
       // still in Sanity; old /shop links land on the homepage, not a 404.
       { source: '/shop', destination: '/', permanent: false },
-      ...readLegacyRedirects().map(({ source, destination }) => ({ source, destination, permanent: true }))
+      // `{/}?` matches the old URL with or without its trailing slash, so each
+      // lands on its new page in a single hop. .html paths never had one.
+      ...readLegacyRedirects().map(({ source, destination }) => ({
+        source: /\.[a-z]+$/i.test(source) ? source : `${source}{/}?`,
+        destination,
+        permanent: true
+      }))
     ];
   }
 };

@@ -3,8 +3,8 @@ import { getAllTreatments } from '@/sanity/lib/queries';
 import QuizFlow from '@/components/QuizFlow';
 
 export const metadata: Metadata = {
-  title: 'Find My Treatment',
-  description: 'A four-question self-assessment pointing you toward the right RENU treatment. No email required.',
+  title: 'Find My Treatment: Free 60-Second Skin Assessment',
+  description: 'Answer four quick questions and get matched with the right non-surgical treatment at RENU Medical Aesthetics in Stuart and Tequesta, FL. No email required.',
   alternates: { canonical: '/find-my-treatment/' }
 };
 

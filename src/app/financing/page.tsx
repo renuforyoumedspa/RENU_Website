@@ -3,8 +3,8 @@ import Link from 'next/link';
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Financing',
-  description: 'Aesthetic treatment financing through CareCredit® at RENU Medical Aesthetics.',
+  title: 'Med Spa Financing with CareCredit®',
+  description: 'Finance Botox®, fillers, laser and other aesthetic treatments with CareCredit® at RENU Medical Aesthetics in Stuart and Tequesta, FL. Plans of 6, 12, 18 or 24 months.',
   alternates: { canonical: '/financing/' }
 };
 

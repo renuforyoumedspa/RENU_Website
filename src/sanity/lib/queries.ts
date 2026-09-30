@@ -19,6 +19,8 @@ export interface BeforeAfterEntry {
 
 export interface Treatment {
   _id: string;
+  _updatedAt?: string; // set by Sanity; feeds the sitemap's <lastmod>
+
   name: string;
   slug: string;
   legacyUrls?: string[];
@@ -64,6 +66,8 @@ export interface BlogPost {
   description: string;
   pubDate: string;
   heroImage?: unknown;
+  tags?: string[];
+  _updatedAt?: string;
   draft: boolean;
   body?: unknown;
 }
@@ -83,7 +87,7 @@ export interface Product {
 // consuming component from having to know Sanity's slug-is-an-object
 // shape — same flat shape the old treatments-data.js array had.
 const TREATMENT_PROJECTION = `{
-  _id, name, "slug": slug.current, legacyUrls, areas, concerns, techs, cta, blurb, image, contentImage,
+  _id, _updatedAt, name, "slug": slug.current, legacyUrls, areas, concerns, techs, cta, blurb, image, contentImage,
   facts, beforeAfters, visitSteps, faqs, body
 }`;
 
@@ -124,13 +128,16 @@ export async function getQuizRecommendations(concern: string, noDowntime: boolea
   return ordered.slice(0, limit);
 }
 
-const BLOG_PROJECTION = `{ _id, title, "slug": slug.current, description, pubDate, heroImage, draft, body }`;
+// List view skips `body` — the blog index, sitemap and static params only
+// need card fields, and bodies are the heavy part.
+const BLOG_LIST_PROJECTION = `{ _id, _updatedAt, title, "slug": slug.current, description, pubDate, heroImage, tags, draft }`;
+const BLOG_PROJECTION = `{ _id, _updatedAt, title, "slug": slug.current, description, pubDate, heroImage, tags, draft, body }`;
 
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
   if (!isSanityConfigured) {
     return MOCK_BLOG_POSTS.filter((p) => !p.draft).sort((a, b) => new Date(b.pubDate).getTime() - new Date(a.pubDate).getTime());
   }
-  return client.fetch(`*[_type == "blogPost" && draft != true] | order(pubDate desc) ${BLOG_PROJECTION}`);
+  return client.fetch(`*[_type == "blogPost" && draft != true] | order(pubDate desc) ${BLOG_LIST_PROJECTION}`);
 }
 
 export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {

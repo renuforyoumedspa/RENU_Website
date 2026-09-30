@@ -4,8 +4,8 @@ import { getAllTreatments } from '@/sanity/lib/queries';
 import TreatmentsGrid from '@/components/TreatmentsGrid';
 
 export const metadata: Metadata = {
-  title: 'All Treatments',
-  description: 'Every treatment RENU Medical Aesthetics offers, filterable by area, concern, and technology.',
+  title: 'Med Spa Treatments in Stuart & Tequesta, FL',
+  description: 'Every non-surgical treatment at RENU Medical Aesthetics: Botox®, dermal fillers, RENUlift™, Ultherapy®, laser resurfacing, microneedling and more. Serving Stuart, Tequesta, Jupiter and Port St. Lucie, FL.',
   alternates: { canonical: '/treatments/' }
 };
 

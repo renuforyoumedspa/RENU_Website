@@ -6,8 +6,8 @@ import { imageSrc } from '@/sanity/lib/image';
 import BookingLink from '@/components/BookingLink';
 
 export const metadata: Metadata = {
-  title: 'About the Practice',
-  description: 'Meet Dr. Valerie Barrett, MD and the RENU Medical Aesthetics team.',
+  title: 'Dr. Valerie Barrett, MD | About the Practice',
+  description: 'Board-certified physician Dr. Valerie Barrett founded RENU Medical Aesthetics in 2002 and personally performs every injectable and laser treatment at the Stuart and Tequesta, FL clinics.',
   alternates: { canonical: '/about/' }
 };
 

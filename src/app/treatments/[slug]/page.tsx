@@ -8,6 +8,7 @@ import { imageSrc } from '@/sanity/lib/image';
 import { resolveBeforeAfter } from '@/lib/before-after';
 import { DEFAULT_VISIT_STEPS, DEFAULT_FAQS, DEFAULT_BEFORE_AFTERS, getDefaultAccordions } from '@/data/shared-content';
 import BookingLink from '@/components/BookingLink';
+import { abs, breadcrumbJsonLd, faqJsonLd, jsonLdScript } from '@/lib/seo';
 
 export async function generateStaticParams() {
   const treatments = await getAllTreatments();
@@ -18,13 +19,30 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const treatment = await getTreatmentBySlug(slug);
   if (!treatment) return {};
+  // "Botox® in Stuart & Tequesta, FL | RENU Medical Aesthetics" — the
+  // treatment + city pairing is what patients search for, and what the old
+  // site's pages ranked on.
+  const title = `${treatment.name} in Stuart & Tequesta, FL`;
+  const description = `${treatment.blurb} Performed by Dr. Valerie Barrett, MD at RENU in Stuart and Tequesta, serving Jupiter, Port St. Lucie and Palm Beach Gardens.`;
+  const image = imageSrc(treatment.image);
   return {
-    title: treatment.name,
-    description: treatment.blurb,
+    title,
+    description,
     alternates: { canonical: `/treatments/${treatment.slug}/` },
-    openGraph: { title: treatment.name, description: treatment.blurb }
+    openGraph: {
+      title,
+      description,
+      url: `/treatments/${treatment.slug}/`,
+      images: image ? [{ url: image, width: 1536, height: 1024, alt: treatment.name }] : undefined
+    }
   };
 }
+
+// schema.org only accepts these two for a cosmetic procedure's type.
+const procedureType = (techs: string[]) =>
+  techs.some((t) => t === 'Injectable' || t === 'Thread' || t === 'Microneedling')
+    ? 'https://schema.org/PercutaneousProcedure'
+    : 'https://schema.org/NoninvasiveProcedure';
 
 export default async function TreatmentDetailPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -39,20 +57,31 @@ export default async function TreatmentDetailPage({ params }: { params: Promise<
   const heroImageSrc = imageSrc(treatment.image);
   const contentImageSrc = imageSrc(treatment.contentImage);
 
-  // Structured data: helps Google understand this is a specific medical
-  // procedure page, distinct from generic marketing copy — part of
-  // "robust SEO," not just a nice-to-have.
-  const jsonLd = {
+  // Structured data: the procedure itself, the breadcrumb trail, and the
+  // Q&A that's visible on this page (the "What it treats" drop-downs plus
+  // the FAQ section) — see src/lib/seo.ts.
+  const procedureJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'MedicalProcedure',
     name: treatment.name,
     description: treatment.blurb,
-    procedureType: treatment.techs[0]
+    url: abs(`/treatments/${treatment.slug}/`),
+    image: heroImageSrc ? abs(heroImageSrc) : undefined,
+    procedureType: procedureType(treatment.techs),
+    bodyLocation: treatment.areas.join(', ')
   };
+  const breadcrumbs = breadcrumbJsonLd([
+    { name: 'Home', path: '/' },
+    { name: 'Treatments', path: '/treatments/' },
+    { name: treatment.name, path: `/treatments/${treatment.slug}/` }
+  ]);
+  const faqData = faqJsonLd([...accordions, ...faqs]);
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(procedureJsonLd)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(breadcrumbs)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLdScript(faqData)} />
 
       <nav className="detail-breadcrumb" aria-label="Breadcrumb">
         <Link href="/">Home</Link> <span className="detail-breadcrumb__sep">/</span>
@@ -121,7 +150,7 @@ export default async function TreatmentDetailPage({ params }: { params: Promise<
               <BookingLink>Book Online</BookingLink>
               <a href="tel:5614066123" className="detail-aside__call">Call 561-406-6123</a>
             </div>
-            <p className="detail-aside__note">Stuart (845 SE Osceola) or Tequesta (304 Tequesta Dr). Consults are with Dr. Barrett and include a full facial assessment — no obligation to treat that day.</p>
+            <p className="detail-aside__note">Stuart (845 SE Osceola, 772-266-4450) or Tequesta (304 Tequesta Dr, 561-406-6123). Consults are with Dr. Barrett and include a full facial assessment — no obligation to treat that day.</p>
           </aside>
         </div>
       </section>

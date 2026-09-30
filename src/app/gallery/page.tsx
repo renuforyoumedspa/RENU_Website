@@ -4,8 +4,8 @@ import GalleryMasonry from '@/components/GalleryMasonry';
 import BookingLink from '@/components/BookingLink';
 
 export const metadata: Metadata = {
-  title: 'Gallery',
-  description: 'Photos and real patient reviews from RENU Medical Aesthetics in Stuart and Tequesta, FL.',
+  title: 'Patient Reviews & Gallery',
+  description: 'Real patient reviews and a look inside RENU Medical Aesthetics, rated 5 stars by patients in Stuart, Tequesta and Jupiter, FL.',
   alternates: { canonical: '/gallery/' }
 };
 

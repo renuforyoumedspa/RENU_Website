@@ -1,1 +1,1402 @@
-[]
+[
+  {
+    "source": "/111-2",
+    "destination": "/"
+  },
+  {
+    "source": "/185",
+    "destination": "/"
+  },
+  {
+    "source": "/2012/12",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/2013/01",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/2013/02",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/2013/04",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/2013/05",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/2013/06",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/2013/08",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/2013/09",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/405",
+    "destination": "/"
+  },
+  {
+    "source": "/5-surprising-long-term-effects-of-botox-jupiter-and-stuart-need-to-know",
+    "destination": "/blog/5-surprising-long-term-effects-of-botox-jupiter-and-stuart-need-to-know/"
+  },
+  {
+    "source": "/50-years-old-8-point-face-lift-cost",
+    "destination": "/treatments/renulift/"
+  },
+  {
+    "source": "/6-surprising-facts-about-botox-in-jupiter-and-stuart",
+    "destination": "/blog/6-surprising-facts-about-botox-in-jupiter-and-stuart/"
+  },
+  {
+    "source": "/about-us",
+    "destination": "/about/"
+  },
+  {
+    "source": "/about-valerie-barrett",
+    "destination": "/about/"
+  },
+  {
+    "source": "/about_us.html",
+    "destination": "/about/"
+  },
+  {
+    "source": "/acne-scarring",
+    "destination": "/treatments/acnescar/"
+  },
+  {
+    "source": "/acne-treatments-jupiter",
+    "destination": "/treatments/acnescar/"
+  },
+  {
+    "source": "/advanced-laser-peel-treatment-for-co2-resurfacing-of-skin",
+    "destination": "/treatments/resurfacing/"
+  },
+  {
+    "source": "/aesthetic-procedures-for-different-life-stages",
+    "destination": "/blog/aesthetic-procedures-for-different-life-stages/"
+  },
+  {
+    "source": "/aesthetic-services-jupiter-stuart",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/aesthetic-services-jupiter-stuart-port-st-lucie",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/aesthetic-trends-of-2023-whats-hot-and-whats-not",
+    "destination": "/blog/aesthetic-trends-of-2023-whats-hot-and-whats-not/"
+  },
+  {
+    "source": "/all-about-sunscreen",
+    "destination": "/about/"
+  },
+  {
+    "source": "/amazing-botox-aesthetic-jupiter-stuart",
+    "destination": "/treatments/botox/"
+  },
+  {
+    "source": "/are-latisse-eyelash-results-permanent-in-jupiter-fl",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/ask-the-doctor",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/baby-botox-is-popular-pre-juventation-among-millenials",
+    "destination": "/blog/baby-botox-is-popular-pre-juventation-among-millenials/"
+  },
+  {
+    "source": "/beauty-boot-camp",
+    "destination": "/"
+  },
+  {
+    "source": "/before-after-botox-dyport-xeomin-jupiter",
+    "destination": "/treatments/xeomin/"
+  },
+  {
+    "source": "/before-after-butt-lift-treatment-jupiter",
+    "destination": "/treatments/buttlift/"
+  },
+  {
+    "source": "/before-after-cellulite-treatment-jupiter",
+    "destination": "/treatments/cellulite/"
+  },
+  {
+    "source": "/before-after-kybella-jupiter",
+    "destination": "/treatments/kybella/"
+  },
+  {
+    "source": "/before-after-laser-skin-resurfacing-jupiter",
+    "destination": "/treatments/resurfacing/"
+  },
+  {
+    "source": "/before-after-laser-skin-tightening-jupiter",
+    "destination": "/treatments/tightening/"
+  },
+  {
+    "source": "/before-after-medical-spa-jupiter",
+    "destination": "/gallery/"
+  },
+  {
+    "source": "/before-after-microneedling-jupiter",
+    "destination": "/treatments/microneedling/"
+  },
+  {
+    "source": "/before-after-radiesse-jupiter",
+    "destination": "/treatments/radiesse/"
+  },
+  {
+    "source": "/before-after-renu-laser-jupiter",
+    "destination": "/treatments/coollaser/"
+  },
+  {
+    "source": "/before-after-sculptra-jupiter",
+    "destination": "/treatments/sculptra/"
+  },
+  {
+    "source": "/before-after-ultherapy-jupiter",
+    "destination": "/treatments/ultherapy/"
+  },
+  {
+    "source": "/belotera",
+    "destination": "/treatments/belotero/"
+  },
+  {
+    "source": "/belotero-eyes-in-jupiter-and-port-st-lucie-fl",
+    "destination": "/blog/belotero-eyes-in-jupiter-and-port-st-lucie-fl/"
+  },
+  {
+    "source": "/belotero-in-stuart-and-jupiter",
+    "destination": "/treatments/belotero/"
+  },
+  {
+    "source": "/belotero-jupiter",
+    "destination": "/treatments/belotero/"
+  },
+  {
+    "source": "/benefits-of-a-non-surgical-facelift-in-stuart-fl",
+    "destination": "/blog/benefits-of-a-non-surgical-facelift-in-stuart-fl/"
+  },
+  {
+    "source": "/best-botox",
+    "destination": "/blog/best-botox/"
+  },
+  {
+    "source": "/best-butt-lift-with-no-down-time",
+    "destination": "/treatments/buttlift/"
+  },
+  {
+    "source": "/best-filler-for-jawline-contouring",
+    "destination": "/treatments/restylane/"
+  },
+  {
+    "source": "/best-non-invasive-anti-aging-treatments",
+    "destination": "/treatments/?concern=Lines+%26+wrinkles"
+  },
+  {
+    "source": "/blog/2012/12/04/november-specials",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/blog/2013/01/18/first-blog-of-the-new-year",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/blog/2013/01/22/all-about-sunscreen",
+    "destination": "/about/"
+  },
+  {
+    "source": "/blog/2013/01/24/hello-from-aurelia",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/body-3",
+    "destination": "/treatments/tightening/"
+  },
+  {
+    "source": "/body-sculpting-jupiter",
+    "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/body-sculpting",
+    "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/body-sculting-plastic-surgery-alternatives-in-tequesta-fl",
+    "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/body",
+    "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/botox-before-and-after-pictures-in-jupiter-and-port-st-lucie-fl-2",
+    "destination": "/treatments/botox/"
+  },
+  {
+    "source": "/botox-before-and-after-pictures-in-jupiter-and-port-st-lucie-fl",
+    "destination": "/treatments/botox/"
+  },
+  {
+    "source": "/botox-jupiter",
+    "destination": "/treatments/botox/"
+  },
+  {
+    "source": "/botox-landing-page",
+    "destination": "/treatments/botox/"
+  },
+  {
+    "source": "/botox-radiesse-juvederm-tequesta-non-surgical-facelift",
+    "destination": "/treatments/radiesse/"
+  },
+  {
+    "source": "/botox.html",
+    "destination": "/treatments/botox/"
+  },
+  {
+    "source": "/botox",
+    "destination": "/treatments/botox/"
+  },
+  {
+    "source": "/bridal-makeover-jupiter",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/brow-lift-jupiter",
+    "destination": "/treatments/browlift/"
+  },
+  {
+    "source": "/browlift-in-stuart-and-jupiter",
+    "destination": "/treatments/browlift/"
+  },
+  {
+    "source": "/butt-lift",
+    "destination": "/treatments/buttlift/"
+  },
+  {
+    "source": "/category/acne-treatment",
+    "destination": "/treatments/acnescar/"
+  },
+  {
+    "source": "/category/anti-aging-skin-care-treatments",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/category/anti-aging-treatment",
+    "destination": "/treatments/?concern=Lines+%26+wrinkles"
+  },
+  {
+    "source": "/category/best-med-spa",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/category/blog",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/category/botox",
+    "destination": "/treatments/botox/"
+  },
+  {
+    "source": "/category/cellulite-reduction-procedures",
+    "destination": "/treatments/cellulite/"
+  },
+  {
+    "source": "/category/cellulite-reduction-treatment",
+    "destination": "/treatments/cellulite/"
+  },
+  {
+    "source": "/category/cosmetic-spa",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/category/dermal-fillers",
+    "destination": "/treatments/?tech=Injectable"
+  },
+  {
+    "source": "/category/easy-weight-loss",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/category/facials",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/category/high-tech-facials",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/category/juvederm",
+    "destination": "/treatments/juvederm/"
+  },
+  {
+    "source": "/category/laser-hair-removal",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/category/laser-lipo",
+    "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/category/laser-treatments",
+    "destination": "/treatments/?tech=Laser"
+  },
+  {
+    "source": "/category/lip-wrinkle-treatments",
+    "destination": "/treatments/lips/"
+  },
+  {
+    "source": "/category/med-spa",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/category/microdermabrasion",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/category/non-invasive-liposuction",
+    "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/category/non-surgical-cosmetic-treatment",
+    "destination": "/treatments/?concern=Lines+%26+wrinkles"
+  },
+  {
+    "source": "/category/non-surgical",
+    "destination": "/treatments/?concern=Lines+%26+wrinkles"
+  },
+  {
+    "source": "/category/oxygen-facial",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/category/profrectional-laser-treatment",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/category/radiesse",
+    "destination": "/treatments/radiesse/"
+  },
+  {
+    "source": "/category/skin-care-treatments",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/category/skin-resurfacing",
+    "destination": "/treatments/resurfacing/"
+  },
+  {
+    "source": "/category/stretch-mark-reduction",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/category/thermage",
+    "destination": "/treatments/tightening/"
+  },
+  {
+    "source": "/category/uncategorized",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/category/weight-loss",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/category/wrinkle-reduction-without-surgery",
+    "destination": "/treatments/?concern=Lines+%26+wrinkles"
+  },
+  {
+    "source": "/category/wrinkle-treatment",
+    "destination": "/treatments/?concern=Lines+%26+wrinkles"
+  },
+  {
+    "source": "/cellulite-reduction",
+    "destination": "/treatments/cellulite/"
+  },
+  {
+    "source": "/cellulite-treatment-jupiter",
+    "destination": "/treatments/cellulite/"
+  },
+  {
+    "source": "/chemical-peels-jupiter",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/chempeel.html",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/chiropractic-care",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/choosing-an-aesthetic-practitioner",
+    "destination": "/blog/choosing-an-aesthetic-practitioner/"
+  },
+  {
+    "source": "/choosing-an-aesthetic-practitioner-key-considerations",
+    "destination": "/blog/choosing-an-aesthetic-practitioner-key-considerations/"
+  },
+  {
+    "source": "/client-appreciation-day-open-house",
+    "destination": "/"
+  },
+  {
+    "source": "/community",
+    "destination": "/about/"
+  },
+  {
+    "source": "/contact-us-or-book-now",
+    "destination": "/contact/"
+  },
+  {
+    "source": "/contact-us",
+    "destination": "/contact/"
+  },
+  {
+    "source": "/contact.html",
+    "destination": "/contact/"
+  },
+  {
+    "source": "/cool-laser-",
+    "destination": "/treatments/coollaser/"
+  },
+  {
+    "source": "/cool-laser",
+    "destination": "/treatments/coollaser/"
+  },
+  {
+    "source": "/cool-peel-laser",
+    "destination": "/treatments/coollaser/"
+  },
+  {
+    "source": "/cool-peel-laser-skin-rejuvenation",
+    "destination": "/blog/cool-peel-laser-skin-rejuvenation/"
+  },
+  {
+    "source": "/cool-peel-laser-slow-down-aging",
+    "destination": "/blog/cool-peel-laser-slow-down-aging/"
+  },
+  {
+    "source": "/current-specials",
+    "destination": "/"
+  },
+  {
+    "source": "/deep-tissue-laser-for-pain-and-inflammation",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/dermal-fillers-injectables-jupiter",
+    "destination": "/treatments/?tech=Injectable"
+  },
+  {
+    "source": "/dermaplaing-in-stuart-and-jupiter",
+    "destination": "/treatments/dermaplane/"
+  },
+  {
+    "source": "/dermaplaning-jupiter",
+    "destination": "/treatments/dermaplane/"
+  },
+  {
+    "source": "/discover-botox-in-stuart",
+    "destination": "/blog/discover-botox-in-stuart/"
+  },
+  {
+    "source": "/dot-fractional-co2-laser",
+    "destination": "/treatments/resurfacing/"
+  },
+  {
+    "source": "/dot-laser-lunchtime-peel",
+    "destination": "/treatments/resurfacing/"
+  },
+  {
+    "source": "/dottherapy.html",
+    "destination": "/treatments/resurfacing/"
+  },
+  {
+    "source": "/dysport-before-and-after-pictures-in-jupiter-and-port-st-lucie-fl-2",
+    "destination": "/treatments/dysport/"
+  },
+  {
+    "source": "/dysport-jupiter",
+    "destination": "/treatments/dysport/"
+  },
+  {
+    "source": "/dysport",
+    "destination": "/treatments/dysport/"
+  },
+  {
+    "source": "/earlobe-rejuvenation",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/effective-acne-treatments-in-jupiter-fl",
+    "destination": "/blog/effective-acne-treatments-in-jupiter-fl/"
+  },
+  {
+    "source": "/endymed.html",
+    "destination": "/treatments/tightening/"
+  },
+  {
+    "source": "/endymed",
+    "destination": "/treatments/tightening/"
+  },
+  {
+    "source": "/events",
+    "destination": "/"
+  },
+  {
+    "source": "/eventspromoswhats-nu",
+    "destination": "/"
+  },
+  {
+    "source": "/eyes-beleph-renu",
+    "destination": "/treatments/eyelid/"
+  },
+  {
+    "source": "/eyes-renu",
+    "destination": "/treatments/eyelid/"
+  },
+  {
+    "source": "/face-lifts-non-surgical-solutions",
+    "destination": "/blog/face-lifts-non-surgical-solutions/"
+  },
+  {
+    "source": "/face",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/facial-treatments-jupiter",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/facial-vessels-2",
+    "destination": "/treatments/pigment/"
+  },
+  {
+    "source": "/facial-vessels",
+    "destination": "/treatments/pigment/"
+  },
+  {
+    "source": "/facials-jupiter",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/facials.html",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/filler.html",
+    "destination": "/treatments/?tech=Injectable"
+  },
+  {
+    "source": "/find-out-how-khloe-kardashian-lost-all-those-inches-an-alternative-to-traditional-liposuction",
+    "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/full-service-and-more",
+    "destination": "/"
+  },
+  {
+    "source": "/get-amazing-botox-near-me-jupiter-stuartstuart-botox-near-me",
+    "destination": "/treatments/botox/"
+  },
+  {
+    "source": "/get-event-ready",
+    "destination": "/"
+  },
+  {
+    "source": "/hair-growth-supplements-jupiter",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/hair-growth-with-exosomes",
+    "destination": "/blog/hair-growth-with-exosomes/"
+  },
+  {
+    "source": "/hair-loss-in-women-jupiter",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/hair-loss-treatments-jupiter",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/hair.html",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/home-facials-vs-med-spa-facials-in-jupiter-fl",
+    "destination": "/blog/home-facials-vs-med-spa-facials-in-jupiter-fl/"
+  },
+  {
+    "source": "/how-long-does-botox-last",
+    "destination": "/blog/how-long-does-botox-last/"
+  },
+  {
+    "source": "/how-to-get-rid-of-cellulite-with-ilipo-laser-in-stuart-fl",
+    "destination": "/blog/how-to-get-rid-of-cellulite-with-ilipo-laser-in-stuart-fl/"
+  },
+  {
+    "source": "/ilipo.html",
+    "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/index.html",
+    "destination": "/"
+  },
+  {
+    "source": "/introducing",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/ipl-photofacial-jupiter",
+    "destination": "/treatments/pigment/"
+  },
+  {
+    "source": "/is-clinical-3",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/is-clinical",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/jessica-alba-shines-after-her-lipo-laser-treatments",
+    "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/jupiter-and-stuart-residents-wonder-botox-vs-dysport-vs-xeomin",
+    "destination": "/blog/jupiter-and-stuart-residents-wonder-botox-vs-dysport-vs-xeomin/"
+  },
+  {
+    "source": "/jupiter-millennials-over-doing-it-botox",
+    "destination": "/blog/jupiter-millennials-over-doing-it-botox/"
+  },
+  {
+    "source": "/jupiter-millennials-using-botox-for-anti-aging",
+    "destination": "/blog/jupiter-millennials-using-botox-for-anti-aging/"
+  },
+  {
+    "source": "/jupiter-residents-ask-are-prp-injections-painful",
+    "destination": "/blog/jupiter-residents-ask-are-prp-injections-painful/"
+  },
+  {
+    "source": "/jupiter-residents-ask-does-microneedling-reduce-wrinkles",
+    "destination": "/blog/jupiter-residents-ask-does-microneedling-reduce-wrinkles/"
+  },
+  {
+    "source": "/jupiter-residents-ask-how-long-does-it-take-to-see-microneedling-results",
+    "destination": "/blog/jupiter-residents-ask-how-long-does-it-take-to-see-microneedling-results/"
+  },
+  {
+    "source": "/jupiter-residents-ask-is-botox-safe",
+    "destination": "/blog/jupiter-residents-ask-is-botox-safe/"
+  },
+  {
+    "source": "/jupiter-residents-ask-what-are-the-benefits-of-a-non-surgical-neck-lift",
+    "destination": "/blog/jupiter-residents-ask-what-are-the-benefits-of-a-non-surgical-neck-lift/"
+  },
+  {
+    "source": "/jupiter-residents-ask-where-can-ultherapy-be-performed",
+    "destination": "/blog/jupiter-residents-ask-where-can-ultherapy-be-performed/"
+  },
+  {
+    "source": "/jupiter-residents-wonder-what-my-personal-skin-care-regimen-is",
+    "destination": "/blog/jupiter-residents-wonder-what-my-personal-skin-care-regimen-is/"
+  },
+  {
+    "source": "/jupiter-tequesta",
+    "destination": "/contact/"
+  },
+  {
+    "source": "/jupiteresidents-wonder-botox-vs-dysport",
+    "destination": "/blog/jupiteresidents-wonder-botox-vs-dysport/"
+  },
+  {
+    "source": "/juvederm-jupiter",
+    "destination": "/treatments/juvederm/"
+  },
+  {
+    "source": "/juvederm-ultra",
+    "destination": "/treatments/juvederm/"
+  },
+  {
+    "source": "/ktplaser.html",
+    "destination": "/treatments/pigment/"
+  },
+  {
+    "source": "/kybella",
+    "destination": "/treatments/kybella/"
+  },
+  {
+    "source": "/kybella-jupiter",
+    "destination": "/treatments/kybella/"
+  },
+  {
+    "source": "/kysse-and-botox-are-most-popular-among-young-women",
+    "destination": "/blog/kysse-and-botox-are-most-popular-among-young-women/"
+  },
+  {
+    "source": "/laser-body-sculpting-vs-traditional-liposuction",
+    "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/laser-eyelid-tightening",
+    "destination": "/treatments/eyelid/"
+  },
+  {
+    "source": "/laser-hair-growth-jupiter",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/laser-hair-removal-jupiter",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/laser-hair-removal",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/laser-lipo-jupiter",
+    "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/laser-resurfacing",
+    "destination": "/treatments/resurfacing/"
+  },
+  {
+    "source": "/laser-skin-resurfacing-in-jupiter-and-stuart",
+    "destination": "/treatments/resurfacing/"
+  },
+  {
+    "source": "/laser-skin-resurfacing-jupiter",
+    "destination": "/treatments/resurfacing/"
+  },
+  {
+    "source": "/laser-treatments-jupiter",
+    "destination": "/treatments/?tech=Laser"
+  },
+  {
+    "source": "/lasers-injectables",
+    "destination": "/treatments/?tech=Injectable"
+  },
+  {
+    "source": "/latisse-jupiter",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/lip-filler-how-it-creats-perfict-pout",
+    "destination": "/blog/lip-filler-how-it-creats-perfict-pout/"
+  },
+  {
+    "source": "/lip-fillers-before-and-after-pictures-in-jupiter-and-port-st-lucie-fl",
+    "destination": "/treatments/lips/"
+  },
+  {
+    "source": "/lip-fillers-before-and-after-pictures-jupiter-stuart-port-st-lucie",
+    "destination": "/treatments/lips/"
+  },
+  {
+    "source": "/lip-fillers-jupiter",
+    "destination": "/treatments/lips/"
+  },
+  {
+    "source": "/lip-injections-before-after-results",
+    "destination": "/blog/lip-injections-before-after-results/"
+  },
+  {
+    "source": "/lip-injections-jupiter",
+    "destination": "/treatments/lips/"
+  },
+  {
+    "source": "/lips",
+    "destination": "/treatments/lips/"
+  },
+  {
+    "source": "/liquid-facelift-port-st-lucie",
+    "destination": "/treatments/renulift/"
+  },
+  {
+    "source": "/liquidfacelift.html",
+    "destination": "/treatments/renulift/"
+  },
+  {
+    "source": "/locations",
+    "destination": "/contact/"
+  },
+  {
+    "source": "/male-hair-restoration",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/male-nonsurgical-aesthetic-treatment-hair-growth",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/male-nonsurgical-aesthetic-treatments-jupiter",
+    "destination": "/treatments/?concern=Lines+%26+wrinkles"
+  },
+  {
+    "source": "/male-pattern-baldness",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/male-pattern-baldness-jupiter",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/male-plastic-surgery-jupiter",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/massage.html",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/massage",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/medical-spa-botox-body-sculpting-in-jupiter-and-port-st-lucie-fl",
+    "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/medical-spa-jupiter",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/medical-spa-skin-specialist-in-tequesta-and-jupiter-facials-and-skin-care",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/medical-spa-stuart",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/medical-spa-tequesta",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/medicalweightloss.html",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/meet-our-staff",
+    "destination": "/about/"
+  },
+  {
+    "source": "/meet-valerie-barrett-md",
+    "destination": "/about/"
+  },
+  {
+    "source": "/membership-page",
+    "destination": "/"
+  },
+  {
+    "source": "/mens-procedures-new",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/microneedling-is-great-for-skin-care",
+    "destination": "/blog/microneedling-is-great-for-skin-care/"
+  },
+  {
+    "source": "/microneedling-jupiter",
+    "destination": "/treatments/microneedling/"
+  },
+  {
+    "source": "/microneedling-ruined-my-skin",
+    "destination": "/treatments/microneedling/"
+  },
+  {
+    "source": "/microneedling",
+    "destination": "/treatments/microneedling/"
+  },
+  {
+    "source": "/monthly-specials",
+    "destination": "/"
+  },
+  {
+    "source": "/neck-lift-jupiter",
+    "destination": "/treatments/necklift/"
+  },
+  {
+    "source": "/necklift-in-stuart-and-jupiter",
+    "destination": "/treatments/necklift/"
+  },
+  {
+    "source": "/news.html",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/newsletter",
+    "destination": "/blog/"
+  },
+  {
+    "source": "/non-surgical-facelift-renulift",
+    "destination": "/treatments/renulift/"
+  },
+  {
+    "source": "/non-surgical-facelift",
+    "destination": "/treatments/renulift/"
+  },
+  {
+    "source": "/our-practice",
+    "destination": "/about/"
+  },
+  {
+    "source": "/patient-forms",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/pdo-thread-lift-cost",
+    "destination": "/treatments/pdo/"
+  },
+  {
+    "source": "/pdo-threads-the-latest-trends",
+    "destination": "/blog/pdo-threads-the-latest-trends/"
+  },
+  {
+    "source": "/pdo-threads",
+    "destination": "/treatments/pdo/"
+  },
+  {
+    "source": "/permanent-laser-hair-removal-in-jupiter-fl",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/permanent-laser-hair-removal-in-tequesta-fl",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/plasma-pen",
+    "destination": "/treatments/plasmapen/"
+  },
+  {
+    "source": "/popular-dermal-filler-alternatives-in-tequesta-fl",
+    "destination": "/blog/popular-dermal-filler-alternatives-in-tequesta-fl/"
+  },
+  {
+    "source": "/promotions.html",
+    "destination": "/"
+  },
+  {
+    "source": "/promotions",
+    "destination": "/"
+  },
+  {
+    "source": "/prp-injections-jupiter",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/prp-liquid-gold",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/prpinjections",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/radiesse-for-hands-stuart-florida",
+    "destination": "/treatments/radiesse/"
+  },
+  {
+    "source": "/radiesse-in-jupiter-and-stuart",
+    "destination": "/treatments/radiesse/"
+  },
+  {
+    "source": "/radiesse-jupiter",
+    "destination": "/treatments/radiesse/"
+  },
+  {
+    "source": "/radiesse-skin-tightening-in-jupiter-and-stuart",
+    "destination": "/treatments/radiesse/"
+  },
+  {
+    "source": "/radiesse",
+    "destination": "/treatments/radiesse/"
+  },
+  {
+    "source": "/radiofrequency-skin-tightening-stuart",
+    "destination": "/treatments/tightening/"
+  },
+  {
+    "source": "/regenplasma.html",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/rejuvenate-your-neck-unlocking-the-benefits-of-fractional-co2-laser",
+    "destination": "/blog/rejuvenate-your-neck-with-co2-laser/"
+  },
+  {
+    "source": "/rejuvenate-your-neck-with-co2-laser",
+    "destination": "/blog/rejuvenate-your-neck-with-co2-laser/"
+  },
+  {
+    "source": "/rentemple-lift",
+    "destination": "/treatments/templelift/"
+  },
+  {
+    "source": "/renu-brow-templeliftgallery",
+    "destination": "/treatments/templelift/"
+  },
+  {
+    "source": "/renu-facelift-jupiter",
+    "destination": "/treatments/renulift/"
+  },
+  {
+    "source": "/renu-laser-eyelid-lift-jupiter",
+    "destination": "/treatments/eyelid/"
+  },
+  {
+    "source": "/renu-lift-gallery",
+    "destination": "/treatments/renulift/"
+  },
+  {
+    "source": "/renu-lift-tm",
+    "destination": "/treatments/renulift/"
+  },
+  {
+    "source": "/renu-lift",
+    "destination": "/treatments/renulift/"
+  },
+  {
+    "source": "/renu-medical-aesthetics-in-stuart-fl",
+    "destination": "/contact/"
+  },
+  {
+    "source": "/renu-temple-lift",
+    "destination": "/treatments/templelift/"
+  },
+  {
+    "source": "/renulift",
+    "destination": "/treatments/renulift/"
+  },
+  {
+    "source": "/renulift-before-and-after-pictures-in-jupiter-and-port-st-lucie-fl",
+    "destination": "/treatments/renulift/"
+  },
+  {
+    "source": "/restalyne-lift",
+    "destination": "/treatments/lyft/"
+  },
+  {
+    "source": "/restore-your-confidence-with-vaginal-rejuvenation-in-stuart-fl",
+    "destination": "/contact/"
+  },
+  {
+    "source": "/restylane-jupiter",
+    "destination": "/treatments/restylane/"
+  },
+  {
+    "source": "/restylane-silk",
+    "destination": "/treatments/restylane/"
+  },
+  {
+    "source": "/reverse-your-aging",
+    "destination": "/treatments/?concern=Lines+%26+wrinkles"
+  },
+  {
+    "source": "/reviews",
+    "destination": "/gallery/"
+  },
+  {
+    "source": "/rsvpmaker/sculptra",
+    "destination": "/treatments/sculptra/"
+  },
+  {
+    "source": "/sculptra-jupiter",
+    "destination": "/treatments/sculptra/"
+  },
+  {
+    "source": "/sculptra-vs-radiesse",
+    "destination": "/treatments/sculptra/"
+  },
+  {
+    "source": "/sculptra",
+    "destination": "/treatments/sculptra/"
+  },
+  {
+    "source": "/sculptradone",
+    "destination": "/treatments/sculptra/"
+  },
+  {
+    "source": "/seminar-botox-in-jupiter-fl",
+    "destination": "/treatments/botox/"
+  },
+  {
+    "source": "/seminar-schedule",
+    "destination": "/"
+  },
+  {
+    "source": "/seminars",
+    "destination": "/"
+  },
+  {
+    "source": "/services.html",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/services",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/services/body-laser-contouring",
+    "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/services/botox",
+    "destination": "/treatments/botox/"
+  },
+  {
+    "source": "/services/chemical-peels",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/services/dot-fractional-co2-laser",
+    "destination": "/treatments/resurfacing/"
+  },
+  {
+    "source": "/services/endymed-3deep",
+    "destination": "/treatments/tightening/"
+  },
+  {
+    "source": "/services/facials",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/services/filler",
+    "destination": "/treatments/?tech=Injectable"
+  },
+  {
+    "source": "/services/hair-restoration",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/services/ktp-laser",
+    "destination": "/treatments/pigment/"
+  },
+  {
+    "source": "/services/liquid-facelift",
+    "destination": "/treatments/renulift/"
+  },
+  {
+    "source": "/services/massage",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/services/medical-weight-loss",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/services/regen-plasma",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/services/vampiregrowth-factor-facials",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/sitemap.html",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/skin-care-products-jupiter",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/skin-rejuvenation-port-st-lucie",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/skin-tightening-face",
+    "destination": "/treatments/ultherapy/"
+  },
+  {
+    "source": "/skin-tightening-jupiter",
+    "destination": "/treatments/tightening/"
+  },
+  {
+    "source": "/skin-tightening",
+    "destination": "/treatments/tightening/"
+  },
+  {
+    "source": "/skin",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/solutions-for-female-hair-loss-in-tequesta-fl",
+    "destination": "/blog/solutions-for-female-hair-loss-in-tequesta-fl/"
+  },
+  {
+    "source": "/specials-and-events",
+    "destination": "/"
+  },
+  {
+    "source": "/specials",
+    "destination": "/"
+  },
+  {
+    "source": "/stuart-residents-ask-how-many-treatments-are-needed-to-permanently-remove",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/stuart-residents-ask-what-to-expect-during-laser-skin-resurfacing",
+    "destination": "/blog/stuart-residents-ask-what-to-expect-during-laser-skin-resurfacing/"
+  },
+  {
+    "source": "/stuart-residents-ask-who-is-a-good-candidate-for-dermaplaning",
+    "destination": "/blog/stuart-residents-ask-who-is-a-good-candidate-for-dermaplaning/"
+  },
+  {
+    "source": "/summer-savings",
+    "destination": "/"
+  },
+  {
+    "source": "/tequesta-residents-ask-are-chemical-peels-safe-for-your-skin",
+    "destination": "/blog/tequesta-residents-ask-are-chemical-peels-safe-for-your-skin/"
+  },
+  {
+    "source": "/tequesta-residents-ask-does-botox-effectively-treat-migraines",
+    "destination": "/blog/tequesta-residents-ask-does-botox-effectively-treat-migraines/"
+  },
+  {
+    "source": "/tequesta-residents-ask-what-does-juvederm-cost-and-how-long-does-it-last",
+    "destination": "/blog/tequesta-residents-ask-what-does-juvederm-cost-and-how-long-does-it-last/"
+  },
+  {
+    "source": "/tequesta-residents-ask-who-is-a-good-candidate-for-an-ipl-photofacial",
+    "destination": "/blog/tequesta-residents-ask-who-is-a-good-candidate-for-an-ipl-photofacial/"
+  },
+  {
+    "source": "/tequesta",
+    "destination": "/contact/"
+  },
+  {
+    "source": "/testimonialsnew",
+    "destination": "/gallery/"
+  },
+  {
+    "source": "/the-science-behind-ultherapy-tighten-your-skin",
+    "destination": "/blog/the-science-behind-ultherapy-tighten-your-skin/"
+  },
+  {
+    "source": "/tighten-skin-jupiter-port-st-lucie",
+    "destination": "/treatments/tightening/"
+  },
+  {
+    "source": "/ultherapy-booking",
+    "destination": "/treatments/ultherapy/"
+  },
+  {
+    "source": "/ultherapy-brow-lift-cost",
+    "destination": "/treatments/ultherapy/"
+  },
+  {
+    "source": "/ultherapy-face-lift-cost",
+    "destination": "/treatments/ultherapy/"
+  },
+  {
+    "source": "/ultherapy-in-jupiter-stuart-port-st-lucie",
+    "destination": "/treatments/ultherapy/"
+  },
+  {
+    "source": "/ultherapy-jupiter",
+    "destination": "/treatments/ultherapy/"
+  },
+  {
+    "source": "/ultherapy",
+    "destination": "/treatments/ultherapy/"
+  },
+  {
+    "source": "/vaginal-rejuvenation-jupiter",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/vampire.html",
+    "destination": "/treatments/hair/"
+  },
+  {
+    "source": "/versa-before-and-after-pictures-in-jupiter-and-port-st-lucie-fl",
+    "destination": "/treatments/tightening/"
+  },
+  {
+    "source": "/vevivere",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/videos",
+    "destination": "/gallery/"
+  },
+  {
+    "source": "/videos/renu-movie-theater-spot-lr-2",
+    "destination": "/gallery/"
+  },
+  {
+    "source": "/view-our-office",
+    "destination": "/about/"
+  },
+  {
+    "source": "/viveve-vaginal-rejuvenation",
+    "destination": "/treatments/"
+  },
+  {
+    "source": "/voluma",
+    "destination": "/treatments/juvederm/"
+  },
+  {
+    "source": "/weight-loss-in-tequesta-ilipo-non-surgical-laser-liposuction",
+    "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/weve-got-you-covered-hands-down",
+    "destination": "/"
+  },
+  {
+    "source": "/where-to-get-dysport-in-stuart-fl",
+    "destination": "/treatments/dysport/"
+  },
+  {
+    "source": "/why-kybella-is-your-best-nonsurgical-option-for-neck-fat-removal-in-stuart-fl",
+    "destination": "/blog/why-kybella-is-your-best-nonsurgical-option-for-neck-fat-removal-in-stuart-fl/"
+  },
+  {
+    "source": "/why-should-i-get-botox",
+    "destination": "/blog/why-should-i-get-botox/"
+  },
+  {
+    "source": "/wrinkle-treatment-palm-beach",
+    "destination": "/treatments/?concern=Lines+%26+wrinkles"
+  },
+  {
+    "source": "/xeomin-before-and-after",
+    "destination": "/treatments/xeomin/"
+  },
+  {
+    "source": "/xeomin-done",
+    "destination": "/treatments/xeomin/"
+  },
+  {
+    "source": "/xeomin-jupiter",
+    "destination": "/treatments/xeomin/"
+  },
+  {
+    "source": "/xeomin",
+    "destination": "/treatments/xeomin/"
+  },
+  {
+    "source": "/zo-skin-health",
+    "destination": "/treatments/?area=Skin"
+  }
+]

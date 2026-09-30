@@ -1,9 +1,11 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import type { Metadata } from 'next';
 import { getAllBlogPosts } from '@/sanity/lib/queries';
+import { imageSrc } from '@/sanity/lib/image';
 
 export const metadata: Metadata = {
-  title: 'Blog',
+  title: 'Med Spa Blog: Treatment Guides & Skin Care Tips',
   description: 'Treatment guides, skincare tips, and news from Dr. Barrett and the RENU team.',
   alternates: { canonical: '/blog/' }
 };
@@ -26,7 +28,9 @@ export default async function BlogIndexPage() {
       <div className="blog-grid">
         {posts.map((post) => (
           <article className="blog-card" key={post._id}>
-            <Link href={`/blog/${post.slug}/`}><div className="blog-card__media"></div></Link>
+            <Link href={`/blog/${post.slug}/`} className="blog-card__media" aria-hidden="true" tabIndex={-1}>
+              {imageSrc(post.heroImage) && <Image src={imageSrc(post.heroImage)!} alt="" fill sizes="(min-width: 1080px) 33vw, (min-width: 620px) 50vw, 90vw" />}
+            </Link>
             <div className="blog-card__body">
               <span className="blog-card__date">{dateFmt.format(new Date(post.pubDate))}</span>
               <h3 className="blog-card__title"><Link href={`/blog/${post.slug}/`} style={{ color: 'inherit' }}>{post.title}</Link></h3>

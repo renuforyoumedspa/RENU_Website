@@ -51,8 +51,8 @@ export default async function Footer() {
         <div>
           <div className="chrome-footer__heading">Clinics</div>
           <div className="chrome-footer__clinics">
-            <div>Stuart<br />845 SE Osceola Street<br />Stuart, FL 34994</div>
-            <div>Tequesta<br />304 Tequesta Drive, Suite 300<br />Tequesta, FL 33469</div>
+            <div>Stuart<br />845 SE Osceola Street<br />Stuart, FL 34994<br /><a href="tel:7722664450">772-266-4450</a></div>
+            <div>Tequesta<br />304 Tequesta Drive, Suite 300<br />Tequesta, FL 33469<br /><a href="tel:5614066123">561-406-6123</a></div>
           </div>
         </div>
       </div>

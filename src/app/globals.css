@@ -1958,3 +1958,24 @@ input { font-family: inherit; }
 .blog-post__date { font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--renu-taupe); }
 .blog-post__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(1.75rem, 1.4rem + 1.7vw, 2.75rem); margin: 10px 0 30px; }
 .blog-post__back { display: inline-block; margin-top: 40px; font-size: 13px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--renu-bronze); }
+
+/* Blog cards show the post's cover image over the striped placeholder. */
+.blog-card__media { display: block; position: relative; overflow: hidden; }
+.blog-card__media img { object-fit: cover; }
+
+/* Long-form article body (posts imported from the old site run 800-2,000
+   words with h2/h3 sections, lists, inline links and images). */
+.blog-post__figure { margin: 0 0 28px; }
+.blog-post__figure img { display: block; border-radius: 16px; }
+.blog-post__figure--hero { margin-bottom: 36px; }
+.blog-post__body h2 { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(1.4rem, 1.2rem + 0.8vw, 1.85rem); margin: 38px 0 14px; line-height: 1.2; }
+.blog-post__body h3, .blog-post__body h4 { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: 1.2rem; margin: 28px 0 10px; }
+.blog-post__body ul, .blog-post__body ol { margin: 0 0 18px; }
+.blog-post__body ul { list-style: disc; }
+.blog-post__body ol { list-style: decimal; }
+.blog-post__body li { margin-bottom: 6px; }
+.blog-post__body a { color: var(--renu-bronze); text-decoration: underline; text-underline-offset: 2px; }
+.blog-post__body a:hover { color: var(--renu-espresso); }
+.blog-post__body blockquote { margin: 24px 0; padding: 4px 0 4px 20px; border-left: 3px solid var(--renu-gold); font-style: italic; }
+.blog-post__tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 36px 0 0; }
+.blog-post__tags li { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 12px; border-radius: var(--radius-pill); background: var(--renu-champagne); color: var(--renu-espresso); }

@@ -1,12 +1,10 @@
 import type { MetadataRoute } from 'next';
-
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://renumedspa.netlify.app';
+import { SITE_URL } from '@/lib/seo';
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      { userAgent: '*', allow: '/', disallow: ['/studio/', '/privacy/'] }
-    ],
-    sitemap: `${SITE_URL}/sitemap.xml`
+    rules: [{ userAgent: '*', allow: '/', disallow: ['/privacy/'] }],
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL
   };
 }

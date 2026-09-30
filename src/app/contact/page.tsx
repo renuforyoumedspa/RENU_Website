@@ -5,8 +5,8 @@ import { REVIEWS } from '@/data/site-data';
 import BookingLink from '@/components/BookingLink';
 
 export const metadata: Metadata = {
-  title: 'Contact Us',
-  description: 'Contact RENU Medical Aesthetics — Stuart and Tequesta, FL.',
+  title: 'Contact & Locations: Stuart and Tequesta, FL',
+  description: 'Visit RENU Medical Aesthetics at 845 SE Osceola Street, Stuart, FL 34994 or 304 Tequesta Drive, Suite 300, Tequesta, FL 33469. Stuart 772-266-4450, Tequesta 561-406-6123.',
   alternates: { canonical: '/contact/' }
 };
 
@@ -34,7 +34,7 @@ export default function ContactPage() {
             <h2 className="location-card__city">Stuart</h2>
             <p className="location-card__reviews">{formatReviewLine(REVIEWS.stuart)}</p>
             <p className="location-card__address">845 Southeast Osceola Street<br />Stuart, FL 34994</p>
-            <p className="location-card__meta">Mon–Fri 9:00–5:00 · <a href="tel:5614066123">561-406-6123</a></p>
+            <p className="location-card__meta">Mon–Fri 9:00–5:00 · <a href="tel:7722664450">772-266-4450</a></p>
             <div className="location-card__actions">
               <BookingLink className="btn btn--primary">Book Online</BookingLink>
               <a href="https://www.google.com/maps/search/?api=1&query=845+Southeast+Osceola+Street%2C+Stuart%2C+FL+34994" target="_blank" rel="noopener" className="btn btn--secondary">Directions</a>
