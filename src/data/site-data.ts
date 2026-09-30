@@ -3,6 +3,12 @@
 // collection: these are form/quiz definitions and review stats, not
 // repeatable content entries.
 
+// Online booking is handled by Decoda Health (third-party). Every "Book"
+// call-to-action on the site points here via <BookingLink>. The old /book
+// path redirects here too (hardcoded separately in next.config.ts, which
+// can't import app source — keep the two in sync).
+export const BOOKING_URL = 'https://app.decodahealth.com/renu/self-schedule';
+
 export const REVIEWS = {
   stuart: { location: "Stuart", count: 181, rating: 5.0 },
   tequesta: { location: "Tequesta", count: 98, rating: 4.9 }

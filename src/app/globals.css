@@ -667,7 +667,11 @@ input { font-family: inherit; }
       background (shown briefly before the video paints) switched from
       purple-deep to the same neutral ink tone for the same reason.
    3. New brand palette (Sept 2026): overlay and fallback are now the
-      warm espresso values from "RENU Color Palette.md". */
+      warm espresso values from "RENU Color Palette.md".
+   4. Background video replaced with a still portrait (renu-hero.jpg).
+      The model sits right of center with open space on the left for the
+      headline. On phones the content drops to the bottom and the scrim
+      turns vertical so the face stays clear in the top half. */
 .hero {
   position: relative;
   /* Client feedback: taller hero, more of the video visible. Stacked
@@ -681,24 +685,23 @@ input { font-family: inherit; }
   display: flex;
   align-items: center;
   overflow: hidden;
-  background: var(--renu-espresso-mid); /* fallback — shows briefly before video/scrim paint */
+  background: var(--renu-espresso-mid); /* fallback — shows briefly before the image paints */
 }
 
-.hero__video-bg {
+.hero__media {
   position: absolute;
   inset: 0;
   z-index: 0;
 }
-.hero__video-bg video {
-  width: 100%;
-  height: 100%;
+/* Focal point = the model's face (~70% across, ~35% down in the source),
+   so cover-cropping on narrow screens keeps her in frame. */
+.hero__image {
   object-fit: cover;
-  object-position: center;
-  display: block;
+  object-position: 70% 30%;
 }
-/* Scrim — left-weighted NEUTRAL wash (105deg: mostly left-to-right, slight
+/* Scrim — left-weighted wash (105deg: mostly left-to-right, slight
    downward tilt), strongest where the text sits, fading out to the right
-   so the video reads through there. rgb(42,33,28) =
+   so the image reads through there. rgb(42,33,28) =
    --renu-espresso's literal value; hardcoded because CSS can't vary a var()'s
    alpha per gradient stop without color-mix(), and this needs three
    distinct opacities in one gradient. */
@@ -708,10 +711,14 @@ input { font-family: inherit; }
   background: linear-gradient(105deg, rgba(42,33,28,.62) 0%, rgba(42,33,28,.42) 42%, rgba(42,33,28,.12) 100%);
 }
 
-/* Video is decorative — respect reduced-motion and just show the neutral
-   fallback + scrim instead of an animated background. */
-@media (prefers-reduced-motion: reduce) {
-  .hero__video-bg video { display: none; }
+/* Phones: the portrait crop puts the face behind the text if the content
+   is centered, so the content sits at the bottom and the scrim darkens
+   bottom-up instead of left-to-right. */
+@media (max-width: 639px) {
+  .hero { align-items: flex-end; }
+  .hero__scrim {
+    background: linear-gradient(180deg, rgba(42,33,28,.05) 0%, rgba(42,33,28,.35) 40%, rgba(42,33,28,.85) 75%, rgba(42,33,28,.92) 100%);
+  }
 }
 
 .hero__content {
@@ -1091,6 +1098,8 @@ input { font-family: inherit; }
   transition: border-color var(--transition-fast);
 }
 .idx-card:hover .idx-card__body { border-color: var(--renu-bronze); }
+.idx-card__media img,
+.favorite-card__media img { object-fit: cover; }
 
 .idx-card__chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .idx-chip {
@@ -1468,9 +1477,15 @@ input { font-family: inherit; }
 .detail-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 8px; }
 .detail-hero__actions .btn { padding: 15px 28px; font-size: 13px; letter-spacing: 0.1em; }
 
+/* Sized close to the treatment images' 3:2 shape (1536x1024 source) so
+   most of the photo shows instead of a text-height strip of it, capped at
+   460px so the hero doesn't grow too tall on wide screens (full 3:2 was
+   too tall there). If the text column runs taller, the row stretches and
+   the image crops slightly at the sides instead. */
 .detail-hero__media {
   flex: 1 1 340px;
-  min-height: 380px;
+  aspect-ratio: 16 / 10;
+  max-height: 460px;
   background: repeating-linear-gradient(135deg, var(--renu-espresso-mid) 0 14px, var(--renu-espresso) 14px 28px);
   display: flex;
   align-items: flex-end;

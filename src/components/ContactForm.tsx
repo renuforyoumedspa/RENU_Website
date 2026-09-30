@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { SOURCES } from '@/data/site-data';
+import BookingLink from '@/components/BookingLink';
 
 const CONTACT_LOCATIONS = ['Stuart', 'Tequesta', 'Either'];
 
@@ -38,7 +39,7 @@ export default function ContactForm() {
   return (
     <div>
       <h2 className="detail-h2">Send us a message</h2>
-      <p className="detail-treats__p" style={{ marginBottom: 20 }}>For appointment requests, the <a href="/book/" style={{ color: 'var(--renu-bronze)' }}>booking form</a> gets Dr. Barrett&apos;s office back to you faster. Use this for everything else.</p>
+      <p className="detail-treats__p" style={{ marginBottom: 20 }}>For appointments, <BookingLink>book online</BookingLink> to pick a time right away. Use this for everything else.</p>
 
       <form onSubmit={handleSubmit} noValidate>
         <div className="form-grid" style={{ marginBottom: 18 }}>

@@ -4,10 +4,11 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { QUIZ } from '@/data/site-data';
 import type { Treatment } from '@/sanity/lib/queries';
+import BookingLink from '@/components/BookingLink';
 
 function getRecommendations(treatments: Treatment[], concern: string, noDowntime: boolean, limit = 3) {
-  let recs = treatments.filter((t) => t.concern === concern);
-  if (noDowntime) recs = [...recs.filter((t) => t.tech !== 'Laser'), ...recs.filter((t) => t.tech === 'Laser')];
+  let recs = treatments.filter((t) => t.concerns.includes(concern));
+  if (noDowntime) recs = [...recs.filter((t) => !t.techs.includes('Laser')), ...recs.filter((t) => t.techs.includes('Laser'))];
   return recs.slice(0, limit);
 }
 
@@ -48,7 +49,7 @@ export default function QuizFlow({ treatments }: { treatments: Treatment[] }) {
         <div className="detail-related__grid">
           {recs.map((t) => (
             <Link className="detail-related__card" href={`/treatments/${t.slug}/`} key={t._id}>
-              <div className="detail-related__area">{t.area} · {t.tech}</div>
+              <div className="detail-related__area">{t.areas[0]} · {t.techs[0]}</div>
               <div className="detail-related__name">{t.name}</div>
               <div className="detail-related__blurb">{t.blurb}</div>
             </Link>
@@ -56,7 +57,7 @@ export default function QuizFlow({ treatments }: { treatments: Treatment[] }) {
         </div>
         <div className="form-actions form-actions--end">
           <button type="button" className="btn btn--secondary" onClick={restart}>Start over</button>
-          <Link href="/book/" className="btn btn--primary">Book a consultation</Link>
+          <BookingLink className="btn btn--primary">Book a consultation</BookingLink>
         </div>
       </div>
     );

@@ -8,35 +8,41 @@
 // circular runtime dependency with queries.ts (which imports the mock data
 // arrays back from this file).
 import type { Treatment, BlogPost, Product, TeamMember, GalleryTile, FeaturedBeforeAfter } from './queries';
+import type { Area, Concern, Tech } from '../../data/taxonomy';
 
 const FACTS = {
   Injectable: { visitLength: '20–40 min', downtime: 'Minimal', resultsShow: '3–14 days', lasts: '3–12 months' },
   Thread: { visitLength: '45–75 min', downtime: '2–3 days', resultsShow: '4–12 weeks', lasts: '1–2 years' },
   Laser: { visitLength: '45–75 min', downtime: '3–5 days', resultsShow: '4–12 weeks', lasts: '1–2 years' },
   Energy: { visitLength: '45–75 min', downtime: 'Minimal', resultsShow: '4–12 weeks', lasts: '1–2 years' },
-  Topical: { visitLength: '45–75 min', downtime: 'Minimal', resultsShow: '4–12 weeks', lasts: '1–2 years' }
-} as const;
+  // Same figures these two had before they were split out of Energy/Topical.
+  Microneedling: { visitLength: '45–75 min', downtime: 'Minimal', resultsShow: '4–12 weeks', lasts: '1–2 years' },
+  'Skin Care': { visitLength: '45–75 min', downtime: 'Minimal', resultsShow: '4–12 weeks', lasts: '1–2 years' }
+} as const satisfies Record<Tech, Treatment['facts']>;
 
 function t(
-  id: string, name: string, area: Treatment['area'], concern: string, tech: keyof typeof FACTS, cta: string, blurb: string,
+  id: string, name: string, areas: Area[], concerns: Concern[], techs: Tech[], cta: string, blurb: string,
   extra?: Partial<Treatment>
 ): Treatment {
-  return { _id: id, slug: id, name, area, concern, tech, cta, blurb, facts: FACTS[tech], ...extra };
+  // Facts come from the primary (first) technology. Every treatment has a
+  // hero/card image at public/assets/treatments/<slug>.jpg (AI-generated,
+  // see the "RENU Treatment Image Prompts" doc); the seed script uploads it.
+  return { _id: id, slug: id, name, areas, concerns, techs, cta, blurb, facts: FACTS[techs[0]], image: `/assets/treatments/${id}.jpg`, ...extra };
 }
 
 export const MOCK_TREATMENTS: Treatment[] = [
-  t('botox', 'Botox®', 'Face', 'Lines & wrinkles', 'Injectable', 'Erase fine lines', "Smooth forehead lines, elevens and crow's feet while your expression stays yours."),
-  t('dysport', 'Dysport®', 'Face', 'Lines & wrinkles', 'Injectable', 'Soften my lines', 'A fast-onset neurotoxin that spreads a little wider — good for broad forehead lines.'),
-  t('xeomin', 'Xeomin®', 'Face', 'Lines & wrinkles', 'Injectable', 'Try a purer toxin', "A protein-free formulation, often chosen by patients who've plateaued on other toxins."),
-  t('belotero', 'Belotero®', 'Face', 'Lines & wrinkles', 'Injectable', 'Blur etched lines', 'A thin gel that integrates into skin to soften fine, etched-in lines around the mouth.'),
-  t('juvederm', 'Juvéderm®', 'Face', 'Volume loss', 'Injectable', 'Restore my volume', 'Hyaluronic acid filler for cheeks, temples and midface hollowing.'),
-  t('restylane', 'Restylane®', 'Face', 'Volume loss', 'Injectable', 'Rebuild structure', 'A flexible HA family with options for tear troughs, cheeks and jawline.'),
-  t('lyft', 'Restylane® Lyft', 'Face', 'Volume loss', 'Injectable', 'Lift my cheeks', 'A firmer gel used higher on the cheekbone where projection is needed.'),
-  t('sculptra', 'Sculptra®', 'Face', 'Volume loss', 'Injectable', 'Build collagen', 'Stimulates your own collagen over months — gradual, and it keeps working.'),
-  t('radiesse', 'Radiesse®', 'Face', 'Sagging & laxity', 'Injectable', 'Firm and lift', 'Calcium-based biostimulator that tightens as it fills — jawline and lower face.'),
-  t('kybella', 'Kybella® / DCA', 'Face', 'Contour', 'Injectable', 'Define my chin', 'Dissolves submental fat under the chin, permanently, without surgery.'),
-  t('lips', 'Lip Injections', 'Face', 'Lips', 'Injectable', 'Perfect my lips', 'Shape, hydration and definition — sized to your face, not a trend.'),
-  t('renulift', 'RENUlift™', 'Face', 'Sagging & laxity', 'Thread', 'Lift without surgery', "RENU's signature non-surgical lift — repositions the midface with no incisions.", {
+  t('botox', 'Botox®', ['Face'], ['Lines & wrinkles'], ['Injectable'], 'Erase fine lines', "Smooth forehead lines, elevens and crow's feet while your expression stays yours."),
+  t('dysport', 'Dysport®', ['Face'], ['Lines & wrinkles'], ['Injectable'], 'Soften my lines', 'A fast-onset neurotoxin that spreads a little wider — good for broad forehead lines.'),
+  t('xeomin', 'Xeomin®', ['Face'], ['Lines & wrinkles'], ['Injectable'], 'Try a purer toxin', "A protein-free formulation, often chosen by patients who've plateaued on other toxins."),
+  t('belotero', 'Belotero®', ['Face'], ['Lines & wrinkles'], ['Injectable'], 'Blur etched lines', 'A thin gel that integrates into skin to soften fine, etched-in lines around the mouth.'),
+  t('juvederm', 'Juvéderm®', ['Face'], ['Volume loss', 'Nasolabial folds / Marionette lines'], ['Injectable'], 'Restore my volume', 'Hyaluronic acid filler for cheeks, temples and midface hollowing.'),
+  t('restylane', 'Restylane®', ['Face'], ['Volume loss', 'Nasolabial folds / Marionette lines'], ['Injectable'], 'Rebuild structure', 'A flexible HA family with options for tear troughs, cheeks and jawline.'),
+  t('lyft', 'Restylane® Lyft', ['Face'], ['Volume loss', 'Nasolabial folds / Marionette lines'], ['Injectable'], 'Lift my cheeks', 'A firmer gel used higher on the cheekbone where projection is needed.'),
+  t('sculptra', 'Sculptra®', ['Face', 'Body'], ['Volume loss', 'Nasolabial folds / Marionette lines', 'Contour'], ['Injectable'], 'Build collagen', 'Stimulates your own collagen over months — gradual, and it keeps working.'),
+  t('radiesse', 'Radiesse®', ['Face', 'Body'], ['Sagging & laxity', 'Jowls', 'Nasolabial folds / Marionette lines', 'Contour'], ['Injectable'], 'Firm and lift', 'Calcium-based biostimulator that tightens as it fills — jawline and lower face.'),
+  t('kybella', 'Kybella® / DCA', ['Face'], ['Contour', 'Jowls'], ['Injectable'], 'Define my chin', 'Dissolves submental fat under the chin, permanently, without surgery.'),
+  t('lips', 'Lip Injections', ['Face'], ['Lips'], ['Injectable'], 'Perfect my lips', 'Shape, hydration and definition — sized to your face, not a trend.'),
+  t('renulift', 'RENUlift™', ['Face'], ['Sagging & laxity', 'Jowls'], ['Thread'], 'Lift without surgery', "RENU's signature non-surgical lift — repositions the midface with no incisions.", {
     beforeAfters: [
       { patient: 'Patient A', timeframe: '6 weeks apart', layout: 'separate' },
       { patient: 'Patient E', timeframe: '9 years apart', layout: 'separate' },
@@ -44,23 +50,23 @@ export const MOCK_TREATMENTS: Treatment[] = [
       { patient: 'Patient D', timeframe: '1 year apart', layout: 'separate' }
     ]
   }),
-  t('templelift', 'RENU Temple Lift', 'Face', 'Sagging & laxity', 'Thread', 'Open my eyes', 'Restores temple hollowing and lifts the brow tail for a rested upper face.'),
-  t('pdo', 'PDO Threads', 'Face', 'Sagging & laxity', 'Thread', 'Thread lift my jaw', 'Dissolvable threads that lift tissue and lay down collagen along the way.'),
-  t('browlift', 'Brow Lift', 'Face', 'Sagging & laxity', 'Thread', 'Raise my brow', 'A few millimetres of brow lift changes how awake your whole face reads.'),
-  t('ultherapy', 'Ultherapy®', 'Face', 'Sagging & laxity', 'Energy', 'Tighten with ultrasound', 'Focused ultrasound reaches the deep support layer surgeons tighten — no downtime.'),
-  t('plasmapen', 'Plasma Pen', 'Face', 'Sagging & laxity', 'Energy', 'Tighten crepey skin', 'Plasma energy contracts thin, crepey skin — eyelids, upper lip, neck.'),
-  t('necklift', 'Neck Lift', 'Face', 'Sagging & laxity', 'Energy', 'Redefine my neck', 'A combined protocol for banding, laxity and the beginnings of a jowl.'),
-  t('eyelid', 'Laser Eyelid Lift', 'Face', 'Sagging & laxity', 'Laser', 'Lift my lids', 'Laser tightening of the upper and lower lid without a blepharoplasty.'),
-  t('coollaser', 'RENU Cool Laser', 'Skin', 'Texture & tone', 'Laser', 'Get flawless skin', "Resurfacing results with minimal downtime — RENU's most-requested laser."),
-  t('resurfacing', 'Laser Skin Resurfacing', 'Skin', 'Texture & tone', 'Laser', 'Resurface my skin', 'Fractional CO2 for deeper lines, sun damage and years of accumulated texture.'),
-  t('pigment', 'Pigment & Sun Damage', 'Skin', 'Pigment', 'Laser', 'Even my tone', 'Targets brown patches, melasma and sun spots from South Florida living.'),
-  t('microneedling', 'Microneedling', 'Skin', 'Acne scars', 'Energy', 'Smooth my texture', 'Controlled micro-injury that rebuilds collagen — pores, scars, fine crepe.'),
-  t('acnescar', 'Acne Scarring', 'Skin', 'Acne scars', 'Laser', 'Treat my scars', 'A staged plan combining laser and microneedling for indented scarring.'),
-  t('dermaplane', 'Dermaplaning', 'Skin', 'Texture & tone', 'Topical', 'Refresh my glow', 'Removes dead skin and vellus hair so product and makeup sit smooth.'),
-  t('hair', 'Hair Restoration', 'Body', 'Hair loss', 'Injectable', 'Regrow my hair', 'For thinning at the part and temples — especially female pattern loss.'),
-  t('buttlift', 'Non-Surgical Butt Lift', 'Body', 'Contour', 'Injectable', 'Lift with no downtime', 'Biostimulator-based shaping and projection without implants or fat transfer.'),
-  t('tightening', 'Body Skin Tightening', 'Body', 'Sagging & laxity', 'Energy', 'Tighten my skin', 'Arms, abdomen and knees — energy-based tightening after weight change.'),
-  t('cellulite', 'Cellulite Treatment', 'Body', 'Cellulite', 'Energy', 'Smooth my thighs', 'Targets the fibrous bands that cause dimpling rather than the fat alone.')
+  t('templelift', 'RENU Temple Lift', ['Face'], ['Sagging & laxity'], ['Thread'], 'Open my eyes', 'Restores temple hollowing and lifts the brow tail for a rested upper face.'),
+  t('pdo', 'PDO Threads', ['Face'], ['Sagging & laxity', 'Jowls'], ['Thread'], 'Thread lift my jaw', 'Dissolvable threads that lift tissue and lay down collagen along the way.'),
+  t('browlift', 'Brow Lift', ['Face'], ['Sagging & laxity'], ['Thread'], 'Raise my brow', 'A few millimetres of brow lift changes how awake your whole face reads.'),
+  t('ultherapy', 'Ultherapy®', ['Face', 'Chest / Décolleté', 'Body'], ['Sagging & laxity', 'Jowls', 'Contour'], ['Energy'], 'Tighten with ultrasound', 'Focused ultrasound reaches the deep support layer surgeons tighten — no downtime.'),
+  t('plasmapen', 'Plasma Pen', ['Face'], ['Sagging & laxity'], ['Energy'], 'Tighten crepey skin', 'Plasma energy contracts thin, crepey skin — eyelids, upper lip, neck.'),
+  t('necklift', 'Neck Lift', ['Face'], ['Sagging & laxity', 'Jowls'], ['Energy'], 'Redefine my neck', 'A combined protocol for banding, laxity and the beginnings of a jowl.'),
+  t('eyelid', 'Laser Eyelid Lift', ['Face'], ['Sagging & laxity'], ['Laser'], 'Lift my lids', 'Laser tightening of the upper and lower lid without a blepharoplasty.'),
+  t('coollaser', 'RENU Cool Laser', ['Skin', 'Chest / Décolleté', 'Body'], ['Texture & tone'], ['Laser'], 'Get flawless skin', "Resurfacing results with minimal downtime — RENU's most-requested laser."),
+  t('resurfacing', 'Laser Skin Resurfacing', ['Skin', 'Chest / Décolleté'], ['Texture & tone', 'Scars'], ['Laser'], 'Resurface my skin', 'Fractional CO2 for sun damage, uneven tone and years of accumulated texture.'),
+  t('pigment', 'Pigment & Sun Damage', ['Skin', 'Chest / Décolleté'], ['Pigment'], ['Laser'], 'Even my tone', 'Targets brown patches, melasma and sun spots from South Florida living.'),
+  t('microneedling', 'Microneedling', ['Skin'], ['Acne', 'Scars'], ['Microneedling'], 'Smooth my texture', 'Controlled micro-injury that rebuilds collagen — pores, scars and uneven texture.'),
+  t('acnescar', 'Acne Scarring', ['Skin'], ['Acne', 'Scars'], ['Laser'], 'Treat my scars', 'A staged plan combining laser and microneedling for indented scarring.'),
+  t('dermaplane', 'Dermaplaning', ['Skin'], ['Texture & tone'], ['Skin Care'], 'Refresh my glow', 'Removes dead skin and vellus hair so product and makeup sit smooth.'),
+  t('hair', 'Hair Restoration', ['Hair'], ['Hair loss'], ['Injectable'], 'Regrow my hair', 'For thinning at the part and temples — especially female pattern loss.'),
+  t('buttlift', 'Non-Surgical Butt Lift', ['Body'], ['Contour'], ['Injectable'], 'Lift with no downtime', 'Biostimulator-based shaping and projection without implants or fat transfer.'),
+  t('tightening', 'Body Skin Tightening', ['Body'], ['Sagging & laxity'], ['Energy'], 'Tighten my skin', 'Arms, abdomen and knees — energy-based tightening after weight change.'),
+  t('cellulite', 'Cellulite Treatment', ['Body'], ['Cellulite'], ['Energy'], 'Smooth my thighs', 'Targets the fibrous bands that cause dimpling rather than the fat alone.')
 ];
 
 export const MOCK_BLOG_POSTS: BlogPost[] = [

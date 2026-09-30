@@ -1,12 +1,8 @@
 'use client';
-
-import { usePathname } from 'next/navigation';
 import StickyBookBar from './StickyBookBar';
-
-// Hidden only on the booking page itself — you're already booking, the
-// CTA would be redundant (matches the original design spec).
+// Used to hide the bar on the on-site /book page. Booking now happens on
+// Decoda (external), so there's no page left to hide it on — kept as the
+// single place to add a route exclusion if one is ever needed again.
 export default function ConditionalStickyBar() {
-  const pathname = usePathname();
-  if (pathname.startsWith('/book')) return null;
   return <StickyBookBar />;
 }

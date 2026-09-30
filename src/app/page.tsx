@@ -5,10 +5,16 @@ import { getAllTreatments, getTreatmentBySlug, getGalleryTiles, getHomepageFeatu
 import { imageSrc } from '@/sanity/lib/image';
 import { resolveBeforeAfter } from '@/lib/before-after';
 import { getCombinedReviews } from '@/data/site-data';
+import BookingLink from '@/components/BookingLink';
+import GalleryMasonry from '@/components/GalleryMasonry';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' }
 };
+
+// "What patients are saying" is a teaser — the first N tiles by display
+// order. The full set lives on /gallery.
+const HOMEPAGE_GALLERY_LIMIT = 6;
 
 const FAVORITE_IDS = ['botox', 'renulift', 'ultherapy', 'sculptra', 'resurfacing', 'lips'];
 const FAVORITE_CTA_LABELS: Record<string, string> = {
@@ -30,10 +36,15 @@ export default async function HomePage() {
   return (
     <>
       <section className="hero" aria-label="Introduction">
-        <div className="hero__video-bg">
-          <video autoPlay muted loop playsInline aria-hidden="true">
-            <source src="/assets/renu-hero.mp4" type="video/mp4" />
-          </video>
+        <div className="hero__media">
+          <Image
+            src="/assets/renu-hero.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="hero__image"
+          />
           <div className="hero__scrim"></div>
         </div>
 
@@ -45,7 +56,7 @@ export default async function HomePage() {
             tailored to your face, your goals, your timeline.
           </p>
           <div className="hero__ctas btn-group">
-            <Link href="/book/" className="btn btn--on-band">Book a Consultation</Link>
+            <BookingLink className="btn btn--on-band">Book a Consultation</BookingLink>
             <Link href="/treatments/" className="btn btn--ghost-on-band">Explore All {allTreatments.length} Treatments</Link>
           </div>
           <p className="hero__trustline"><strong>{reviews.rating}</strong>★&nbsp;average from {reviews.count} verified patients</p>
@@ -90,7 +101,7 @@ export default async function HomePage() {
               every plan is personalized, never one-size-fits-all.
             </p>
             <div className="btn-group">
-              <Link href="/book/" className="btn btn--primary">Book a Consultation</Link>
+              <BookingLink className="btn btn--primary">Book a Consultation</BookingLink>
               <Link href="/about/#dr-barrett" className="btn btn--secondary">Meet Dr. Barrett</Link>
             </div>
           </div>
@@ -109,13 +120,17 @@ export default async function HomePage() {
           <div className="favorites-grid">
             {favorites.map((t) => (
               <article className="favorite-card" key={t._id}>
-                <div className="favorite-card__media" role="img" aria-label={`Placeholder image for ${t.name} treatment`}><span>{t.name}</span></div>
+                <div className="favorite-card__media">
+                  {imageSrc(t.image)
+                    ? <Image src={imageSrc(t.image)!} alt={t.name} fill sizes="(min-width: 1080px) 33vw, (min-width: 640px) 50vw, 90vw" />
+                    : <span>{t.name}</span>}
+                </div>
                 <div className="favorite-card__body">
-                  <span className="favorite-card__area">{t.area}</span>
+                  <span className="favorite-card__area">{t.areas[0]}</span>
                   <h3 className="favorite-card__name">{t.name}</h3>
                   <p className="favorite-card__benefit">{t.blurb}</p>
                   <div className="favorite-card__actions">
-                    <Link href={`/book/?treatment=${t.slug}`} className="btn btn--primary btn--sm">{FAVORITE_CTA_LABELS[t.slug]}</Link>
+                    <BookingLink className="btn btn--primary btn--sm">{FAVORITE_CTA_LABELS[t.slug]}</BookingLink>
                     <Link href={`/treatments/${t.slug}/`} className="btn btn--secondary btn--sm">See Treatment</Link>
                   </div>
                 </div>
@@ -136,6 +151,9 @@ export default async function HomePage() {
         />
       </section>
 
+      {/* Hidden until the Homepage document in Sanity has Before & After
+          picks — an empty "Real Results" heading reads as broken. */}
+      {featuredBeforeAfters.length > 0 && (
       <section className="section section--bg-alt" aria-labelledby="ba-heading">
         <div className="container">
           <div className="section-head section-head--center">
@@ -179,6 +197,7 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+      )}
 
       <section className="section section--bg-alt" id="testimonials" aria-labelledby="testimonials-heading">
         <div className="container">
@@ -188,27 +207,10 @@ export default async function HomePage() {
             <p className="section-sub">Real reviews from RENU patients in Stuart and Tequesta, alongside the team behind them.</p>
           </div>
 
-          <div className="gallery-masonry">
-            {galleryTiles.map((tile) => {
-              if (tile.kind === 'photo') {
-                const src = imageSrc(tile.image);
-                return (
-                  <div className={`gallery-tile gallery-tile--photo gallery-tile--${tile.shape}`} key={tile._id}>
-                    {src && <Image src={src} alt={tile.alt} fill sizes="(min-width: 1080px) 25vw, (min-width: 640px) 33vw, 90vw" />}
-                  </div>
-                );
-              }
-              return (
-                <article className="gallery-tile gallery-tile--review" key={tile._id}>
-                  <div className="gallery-tile__stars" aria-label="5 out of 5 stars">★★★★★</div>
-                  <p className="gallery-tile__quote">&quot;{tile.quote}&quot;</p>
-                  <div className="gallery-tile__author">
-                    <strong>{tile.reviewerName}</strong>
-                    <span>{tile.source}</span>
-                  </div>
-                </article>
-              );
-            })}
+          <GalleryMasonry tiles={galleryTiles.slice(0, HOMEPAGE_GALLERY_LIMIT)} />
+
+          <div className="ba-footer">
+            <Link href="/gallery/" className="btn btn--secondary">View the full gallery</Link>
           </div>
         </div>
       </section>

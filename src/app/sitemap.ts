@@ -3,7 +3,7 @@ import { getAllTreatments, getAllBlogPosts } from '@/sanity/lib/queries';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://renumedspa.netlify.app';
 
-const STATIC_ROUTES = ['', 'treatments', 'book', 'find-my-treatment', 'shop', 'about', 'financing', 'contact'];
+const STATIC_ROUTES = ['', 'treatments', 'find-my-treatment', 'about', 'gallery', 'financing', 'contact'];
 // privacy/ deliberately omitted — still draft/unreviewed legal text (see
 // that page's `robots: { index: false }`), no reason to submit it to
 // search engines while it's not real yet.

@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import Image from 'next/image';
 import ContactForm from '@/components/ContactForm';
 import { REVIEWS } from '@/data/site-data';
+import BookingLink from '@/components/BookingLink';
 
 export const metadata: Metadata = {
   title: 'Contact Us',
@@ -36,7 +36,7 @@ export default function ContactPage() {
             <p className="location-card__address">845 Southeast Osceola Street<br />Stuart, FL 34994</p>
             <p className="location-card__meta">Mon–Fri 9:00–5:00 · <a href="tel:5614066123">561-406-6123</a></p>
             <div className="location-card__actions">
-              <Link href="/book/?location=Stuart" className="btn btn--primary">Book Stuart</Link>
+              <BookingLink className="btn btn--primary">Book Online</BookingLink>
               <a href="https://www.google.com/maps/search/?api=1&query=845+Southeast+Osceola+Street%2C+Stuart%2C+FL+34994" target="_blank" rel="noopener" className="btn btn--secondary">Directions</a>
             </div>
           </div>
@@ -52,7 +52,7 @@ export default function ContactPage() {
             <p className="location-card__address">304 Tequesta Drive, Suite 300<br />Tequesta, FL 33469</p>
             <p className="location-card__meta">Mon–Fri 9:00–5:00 · <a href="tel:5614066123">561-406-6123</a></p>
             <div className="location-card__actions">
-              <Link href="/book/?location=Tequesta" className="btn btn--primary">Book Tequesta</Link>
+              <BookingLink className="btn btn--primary">Book Online</BookingLink>
               <a href="https://www.google.com/maps/search/?api=1&query=304+Tequesta+Drive+Suite+300%2C+Tequesta%2C+FL+33469" target="_blank" rel="noopener" className="btn btn--secondary">Directions</a>
             </div>
           </div>
@@ -69,7 +69,7 @@ export default function ContactPage() {
             <div className="contact-panel__row"><strong>Phone &amp; Text</strong><a href="tel:5614066123">561-406-6123</a></div>
             <div className="contact-panel__row"><strong>Email</strong><a href="mailto:info@RENUforyou.com">info@RENUforyou.com</a></div>
             <div className="contact-panel__row"><strong>Hours</strong><span>Mon–Fri 9:00–5:00, weekends by appointment</span></div>
-            <div className="contact-panel__row"><Link href="/book/" className="contact-panel__link">Ready to book? →</Link></div>
+            <div className="contact-panel__row"><BookingLink className="contact-panel__link">Ready to book? →</BookingLink></div>
           </div>
         </div>
       </div>

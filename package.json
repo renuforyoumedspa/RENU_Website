@@ -6,7 +6,8 @@
     "dev": "next dev --webpack",
     "build": "next build --webpack",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "seed": "node --env-file=.env.local scripts/seed-sanity.mts"
   },
   "dependencies": {
     "@portabletext/react": "^8.0.1",

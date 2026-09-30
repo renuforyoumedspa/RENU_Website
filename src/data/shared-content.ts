@@ -1,3 +1,5 @@
+import { listToSentence } from './taxonomy';
+
 // Shared defaults for treatment detail pages — used when a treatment's own
 // Markdown frontmatter doesn't override visitSteps/faqs/beforeAfters. Kept
 // as code (not CMS-editable) for now since these apply site-wide; could
@@ -30,11 +32,13 @@ export const DEFAULT_BEFORE_AFTERS = [
 // DEFAULT_FAQS/DEFAULT_VISIT_STEPS above. Real, treatment-specific copy for
 // these four sections is Sanity content to be authored later; this keeps
 // every treatment page functional and non-generic-looking until then.
-export function getDefaultAccordions(treatment: { name: string; area: string; tech: string; concern: string; blurb: string }) {
-  const areaLower = treatment.area.toLowerCase();
-  const concernLower = treatment.concern.toLowerCase();
+export function getDefaultAccordions(treatment: { name: string; areas: readonly string[]; techs: readonly string[]; concerns: readonly string[]; blurb: string }) {
+  const areaLower = listToSentence(treatment.areas).toLowerCase();
+  const concernLower = listToSentence(treatment.concerns).toLowerCase();
+  const tech = treatment.techs[0].toLowerCase();
+  const article = /^[aeiou]/.test(tech) ? 'an' : 'a';
   return [
-    { q: "What it is", a: `${treatment.name} is a ${treatment.tech.toLowerCase()}-based treatment offered at both RENU clinics, performed personally by Dr. Barrett rather than handed off to a technician.` },
+    { q: "What it is", a: `${treatment.name} is ${article} ${tech}-based treatment offered at both RENU clinics, performed personally by Dr. Barrett rather than handed off to a technician.` },
     { q: "How it works", a: treatment.blurb },
     { q: "How it helps", a: `Patients choose ${treatment.name} to address ${concernLower} — dosing and technique are staged conservatively so the change reads as rested, not "done."` },
     { q: "Treatable areas", a: `Most commonly used for ${areaLower} concerns. Dr. Barrett will confirm the exact areas that make sense for you at your consultation.` }

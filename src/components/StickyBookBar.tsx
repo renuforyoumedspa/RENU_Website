@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import BookingLink from '@/components/BookingLink';
 
 const DISMISS_KEY = 'renu-sticky-bar-dismissed';
 
@@ -21,8 +21,8 @@ export default function StickyBookBar() {
   return (
     <div className="chrome-sticky-bar">
       <span className="chrome-sticky-bar__text">Consultations at both clinics this week.</span>
-      <Link href="/book/?location=Stuart" className="btn btn--pill-white">Book Stuart</Link>
-      <Link href="/book/?location=Tequesta" className="btn btn--pill-ghost-dark">Book Tequesta</Link>
+      <BookingLink className="btn btn--pill-white">Book Online</BookingLink>
+      <a href="tel:5614066123" className="btn btn--pill-ghost-dark">Call 561-406-6123</a>
       <button
         type="button"
         className="chrome-sticky-bar__dismiss"

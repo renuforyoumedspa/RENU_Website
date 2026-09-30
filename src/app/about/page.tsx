@@ -3,6 +3,7 @@ import Image from 'next/image';
 import type { Metadata } from 'next';
 import { getTeamMembers } from '@/sanity/lib/queries';
 import { imageSrc } from '@/sanity/lib/image';
+import BookingLink from '@/components/BookingLink';
 
 export const metadata: Metadata = {
   title: 'About the Practice',
@@ -60,7 +61,7 @@ export default async function AboutPage() {
               younger than their starting point, years later.
             </p>
             <div className="btn-group">
-              <Link href="/book/" className="btn btn--primary">Book a Consultation</Link>
+              <BookingLink className="btn btn--primary">Book a Consultation</BookingLink>
               <Link href="/treatments/" className="btn btn--secondary">See Her Treatments</Link>
             </div>
           </div>

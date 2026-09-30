@@ -45,7 +45,7 @@ export default function PrivacyPage() {
 
           <div>
             <h2>Protected Health Information</h2>
-            <p><em>Not on the live site&apos;s current privacy page — added here because it&apos;s a real gap for a medical practice, not a stylistic choice.</em> Information you share about your health, goals, or treatment history is treated as Protected Health Information (PHI) under HIPAA from the moment you submit it, even through a marketing-facing form like our booking or contact page. Clinical records are kept in a separate, access-controlled system from our general marketing and email tools — the two are never merged.</p>
+            <p><em>Not on the live site&apos;s current privacy page — added here because it&apos;s a real gap for a medical practice, not a stylistic choice.</em> Information you share about your health, goals, or treatment history is treated as Protected Health Information (PHI) under HIPAA from the moment you submit it, even through a marketing-facing form like our contact form. Clinical records are kept in a separate, access-controlled system from our general marketing and email tools — the two are never merged.</p>
           </div>
 
           <div>

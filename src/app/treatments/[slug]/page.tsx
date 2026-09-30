@@ -7,6 +7,7 @@ import { getAllTreatments, getTreatmentBySlug, getRelatedTreatments } from '@/sa
 import { imageSrc } from '@/sanity/lib/image';
 import { resolveBeforeAfter } from '@/lib/before-after';
 import { DEFAULT_VISIT_STEPS, DEFAULT_FAQS, DEFAULT_BEFORE_AFTERS, getDefaultAccordions } from '@/data/shared-content';
+import BookingLink from '@/components/BookingLink';
 
 export async function generateStaticParams() {
   const treatments = await getAllTreatments();
@@ -46,7 +47,7 @@ export default async function TreatmentDetailPage({ params }: { params: Promise<
     '@type': 'MedicalProcedure',
     name: treatment.name,
     description: treatment.blurb,
-    procedureType: treatment.tech
+    procedureType: treatment.techs[0]
   };
 
   return (
@@ -61,11 +62,11 @@ export default async function TreatmentDetailPage({ params }: { params: Promise<
 
       <section className="detail-hero">
         <div className="detail-hero__content">
-          <span className="detail-hero__eyebrow">{treatment.area} · {treatment.tech}</span>
+          <span className="detail-hero__eyebrow">{treatment.areas.join(' / ')} · {treatment.techs.join(' / ')}</span>
           <h1 className="detail-hero__title">{treatment.name}</h1>
           <p className="detail-hero__blurb">{treatment.blurb}</p>
           <div className="detail-hero__actions">
-            <Link href={`/book/?treatment=${treatment.slug}`} className="btn btn--on-band">{treatment.cta}</Link>
+            <BookingLink className="btn btn--on-band">{treatment.cta}</BookingLink>
             <Link href="/find-my-treatment/" className="btn btn--ghost-on-band">Is this right for me?</Link>
           </div>
         </div>
@@ -115,13 +116,12 @@ export default async function TreatmentDetailPage({ params }: { params: Promise<
 
           <aside className="detail-aside">
             <span className="detail-aside__eyebrow">Book {treatment.name}</span>
-            <h3 className="detail-aside__title">Choose your clinic</h3>
+            <h3 className="detail-aside__title">Pick a time online</h3>
             <div className="detail-aside__actions">
-              <Link href={`/book/?location=Stuart&treatment=${treatment.slug}`}>Stuart — 845 SE Osceola</Link>
-              <Link href={`/book/?location=Tequesta&treatment=${treatment.slug}`}>Tequesta — 304 Tequesta Dr</Link>
+              <BookingLink>Book Online</BookingLink>
               <a href="tel:5614066123" className="detail-aside__call">Call 561-406-6123</a>
             </div>
-            <p className="detail-aside__note">Consults are with Dr. Barrett and include a full facial assessment — no obligation to treat that day.</p>
+            <p className="detail-aside__note">Stuart (845 SE Osceola) or Tequesta (304 Tequesta Dr). Consults are with Dr. Barrett and include a full facial assessment — no obligation to treat that day.</p>
           </aside>
         </div>
       </section>
@@ -185,7 +185,7 @@ export default async function TreatmentDetailPage({ params }: { params: Promise<
             <div className="detail-related__grid">
               {related.map((r) => (
                 <Link className="detail-related__card" href={`/treatments/${r.slug}/`} key={r._id}>
-                  <div className="detail-related__area">{r.area}</div>
+                  <div className="detail-related__area">{r.areas[0]}</div>
                   <div className="detail-related__name">{r.name}</div>
                   <div className="detail-related__blurb">{r.blurb}</div>
                 </Link>

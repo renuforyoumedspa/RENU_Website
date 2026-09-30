@@ -6,10 +6,8 @@ import { useMemo, useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import type { Treatment } from '@/sanity/lib/queries';
 import { imageSrc } from '@/sanity/lib/image';
-
-const AREAS = ['Face', 'Body', 'Skin'];
-const CONCERNS = ['Lines & wrinkles', 'Volume loss', 'Sagging & laxity', 'Texture & tone', 'Pigment', 'Acne scars', 'Lips', 'Contour', 'Hair loss', 'Cellulite'];
-const TECHS = ['Injectable', 'Laser', 'Energy', 'Thread', 'Topical'];
+import BookingLink from '@/components/BookingLink';
+import { AREAS, CONCERNS, TECHS } from '@/data/taxonomy';
 
 const AXES = [
   { key: 'area', label: 'Area', values: AREAS },
@@ -57,9 +55,11 @@ export default function TreatmentsGrid({ treatments }: { treatments: Treatment[]
     () =>
       treatments.filter(
         (t) =>
-          (filters.area === 'All' || t.area === filters.area) &&
-          (filters.concern === 'All' || t.concern === filters.concern) &&
-          (filters.tech === 'All' || t.tech === filters.tech)
+          // Tags are multi-valued, so each card appears once however many
+          // of the selected tags it carries.
+          (filters.area === 'All' || (t.areas as string[]).includes(filters.area)) &&
+          (filters.concern === 'All' || t.concerns.includes(filters.concern)) &&
+          (filters.tech === 'All' || (t.techs as string[]).includes(filters.tech))
       ),
     [treatments, filters]
   );
@@ -104,14 +104,16 @@ export default function TreatmentsGrid({ treatments }: { treatments: Treatment[]
                   </div>
                   <div className="idx-card__body">
                     <div className="idx-card__chips">
-                      <span className="idx-chip idx-chip--area">{t.area}</span>
-                      <span className="idx-chip idx-chip--tech">{t.tech}</span>
+                      {/* Show the tag the visitor filtered by (e.g. "Body" for Sculptra®
+                          under Area: Body), else the treatment's primary tag. */}
+                      <span className="idx-chip idx-chip--area">{filters.area !== 'All' ? filters.area : t.areas[0]}</span>
+                      <span className="idx-chip idx-chip--tech">{filters.tech !== 'All' ? filters.tech : t.techs[0]}</span>
                     </div>
                     <h3 className="idx-card__name">{t.name}</h3>
                     <p className="idx-card__blurb">{t.blurb}</p>
                     <div className="idx-card__actions">
                       <Link href={`/treatments/${t.slug}/`} className="btn btn--primary">See treatment</Link>
-                      <Link href={`/book/?treatment=${t.slug}`} className="btn btn--secondary">Book visit</Link>
+                      <BookingLink className="btn btn--secondary">Book visit</BookingLink>
                     </div>
                   </div>
                 </article>

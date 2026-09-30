@@ -17,7 +17,7 @@ const FOOTER_COLS = [
     title: 'Practice',
     links: [
       { label: 'About the Practice', href: '/about/' },
-      { label: 'Meet the Team', href: '/about/#team' },
+      { label: 'Gallery', href: '/gallery/' },
       { label: 'Blog', href: '/blog/' },
       { label: 'Financing', href: '/financing/' },
       { label: 'Contact Us', href: '/contact/' },

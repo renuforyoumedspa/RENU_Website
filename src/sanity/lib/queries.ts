@@ -1,4 +1,5 @@
 import { client } from './client';
+import type { Area, Tech } from '@/data/taxonomy';
 import { isSanityConfigured } from '../env';
 import { MOCK_TREATMENTS, MOCK_BLOG_POSTS, MOCK_PRODUCTS, MOCK_TEAM_MEMBERS, MOCK_GALLERY_TILES, MOCK_HOMEPAGE_FEATURED_BEFORE_AFTERS } from './mock-data';
 
@@ -21,9 +22,11 @@ export interface Treatment {
   name: string;
   slug: string;
   legacyUrls?: string[];
-  area: 'Face' | 'Body' | 'Skin';
-  concern: string;
-  tech: 'Injectable' | 'Laser' | 'Energy' | 'Thread' | 'Topical';
+  // Multi-valued: a treatment can sit in several areas/concerns/techs.
+  // The first entry is the "primary" one shown on cards and chips.
+  areas: Area[];
+  concerns: string[];
+  techs: Tech[];
   cta: string;
   blurb: string;
   image?: unknown;
@@ -80,7 +83,7 @@ export interface Product {
 // consuming component from having to know Sanity's slug-is-an-object
 // shape — same flat shape the old treatments-data.js array had.
 const TREATMENT_PROJECTION = `{
-  _id, name, "slug": slug.current, legacyUrls, area, concern, tech, cta, blurb, image, contentImage,
+  _id, name, "slug": slug.current, legacyUrls, areas, concerns, techs, cta, blurb, image, contentImage,
   facts, beforeAfters, visitSteps, faqs, body
 }`;
 
@@ -103,21 +106,21 @@ export async function getTreatmentBySlug(slug: string): Promise<Treatment | null
 
 export async function getRelatedTreatments(treatment: Treatment, limit = 3): Promise<Treatment[]> {
   if (!isSanityConfigured) {
-    return MOCK_TREATMENTS.filter((t) => t._id !== treatment._id && t.area === treatment.area)
+    return MOCK_TREATMENTS.filter((t) => t._id !== treatment._id && t.areas.some((a) => treatment.areas.includes(a)))
       .sort((a, b) => a.name.localeCompare(b.name))
       .slice(0, limit);
   }
   return client.fetch(
-    `*[_type == "treatment" && area == $area && _id != $id] | order(name asc) [0...$limit] ${TREATMENT_PROJECTION}`,
-    { area: treatment.area, id: treatment._id, limit }
+    `*[_type == "treatment" && count(areas[@ in $areas]) > 0 && _id != $id] | order(name asc) [0...$limit] ${TREATMENT_PROJECTION}`,
+    { areas: treatment.areas, id: treatment._id, limit }
   );
 }
 
 export async function getQuizRecommendations(concern: string, noDowntime: boolean, limit = 3): Promise<Treatment[]> {
   const all = isSanityConfigured
-    ? await client.fetch<Treatment[]>(`*[_type == "treatment" && concern == $concern] ${TREATMENT_PROJECTION}`, { concern })
-    : MOCK_TREATMENTS.filter((t) => t.concern === concern);
-  const ordered = noDowntime ? [...all.filter((t) => t.tech !== 'Laser'), ...all.filter((t) => t.tech === 'Laser')] : all;
+    ? await client.fetch<Treatment[]>(`*[_type == "treatment" && $concern in concerns] ${TREATMENT_PROJECTION}`, { concern })
+    : MOCK_TREATMENTS.filter((t) => t.concerns.includes(concern));
+  const ordered = noDowntime ? [...all.filter((t) => !t.techs.includes('Laser')), ...all.filter((t) => t.techs.includes('Laser'))] : all;
   return ordered.slice(0, limit);
 }
 

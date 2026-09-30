@@ -4,11 +4,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
+import BookingLink from '@/components/BookingLink';
 
 const NAV_ITEMS = [
   { id: 'treatments', label: 'Treatments', href: '/treatments/' },
   { id: 'quiz', label: 'Find My Treatment', href: '/find-my-treatment/' },
-  { id: 'shop', label: 'Shop', href: '/shop/' },
   {
     id: 'practice',
     label: 'Our Practice',
@@ -16,7 +16,7 @@ const NAV_ITEMS = [
     drop: true,
     children: [
       { id: 'about', label: 'About the Practice', href: '/about/' },
-      { id: 'team', label: 'Meet the Team', href: '/about/#team' },
+      { id: 'gallery', label: 'Gallery', href: '/gallery/' },
       { id: 'blog', label: 'Blog', href: '/blog/' },
       { id: 'financing', label: 'Financing', href: '/financing/' },
       { id: 'privacy', label: 'Privacy Policy', href: '/privacy/' }
@@ -28,8 +28,8 @@ const NAV_ITEMS = [
 function activeIdFromPath(pathname: string): string {
   if (pathname.startsWith('/treatments')) return 'treatments';
   if (pathname.startsWith('/find-my-treatment')) return 'quiz';
-  if (pathname.startsWith('/shop')) return 'shop';
   if (pathname.startsWith('/about')) return 'about';
+  if (pathname.startsWith('/gallery')) return 'gallery';
   if (pathname.startsWith('/blog')) return 'blog';
   if (pathname.startsWith('/financing')) return 'financing';
   if (pathname.startsWith('/privacy')) return 'privacy';
@@ -128,7 +128,7 @@ export default function Header() {
 
         <div className="chrome-header__actions">
           <Link href="/find-my-treatment/" className="btn btn--pill-outline chrome-find-pill">Find My Treatment</Link>
-          <Link href="/book/" className="btn btn--pill-primary chrome-book-pill">Book Now</Link>
+          <BookingLink className="btn btn--pill-primary chrome-book-pill">Book Now</BookingLink>
           <button
             type="button"
             className="chrome-hamburger"

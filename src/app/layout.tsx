@@ -26,6 +26,12 @@ const jost = Jost({
 // metadataBase resolves every page's canonical/OG URLs from this.
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://renumedspa.netlify.app';
 
+// Content comes from Sanity. Pages are pre-built, then re-fetched from
+// Sanity at most once every 60 seconds, so edits published in the Studio
+// show on the live site within about a minute — no redeploy needed.
+// Applies to every page (a page can export its own lower value).
+export const revalidate = 60;
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: { default: 'RENU Medical Aesthetics', template: '%s — RENU Medical Aesthetics' },
