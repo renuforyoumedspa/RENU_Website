@@ -1140,24 +1140,38 @@ input { font-family: inherit; }
    BEFORE & AFTER TEASER
    ========================================================================== */
 
+/* "Age in Reverse" — RENU's before/after photos are wide side-by-side
+   composites (3:2 to 2:1), so tiles are wide too and the photo is fitted
+   whole (contain), never cropped. 1 per row on phones, 2 on tablets, 3 on
+   desktop, in a wider container than the default 1240px. */
+#age-in-reverse .container { max-width: 1560px; padding-inline: var(--space-sm); }
+
 .ba-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-md);
+  grid-template-columns: 1fr;
+  gap: var(--space-lg) var(--space-md);
 }
-@media (min-width: 780px) { .ba-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 640px) { .ba-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 980px) { .ba-grid { grid-template-columns: repeat(3, 1fr); } }
 
 .ba-tile {
-  display: block;
-  margin: 0; /* tiles are <figure>s ("Age in Reverse") — drop the default figure margin */
-  color: inherit;
-  text-decoration: none;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  aspect-ratio: 3 / 4;
-  position: relative;
-  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0; /* tiles are <figure>s — drop the default figure margin */
 }
+.ba-tile__media {
+  position: relative;
+  aspect-ratio: 3 / 2;
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--renu-white);
+  border: 1px solid var(--renu-border);
+}
+/* Whole composite visible; a 2:1 photo gets slim bands top and bottom,
+   dark so they blend with the black backdrop RENU's photos are shot on. */
+.ba-tile__media--paired { background: var(--renu-ink); border-color: var(--renu-ink); }
+.ba-tile__media--paired img { object-fit: contain; }
 .ba-tile__split {
   position: absolute; inset: 0;
   display: grid;
@@ -1167,7 +1181,7 @@ input { font-family: inherit; }
 .ba-tile__split div:first-child { background: linear-gradient(160deg, var(--renu-sand), #DDCDB8); }
 .ba-tile__split div:last-child { background: linear-gradient(160deg, var(--renu-champagne), #E5D6C2); }
 .ba-tile__paired { position: absolute; inset: 0; }
-.ba-tile img { object-fit: cover; }
+.ba-tile__split img { object-fit: cover; }
 .ba-tile__divider {
   position: absolute; top: 0; bottom: 0; left: 50%;
   width: 2px; background: var(--renu-white);
@@ -1179,11 +1193,12 @@ input { font-family: inherit; }
   font-size: var(--text-xs); color: var(--renu-white);
   text-transform: uppercase; letter-spacing: 0.06em;
 }
+/* Time between photos — below the photo, not over it. */
 .ba-tile__caption {
-  position: absolute; bottom: var(--space-2xs); left: var(--space-2xs); right: var(--space-2xs);
-  font-size: var(--text-xs); color: var(--renu-white);
-  background: rgba(28,24,22,0.35);
-  padding: 4px 8px; border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--renu-espresso);
   text-align: center;
 }
 

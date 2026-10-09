@@ -159,7 +159,7 @@ export default async function HomePage() {
           shown yet). Tiles without uploaded photos are skipped, and the
           section stays hidden until at least one tile has them. */}
       {ageInReverse.length > 0 && (
-      <section className="section section--bg-alt" aria-labelledby="ba-heading">
+      <section className="section section--bg-alt" id="age-in-reverse" aria-labelledby="ba-heading">
         <div className="container">
           <div className="section-head section-head--center">
             <span className="eyebrow">Real Results</span>
@@ -172,20 +172,22 @@ export default async function HomePage() {
               const alt = timeframe ? ` (${timeframe})` : '';
               return (
                 <figure className="ba-tile" key={key}>
-                  {resolved.mode === 'paired' ? (
-                    <div className="ba-tile__paired">
-                      <Image src={resolved.src} alt={`Patient before and after${alt}`} fill sizes="(min-width: 780px) 25vw, 50vw" />
-                    </div>
-                  ) : resolved.mode === 'separate' ? (
-                    <>
-                      <div className="ba-tile__split">
-                        <div><Image src={resolved.beforeSrc} alt={`Patient before${alt}`} fill sizes="(min-width: 780px) 12.5vw, 25vw" /></div>
-                        <div><Image src={resolved.afterSrc} alt={`Patient after${alt}`} fill sizes="(min-width: 780px) 12.5vw, 25vw" /></div>
+                  <div className={`ba-tile__media${resolved.mode === 'paired' ? ' ba-tile__media--paired' : ''}`}>
+                    {resolved.mode === 'paired' ? (
+                      <div className="ba-tile__paired">
+                        <Image src={resolved.src} alt={`Patient before and after${alt}`} fill sizes="(min-width: 980px) 33vw, (min-width: 640px) 50vw, 100vw" />
                       </div>
-                      <div className="ba-tile__divider" aria-hidden="true"></div>
-                    </>
-                  ) : null}
-                  <div className="ba-tile__labels" aria-hidden="true"><span>Before</span><span>After</span></div>
+                    ) : resolved.mode === 'separate' ? (
+                      <>
+                        <div className="ba-tile__split">
+                          <div><Image src={resolved.beforeSrc} alt={`Patient before${alt}`} fill sizes="(min-width: 980px) 17vw, (min-width: 640px) 25vw, 50vw" /></div>
+                          <div><Image src={resolved.afterSrc} alt={`Patient after${alt}`} fill sizes="(min-width: 980px) 17vw, (min-width: 640px) 25vw, 50vw" /></div>
+                        </div>
+                        <div className="ba-tile__divider" aria-hidden="true"></div>
+                        <div className="ba-tile__labels" aria-hidden="true"><span>Before</span><span>After</span></div>
+                      </>
+                    ) : null}
+                  </div>
                   {timeframe && <figcaption className="ba-tile__caption">{timeframe}</figcaption>}
                 </figure>
               );
