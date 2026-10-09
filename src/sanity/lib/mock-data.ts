@@ -120,8 +120,8 @@ export const MOCK_GALLERY_TILES: GalleryTile[] = [
 // split-tile rendering kicks in exactly like it did before this moved to
 // Sanity.
 export const MOCK_HOMEPAGE_FEATURED_BEFORE_AFTERS: FeaturedBeforeAfter[] = [
-  { label: 'Botox®', treatmentSlug: 'botox', entry: { patient: 'Patient A', timeframe: '6 weeks apart', layout: 'separate' } },
-  { label: 'RENUlift™', treatmentSlug: 'renulift', entry: { patient: 'Patient E', timeframe: '9 years apart', layout: 'separate' } },
-  { label: 'Dermal Fillers', treatmentSlug: 'sculptra', entry: { patient: 'Patient B', timeframe: '3 months apart', layout: 'separate' } },
-  { label: 'Laser Resurfacing', treatmentSlug: 'resurfacing', entry: { patient: 'Patient C', timeframe: '8 months apart', layout: 'separate' } }
+  { key: 'mock-1', label: 'Botox®', treatmentSlug: 'botox', entry: { patient: 'Patient A', timeframe: '6 weeks apart', layout: 'separate' } },
+  { key: 'mock-2', label: 'RENUlift™', treatmentSlug: 'renulift', entry: { patient: 'Patient E', timeframe: '9 years apart', layout: 'separate' } },
+  { key: 'mock-3', label: 'Dermal Fillers', treatmentSlug: 'sculptra', entry: { patient: 'Patient B', timeframe: '3 months apart', layout: 'separate' } },
+  { key: 'mock-4', label: 'Laser Resurfacing', treatmentSlug: 'resurfacing', entry: { patient: 'Patient C', timeframe: '8 months apart', layout: 'separate' } }
 ];

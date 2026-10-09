@@ -32,6 +32,9 @@ export default async function HomePage() {
   const favorites = (await Promise.all(FAVORITE_IDS.map((slug) => getTreatmentBySlug(slug)))).filter((t) => t !== null);
   const galleryTiles = await getGalleryTiles();
   const featuredBeforeAfters = await getHomepageFeaturedBeforeAfters();
+  const ageInReverse = featuredBeforeAfters
+    .map((f) => ({ key: f.key, timeframe: f.entry.timeframe, resolved: resolveBeforeAfter(f.entry) }))
+    .filter((t) => t.resolved.mode !== 'placeholder');
 
   return (
     <>
@@ -151,43 +154,40 @@ export default async function HomePage() {
         />
       </section>
 
-      {/* Hidden until the Homepage document in Sanity has Before & After
-          picks — an empty "Real Results" heading reads as broken. */}
-      {featuredBeforeAfters.length > 0 && (
+      {/* "Age in Reverse" — just the photos and the time between them; no
+          treatment names or links (those Studio fields are optional and not
+          shown yet). Tiles without uploaded photos are skipped, and the
+          section stays hidden until at least one tile has them. */}
+      {ageInReverse.length > 0 && (
       <section className="section section--bg-alt" aria-labelledby="ba-heading">
         <div className="container">
           <div className="section-head section-head--center">
             <span className="eyebrow">Real Results</span>
-            <h2 className="section-title" id="ba-heading">Before &amp; After</h2>
+            <h2 className="section-title" id="ba-heading">Age in Reverse</h2>
             <p className="section-sub">Results that hold up — some of these photos are years apart, not weeks, and patients still look younger than their own starting point.</p>
           </div>
 
           <div className="ba-grid">
-            {featuredBeforeAfters.map((f) => {
-              const resolved = resolveBeforeAfter(f.entry);
+            {ageInReverse.map(({ key, timeframe, resolved }) => {
+              const alt = timeframe ? ` (${timeframe})` : '';
               return (
-                <Link
-                  className="ba-tile"
-                  href={`/treatments/${f.treatmentSlug}/`}
-                  aria-label={`Before and after photos for ${f.label} — view ${f.label} treatment page`}
-                  key={f.treatmentSlug}
-                >
+                <figure className="ba-tile" key={key}>
                   {resolved.mode === 'paired' ? (
                     <div className="ba-tile__paired">
-                      <Image src={resolved.src} alt={`${f.label} before and after`} fill sizes="(min-width: 780px) 25vw, 50vw" />
+                      <Image src={resolved.src} alt={`Patient before and after${alt}`} fill sizes="(min-width: 780px) 25vw, 50vw" />
                     </div>
-                  ) : (
+                  ) : resolved.mode === 'separate' ? (
                     <>
                       <div className="ba-tile__split">
-                        <div>{resolved.mode === 'separate' && <Image src={resolved.beforeSrc} alt={`${f.label} before`} fill sizes="(min-width: 780px) 12.5vw, 25vw" />}</div>
-                        <div>{resolved.mode === 'separate' && <Image src={resolved.afterSrc} alt={`${f.label} after`} fill sizes="(min-width: 780px) 12.5vw, 25vw" />}</div>
+                        <div><Image src={resolved.beforeSrc} alt={`Patient before${alt}`} fill sizes="(min-width: 780px) 12.5vw, 25vw" /></div>
+                        <div><Image src={resolved.afterSrc} alt={`Patient after${alt}`} fill sizes="(min-width: 780px) 12.5vw, 25vw" /></div>
                       </div>
                       <div className="ba-tile__divider" aria-hidden="true"></div>
                     </>
-                  )}
-                  <div className="ba-tile__labels"><span>Before</span><span>After</span></div>
-                  <div className="ba-tile__caption">{f.label} — {f.entry.timeframe}</div>
-                </Link>
+                  ) : null}
+                  <div className="ba-tile__labels" aria-hidden="true"><span>Before</span><span>After</span></div>
+                  {timeframe && <figcaption className="ba-tile__caption">{timeframe}</figcaption>}
+                </figure>
               );
             })}
           </div>

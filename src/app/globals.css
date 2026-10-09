@@ -1149,6 +1149,7 @@ input { font-family: inherit; }
 
 .ba-tile {
   display: block;
+  margin: 0; /* tiles are <figure>s ("Age in Reverse") — drop the default figure margin */
   color: inherit;
   text-decoration: none;
   border-radius: var(--radius-md);

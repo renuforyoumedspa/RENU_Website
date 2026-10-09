@@ -125,7 +125,7 @@ async function buildDocs() {
     featuredBeforeAfters: MOCK_HOMEPAGE_FEATURED_BEFORE_AFTERS.map((f, i) => ({
       _key: key(i),
       _type: 'featuredBeforeAfter',
-      treatment: { _type: 'reference', _ref: treatmentId(f.treatmentSlug) },
+      treatment: f.treatmentSlug ? { _type: 'reference', _ref: treatmentId(f.treatmentSlug) } : undefined,
       label: f.label,
       entry: { _type: 'beforeAfterEntry', ...f.entry }
     }))

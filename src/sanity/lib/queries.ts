@@ -53,9 +53,12 @@ export type GalleryTile =
   | { _id: string; kind: 'photo'; order: number; image: unknown; alt: string; shape: 'wide' | 'tall' | 'square' }
   | { _id: string; kind: 'review'; order: number; quote: string; reviewerName: string; source?: string };
 
+// Homepage "Age in Reverse" tile. Only `entry` (photos + timeframe) is shown
+// today; label/treatment are optional in the Studio and not displayed yet.
 export interface FeaturedBeforeAfter {
-  label: string;
-  treatmentSlug: string;
+  key: string;
+  label?: string;
+  treatmentSlug?: string;
   entry: BeforeAfterEntry;
 }
 
@@ -178,20 +181,22 @@ export async function getGalleryTiles(): Promise<GalleryTile[]> {
   );
 }
 
-// Homepage's curated Before & After picks — a singleton document
-// (_id == "homepage") referencing whichever treatments the practice wants
-// featured, each paired with its own beforeAfterEntry (independent of that
-// treatment's own default beforeAfters array).
+// Homepage's "Age in Reverse" tiles — a singleton document (_id ==
+// "homepage"), each tile its own beforeAfterEntry (independent of any
+// treatment's beforeAfters). Treatment and caption are optional.
 export async function getHomepageFeaturedBeforeAfters(): Promise<FeaturedBeforeAfter[]> {
   if (!isSanityConfigured) return MOCK_HOMEPAGE_FEATURED_BEFORE_AFTERS;
-  const doc = await client.fetch<{ featuredBeforeAfters?: { label?: string; treatment?: { name: string; slug: string }; entry: BeforeAfterEntry }[] }>(
+  const doc = await client.fetch<{ featuredBeforeAfters?: { _key: string; label?: string; treatment?: { name: string; slug: string }; entry?: BeforeAfterEntry }[] }>(
     `*[_type == "homepage"][0]{
-      featuredBeforeAfters[]{ label, "treatment": treatment->{ name, "slug": slug.current }, entry }
+      featuredBeforeAfters[]{ _key, label, "treatment": treatment->{ name, "slug": slug.current }, entry }
     }`
   );
-  return (doc?.featuredBeforeAfters || []).map((f) => ({
-    label: f.label || f.treatment?.name || '',
-    treatmentSlug: f.treatment?.slug || '',
-    entry: f.entry
-  }));
+  return (doc?.featuredBeforeAfters || [])
+    .filter((f): f is typeof f & { entry: BeforeAfterEntry } => Boolean(f.entry))
+    .map((f) => ({
+      key: f._key,
+      label: f.label || f.treatment?.name,
+      treatmentSlug: f.treatment?.slug,
+      entry: f.entry
+    }));
 }
