@@ -1,6 +1,6 @@
 'use client';
 
-import Link from 'next/link';
+import Link from '@/components/Link';
 import { useState } from 'react';
 import { QUIZ } from '@/data/site-data';
 import type { Treatment } from '@/sanity/lib/queries';

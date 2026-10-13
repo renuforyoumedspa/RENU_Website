@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/Link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
 import { getAllTreatments, getTreatmentBySlug, getGalleryTiles, getHomepageFeaturedBeforeAfters } from '@/sanity/lib/queries';
@@ -145,7 +145,7 @@ export default async function HomePage() {
 
       <section className="full-bleed-banner" aria-label="Face, Skin, Body">
         <Image
-          src="/assets/face-skin-body-banner.png"
+          src="/assets/face-skin-body-banner.webp"
           alt="RENU Medical Aesthetics treatment categories: Face, Skin, and Body"
           width={1838}
           height={681}

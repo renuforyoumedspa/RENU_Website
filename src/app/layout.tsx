@@ -23,11 +23,13 @@ const jost = Jost({
   weight: ['300', '400', '500', '600']
 });
 
-// Content comes from Sanity. Pages are pre-built, then re-fetched from
-// Sanity at most once every 60 seconds, so edits published in the Studio
-// show on the live site within about a minute — no redeploy needed.
-// Applies to every page (a page can export its own lower value).
-export const revalidate = 60;
+// Content comes from Sanity. Pages are pre-built and served from Netlify's
+// cache. When something is published in the Studio, a Sanity webhook calls
+// /api/revalidate/ and the site refreshes within seconds — no redeploy.
+// This hourly re-check is only a safety net in case a webhook is missed
+// (it was 60s, which re-rendered pages on the server every minute they
+// were visited and burned Netlify compute credits).
+export const revalidate = 3600;
 
 // metadataBase resolves every page's canonical and social-share URLs.
 // Titles: pages set the specific part; the template appends the brand.

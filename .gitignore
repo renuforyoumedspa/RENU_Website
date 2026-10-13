@@ -41,3 +41,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 /.next-check/
+
+# generated from legacy-redirects.json at build time
+/public/_redirects

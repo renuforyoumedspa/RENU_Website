@@ -45,9 +45,17 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
 
   images: {
-    remotePatterns: [{ protocol: 'https', hostname: 'cdn.sanity.io' }]
+    remotePatterns: [{ protocol: 'https', hostname: 'cdn.sanity.io' }],
+    // Sanity photos are resized by Sanity's CDN, not Netlify's (bandwidth
+    // cost) — see the loader for details. Local /public images unchanged.
+    loader: 'custom',
+    loaderFile: './src/sanity/lib/image-loader.ts'
   },
 
+  // On Netlify these are a FALLBACK: the same rules are written to
+  // public/_redirects at build time (scripts/write-netlify-redirects.mjs)
+  // and Netlify applies those at its edge first, without starting the
+  // Next.js server function. These still run in local `npm run dev`.
   async redirects() {
     return [
       // Booking moved to Decoda Health — old /book links (bookmarks, ads,
