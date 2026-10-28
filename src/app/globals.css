@@ -1608,14 +1608,21 @@ input { font-family: inherit; }
 .detail-ba__header { display: flex; flex-wrap: wrap; gap: 16px; align-items: baseline; justify-content: space-between; margin-bottom: 28px; }
 .detail-ba__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(1.625rem, 1.4rem + 0.9vw, 2.375rem); margin: 0; }
 .detail-ba__note { font-size: 13px; color: var(--renu-meta-gray); }
-.detail-ba__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; }
+/* Treatment before & after tiles. RENU's photos are wide side-by-side
+   composites, so tiles are wide (min 320px, ~3 per row on desktop) and a
+   composite is fitted whole in a 3:2 frame — dark bands blend with the
+   black photo backdrops. Two separate photos still sit as halves. */
+.detail-ba__grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 24px 16px; }
+.detail-ba__item { margin: 0; }
 .detail-ba__pair { display: flex; gap: 2px; border-radius: 22px; overflow: hidden; position: relative; }
+.detail-ba__pair--paired { aspect-ratio: 3 / 2; background: var(--renu-ink); }
+.detail-ba__pair--paired img { object-fit: contain !important; }
 .detail-ba__half { flex: 1; height: 200px; position: relative; overflow: hidden; }
 .detail-ba__half--before { background: repeating-linear-gradient(135deg, var(--renu-sand) 0 12px, #DDCDB8 12px 24px); }
 .detail-ba__half--after { background: repeating-linear-gradient(135deg, var(--renu-champagne) 0 12px, #E5D6C2 12px 24px); }
 .detail-ba__paired { position: absolute; inset: 0; }
 .detail-ba img { object-fit: cover; }
-.detail-ba__caption { padding-top: 10px; font-size: 13px; color: var(--renu-meta-gray); }
+.detail-ba__caption { padding-top: 10px; font-size: 13px; letter-spacing: 0.04em; color: var(--renu-meta-gray); text-align: center; }
 
 .detail-related { background: var(--renu-white); padding: 72px var(--section-pad-x); }
 .detail-related__inner { max-width: 1180px; margin: 0 auto; }
@@ -1684,7 +1691,13 @@ input { font-family: inherit; }
 .split-hero__eyebrow { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--renu-gold-light); }
 .split-hero__title { font-family: var(--font-display); font-weight: var(--weight-regular); font-size: clamp(2.125rem, 1.7rem + 1.9vw, 3.5rem); line-height: 1.08; margin: 0; }
 .split-hero__lead { margin: 0; max-width: 46ch; font-size: 17.5px; line-height: 1.65; color: var(--renu-sand); font-weight: var(--weight-light); }
-.split-hero__media { flex: 1 1 340px; min-height: 400px; background: repeating-linear-gradient(135deg, var(--renu-espresso-mid) 0 14px, var(--renu-espresso) 14px 28px); display: flex; align-items: flex-end; padding: 22px; }
+.split-hero__media { flex: 1 1 340px; min-height: 400px; background: repeating-linear-gradient(135deg, var(--renu-espresso-mid) 0 14px, var(--renu-espresso) 14px 28px); display: flex; align-items: flex-end; padding: 22px; position: relative; overflow: hidden; }
+/* The photo is a tall portrait (2:3). A wide, short panel cropped it to
+   ~40% of its height, so the panel is narrower and taller than the default
+   half-width split — closer to the photo's own shape (~80% visible). */
+.split-hero__media img { object-fit: cover; object-position: center 20%; }
+@media (max-width: 759px) { .split-hero__media { min-height: 520px; } }
+@media (min-width: 760px) { .split-hero__media { flex: 0 0 34%; min-height: 600px; } }
 
 /* Simple flat hero band (booking, quiz, financing — espresso bg, or bronze via --bronze, no split
    media) */
@@ -1832,6 +1845,21 @@ input { font-family: inherit; }
 .shop-crosssell__text span { font-size: 14.5px; color: var(--renu-ink-muted); }
 
 /* Team ---------------------------------------------------------------- */
+/* About page "Our Team" — general photo grid from Sanity ("Dr. Barrett &
+   Team" → Meet the Team photos). Portrait tiles; 2 per row on phones,
+   4 on desktop. Replaced the per-person team cards. */
+.team-photos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-sm);
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 40px var(--section-pad-x) 72px;
+}
+@media (min-width: 980px) { .team-photos { grid-template-columns: repeat(4, 1fr); gap: var(--space-md); } }
+.team-photos__item { position: relative; aspect-ratio: 2 / 3; border-radius: 16px; overflow: hidden; background: var(--renu-champagne); }
+.team-photos__item img { object-fit: cover; }
+
 .team-group-photo { max-width: 640px; margin: 0 auto; padding: 0 var(--section-pad-x) 40px; }
 .team-group-photo img { width: 100%; height: auto; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); display: block; }
 

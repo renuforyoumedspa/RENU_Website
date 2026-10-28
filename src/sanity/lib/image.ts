@@ -16,6 +16,9 @@ export function urlForImage(source: SanityImageSource) {
 // rendering in.
 export function imageSrc(image: unknown): string | null {
   if (!image) return null;
-  if (!isSanityConfigured) return typeof image === 'string' ? image : null;
+  // A plain "/assets/..." path is a local file in either mode (mock data,
+  // or a fallback photo when a Sanity field is empty).
+  if (typeof image === 'string') return image;
+  if (!isSanityConfigured) return null;
   return urlForImage(image as SanityImageSource).url();
 }

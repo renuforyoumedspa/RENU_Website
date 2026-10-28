@@ -169,6 +169,28 @@ export async function getAllLegacyRedirects(): Promise<{ source: string; destina
   return treatments.flatMap((t) => (t.legacyUrls || []).map((source) => ({ source, destination: `/treatments/${t.slug}` })));
 }
 
+// "Dr. Barrett & Team" singleton (_id "aboutPage"): the portrait used on
+// the homepage + About page, and the About page's team photo grid. Empty
+// fields fall back to the local files that were there before.
+export interface SanityPhoto { image: unknown; alt?: string }
+export interface AboutPageMedia { drBarrettPortrait: SanityPhoto; teamPhotos: SanityPhoto[] }
+
+const FALLBACK_PORTRAIT: SanityPhoto = { image: '/assets/dr-valerie-barrett.jpg', alt: 'Dr. Valerie Barrett, MD, founder of RENU Medical Aesthetics' };
+
+export async function getAboutPageMedia(): Promise<AboutPageMedia> {
+  if (!isSanityConfigured) return { drBarrettPortrait: FALLBACK_PORTRAIT, teamPhotos: [{ image: '/assets/renu-team-group.jpg', alt: 'The RENU Medical Aesthetics team' }] };
+  const doc = await client.fetch<{ portrait?: { asset?: unknown; alt?: string }; team?: { asset?: unknown; alt?: string }[] } | null>(
+    `*[_id == "aboutPage"][0]{ "portrait": drBarrettPortrait, "team": teamPhotos }`
+  );
+  const portrait = doc?.portrait?.asset ? { image: doc.portrait, alt: doc.portrait.alt || FALLBACK_PORTRAIT.alt } : FALLBACK_PORTRAIT;
+  return {
+    drBarrettPortrait: portrait,
+    teamPhotos: (doc?.team || []).filter((p) => p.asset).map((p) => ({ image: p, alt: p.alt || 'The RENU Medical Aesthetics team' }))
+  };
+}
+
+// No longer used on the site (the About page shows team photos instead of
+// per-person cards); kept so the old teamMember documents stay readable.
 export async function getTeamMembers(): Promise<TeamMember[]> {
   if (!isSanityConfigured) return [...MOCK_TEAM_MEMBERS].sort((a, b) => a.order - b.order);
   return client.fetch(`*[_type == "teamMember"] | order(order asc) { _id, name, role, bio, photo, order }`);

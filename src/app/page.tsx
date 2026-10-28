@@ -1,7 +1,7 @@
 import Link from '@/components/Link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { getAllTreatments, getTreatmentBySlug, getGalleryTiles, getHomepageFeaturedBeforeAfters } from '@/sanity/lib/queries';
+import { getAllTreatments, getTreatmentBySlug, getGalleryTiles, getHomepageFeaturedBeforeAfters, getAboutPageMedia } from '@/sanity/lib/queries';
 import { imageSrc } from '@/sanity/lib/image';
 import { resolveBeforeAfter } from '@/lib/before-after';
 import { getCombinedReviews } from '@/data/site-data';
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 // "What patients are saying" is a teaser — the first N tiles by display
 // order. The full set lives on /gallery.
-const HOMEPAGE_GALLERY_LIMIT = 6;
+const HOMEPAGE_GALLERY_LIMIT = 12;
 
 const FAVORITE_IDS = ['botox', 'renulift', 'ultherapy', 'sculptra', 'resurfacing', 'lips'];
 const FAVORITE_CTA_LABELS: Record<string, string> = {
@@ -32,6 +32,7 @@ export default async function HomePage() {
   const favorites = (await Promise.all(FAVORITE_IDS.map((slug) => getTreatmentBySlug(slug)))).filter((t) => t !== null);
   const galleryTiles = await getGalleryTiles();
   const featuredBeforeAfters = await getHomepageFeaturedBeforeAfters();
+  const about = await getAboutPageMedia();
   const ageInReverse = featuredBeforeAfters
     .map((f) => ({ key: f.key, timeframe: f.entry.timeframe, resolved: resolveBeforeAfter(f.entry) }))
     .filter((t) => t.resolved.mode !== 'placeholder');
@@ -78,9 +79,10 @@ export default async function HomePage() {
       <section className="section section--bg-surface" id="provider" aria-labelledby="provider-heading">
         <div className="container provider">
           <div className="provider__media">
+            {/* Portrait managed in Sanity: "Dr. Barrett & Team". */}
             <Image
-              src="/assets/dr-valerie-barrett.jpg"
-              alt="Dr. Valerie Barrett, MD, founder of RENU Medical Aesthetics"
+              src={imageSrc(about.drBarrettPortrait.image)!}
+              alt={about.drBarrettPortrait.alt || 'Dr. Valerie Barrett, MD'}
               fill
               sizes="(min-width: 960px) 40vw, 90vw"
               priority
@@ -213,38 +215,6 @@ export default async function HomePage() {
 
           <div className="ba-footer">
             <Link href="/gallery/" className="btn btn--secondary">View the full gallery</Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="section section--bg-surface" aria-labelledby="membership-heading">
-        <div className="container">
-          <div className="membership">
-            <span className="membership__flag">Concept — Pending Client Approval</span>
-            <div className="section-head" style={{ marginBottom: 0 }}>
-              <h2 className="section-title" id="membership-heading">RENU Membership</h2>
-              <p className="section-sub">Speculative packages module — for internal review only, not yet offered to patients.</p>
-            </div>
-            <div className="membership-grid">
-              <div className="membership-tier">
-                <h3 className="membership-tier__name">Essentials</h3>
-                <p className="membership-tier__price">$[TBD] <small>/ month</small></p>
-                <ul><li>Quarterly Botox® touch-up</li><li>Member pricing on add-ons</li><li>Priority scheduling</li></ul>
-                <a href="#" className="btn btn--secondary btn--block">Ask About Membership</a>
-              </div>
-              <div className="membership-tier membership-tier--featured">
-                <h3 className="membership-tier__name">Signature</h3>
-                <p className="membership-tier__price">$[TBD] <small>/ month</small></p>
-                <ul><li>Everything in Essentials</li><li>Quarterly facial or skin treatment</li><li>Member pricing on injectables</li></ul>
-                <a href="#" className="btn btn--primary btn--block">Ask About Membership</a>
-              </div>
-              <div className="membership-tier">
-                <h3 className="membership-tier__name">Elite</h3>
-                <p className="membership-tier__price">$[TBD] <small>/ month</small></p>
-                <ul><li>Everything in Signature</li><li>Annual Ultherapy® or Sculptra® credit</li><li>Dedicated concierge booking</li></ul>
-                <a href="#" className="btn btn--secondary btn--block">Ask About Membership</a>
-              </div>
-            </div>
           </div>
         </div>
       </section>

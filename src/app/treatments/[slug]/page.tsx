@@ -6,7 +6,7 @@ import { PortableText } from '@portabletext/react';
 import { getAllTreatments, getTreatmentBySlug, getRelatedTreatments } from '@/sanity/lib/queries';
 import { imageSrc } from '@/sanity/lib/image';
 import { resolveBeforeAfter } from '@/lib/before-after';
-import { DEFAULT_VISIT_STEPS, DEFAULT_FAQS, DEFAULT_BEFORE_AFTERS, getDefaultAccordions } from '@/data/shared-content';
+import { DEFAULT_VISIT_STEPS, DEFAULT_FAQS, getDefaultAccordions } from '@/data/shared-content';
 import BookingLink from '@/components/BookingLink';
 import { abs, breadcrumbJsonLd, faqJsonLd, jsonLdScript } from '@/lib/seo';
 
@@ -51,7 +51,10 @@ export default async function TreatmentDetailPage({ params }: { params: Promise<
 
   const visitSteps = treatment.visitSteps?.length ? treatment.visitSteps.map((s) => s.text) : DEFAULT_VISIT_STEPS.map((s) => s.text);
   const faqs = treatment.faqs?.length ? treatment.faqs : DEFAULT_FAQS;
-  const beforeAfters = treatment.beforeAfters?.length ? treatment.beforeAfters : DEFAULT_BEFORE_AFTERS;
+  // Before & after photos from Sanity (treatment → "Before & after photos").
+  const realBeforeAfters = (treatment.beforeAfters || [])
+    .map((entry) => ({ entry, resolved: resolveBeforeAfter(entry) }))
+    .filter((b) => b.resolved.mode !== 'placeholder');
   const accordions = getDefaultAccordions(treatment);
   const related = await getRelatedTreatments(treatment, 3);
   const heroImageSrc = imageSrc(treatment.image);
@@ -172,40 +175,43 @@ export default async function TreatmentDetailPage({ params }: { params: Promise<
         </div>
       </section>
 
+      {/* Only real photos: entries without uploaded images are skipped, and
+          the section is hidden when a treatment has none (it used to fall
+          back to placeholder tiles with made-up captions). */}
+      {realBeforeAfters.length > 0 && (
       <section className="detail-ba">
         <div className="detail-ba__inner">
           <div className="detail-ba__header">
             <h2 className="detail-ba__title">{treatment.name} before &amp; after</h2>
-            <span className="detail-ba__note">Gallery lives here — not on a separate page.</span>
           </div>
           <div className="detail-ba__grid">
-            {beforeAfters.map((entry, i) => {
-              const resolved = resolveBeforeAfter(entry);
+            {realBeforeAfters.map(({ entry, resolved }, i) => {
+              const caption = [entry.patient, entry.timeframe].filter(Boolean).join(' — ');
+              const altSuffix = entry.timeframe ? ` (${entry.timeframe})` : '';
               return (
-                <div key={i}>
+                <figure className="detail-ba__item" key={i}>
                   {resolved.mode === 'paired' ? (
-                    <div className="detail-ba__pair">
-                      <div className="detail-ba__paired">
-                        <Image src={resolved.src} alt={`${treatment.name} before and after — ${entry.patient}`} fill sizes="(min-width: 780px) 25vw, 50vw" />
-                      </div>
+                    <div className="detail-ba__pair detail-ba__pair--paired">
+                      <Image src={resolved.src} alt={`${treatment.name} before and after${altSuffix}`} fill sizes="(min-width: 1080px) 33vw, (min-width: 700px) 50vw, 100vw" />
                     </div>
-                  ) : (
+                  ) : resolved.mode === 'separate' ? (
                     <div className="detail-ba__pair">
                       <div className="detail-ba__half detail-ba__half--before">
-                        {resolved.mode === 'separate' && <Image src={resolved.beforeSrc} alt={`${treatment.name} before — ${entry.patient}`} fill sizes="(min-width: 780px) 12.5vw, 25vw" />}
+                        <Image src={resolved.beforeSrc} alt={`${treatment.name} before${altSuffix}`} fill sizes="(min-width: 1080px) 17vw, (min-width: 700px) 25vw, 50vw" />
                       </div>
                       <div className="detail-ba__half detail-ba__half--after">
-                        {resolved.mode === 'separate' && <Image src={resolved.afterSrc} alt={`${treatment.name} after — ${entry.patient}`} fill sizes="(min-width: 780px) 12.5vw, 25vw" />}
+                        <Image src={resolved.afterSrc} alt={`${treatment.name} after${altSuffix}`} fill sizes="(min-width: 1080px) 17vw, (min-width: 700px) 25vw, 50vw" />
                       </div>
                     </div>
-                  )}
-                  <div className="detail-ba__caption">{entry.patient} — {entry.timeframe}</div>
-                </div>
+                  ) : null}
+                  {caption && <figcaption className="detail-ba__caption">{caption}</figcaption>}
+                </figure>
               );
             })}
           </div>
         </div>
       </section>
+      )}
 
       {related.length > 0 && (
         <section className="detail-related">
