@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<!--
+  Netlify Forms registration — not a page anyone visits.
+
+  Netlify only detects forms in static HTML at deploy time, and the site's
+  real forms are rendered by React, so each one is mirrored here with the
+  same name and fields. The React form POSTs to this file (see
+  src/components/ContactForm.tsx); Netlify's edge captures the submission
+  before it reaches Next.js.
+
+  Adding or renaming a field? Change it here too, or Netlify drops it.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="robots" content="noindex" />
+    <title>Forms</title>
+  </head>
+  <body>
+    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
+      <input type="hidden" name="form-name" value="contact" />
+      <input name="bot-field" />
+      <input type="text" name="name" />
+      <input type="email" name="email" />
+      <input type="tel" name="phone" />
+      <input type="text" name="location" />
+      <textarea name="message"></textarea>
+      <input type="text" name="source" />
+    </form>
+  </body>
+</html>

@@ -33,6 +33,8 @@ export interface Treatment {
   blurb: string;
   image?: unknown;
   contentImage?: unknown;
+  contentImageDims?: { width: number; height: number };
+  contentImageAlt?: string;
   facts?: { visitLength?: string; downtime?: string; resultsShow?: string; lasts?: string };
   beforeAfters?: BeforeAfterEntry[];
   visitSteps?: { text: string }[];
@@ -91,6 +93,7 @@ export interface Product {
 // shape — same flat shape the old treatments-data.js array had.
 const TREATMENT_PROJECTION = `{
   _id, _updatedAt, name, "slug": slug.current, legacyUrls, areas, concerns, techs, cta, blurb, image, contentImage,
+  "contentImageDims": contentImage.asset->metadata.dimensions{ width, height }, "contentImageAlt": contentImage.alt,
   facts, beforeAfters, visitSteps, faqs, body
 }`;
 

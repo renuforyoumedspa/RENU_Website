@@ -6,25 +6,50 @@ import BookingLink from '@/components/BookingLink';
 
 const CONTACT_LOCATIONS = ['Stuart', 'Tequesta', 'Either'];
 
+// Submissions go to Netlify Forms (Netlify → Forms → "contact"). The form
+// is registered by its static twin in public/__forms.html — keep the field
+// names in sync. Posting to that static file means Netlify's edge handles
+// it directly; nothing runs in Next.js.
+const NETLIFY_FORM_ENDPOINT = '/__forms.html';
+
 export default function ContactForm() {
   const [location, setLocation] = useState('Stuart');
   const [source, setSource] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState(false);
   const [nameError, setNameError] = useState(false);
-  const [emailError, setEmailError] = useState(false);
+  const [contactError, setContactError] = useState(false);
 
-  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const name = (form.elements.namedItem('name') as HTMLInputElement).value.trim();
     const email = (form.elements.namedItem('email') as HTMLInputElement).value.trim();
+    const phone = (form.elements.namedItem('phone') as HTMLInputElement).value.trim();
     const emailValid = email === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    // Need some way to reply: a valid email or a phone number.
+    const canReply = emailValid && (email !== '' || phone.replace(/\D/g, '').length >= 10);
 
     setNameError(name.length === 0);
-    setEmailError(!emailValid);
-    if (name.length === 0 || !emailValid) return;
+    setContactError(!canReply);
+    if (name.length === 0 || !canReply) return;
 
-    setSubmitted(true);
+    setSending(true);
+    setSendError(false);
+    try {
+      const res = await fetch(NETLIFY_FORM_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form) as unknown as Record<string, string>).toString()
+      });
+      if (!res.ok) throw new Error(`Form submission failed: ${res.status}`);
+      setSubmitted(true);
+    } catch {
+      setSendError(true);
+    } finally {
+      setSending(false);
+    }
   }
 
   if (submitted) {
@@ -41,17 +66,30 @@ export default function ContactForm() {
       <h2 className="detail-h2">Send us a message</h2>
       <p className="detail-treats__p" style={{ marginBottom: 20 }}>For appointments, <BookingLink>book online</BookingLink> to pick a time right away. Use this for everything else.</p>
 
-      <form onSubmit={handleSubmit} noValidate>
+      <form name="contact" method="POST" data-netlify="true" netlify-honeypot="bot-field" onSubmit={handleSubmit} noValidate>
+        <input type="hidden" name="form-name" value="contact" />
+        {/* Pill choices aren't inputs, so their values ride along here. */}
+        <input type="hidden" name="location" value={location} />
+        <input type="hidden" name="source" value={source} />
+        {/* Spam trap: hidden from people, filled in by bots. */}
+        <p hidden>
+          <label>Leave this empty: <input name="bot-field" tabIndex={-1} autoComplete="off" /></label>
+        </p>
+
         <div className="form-grid" style={{ marginBottom: 18 }}>
           <div className={`form-field${nameError ? ' has-error' : ''}`}>
             <label htmlFor="cName">Name</label>
-            <input type="text" id="cName" name="name" />
+            <input type="text" id="cName" name="name" autoComplete="name" />
             <span className="form-field__error">Name is required.</span>
           </div>
-          <div className={`form-field${emailError ? ' has-error' : ''}`}>
+          <div className={`form-field${contactError ? ' has-error' : ''}`}>
             <label htmlFor="cEmail">Email</label>
-            <input type="email" id="cEmail" name="email" />
-            <span className="form-field__error">A valid email helps us reply.</span>
+            <input type="email" id="cEmail" name="email" autoComplete="email" />
+            <span className="form-field__error">Add a valid email or a phone number so we can reply.</span>
+          </div>
+          <div className={`form-field${contactError ? ' has-error' : ''}`}>
+            <label htmlFor="cPhone">Phone</label>
+            <input type="tel" id="cPhone" name="phone" autoComplete="tel" />
           </div>
         </div>
 
@@ -78,7 +116,12 @@ export default function ContactForm() {
           </div>
         </div>
 
-        <button type="submit" className="btn btn--primary">Send message</button>
+        {sendError && (
+          <p className="form-field__error" role="alert" style={{ display: 'block', marginBottom: 16 }}>
+            Sorry — your message didn&apos;t send. Please try again, or call <a href="tel:5614066123">561-406-6123</a>.
+          </p>
+        )}
+        <button type="submit" className="btn btn--primary" disabled={sending}>{sending ? 'Sending…' : 'Send message'}</button>
       </form>
     </div>
   );

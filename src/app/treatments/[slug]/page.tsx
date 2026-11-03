@@ -124,9 +124,14 @@ export default async function TreatmentDetailPage({ params }: { params: Promise<
           <div className="detail-body__main">
             <h2 className="detail-h2">What it treats</h2>
             <div className="detail-treats">
-              <div className="detail-treats__media">
+              {/* With a photo, the box takes the photo's own shape so nothing
+                  is cropped (often a side-by-side before & after). */}
+              <div
+                className="detail-treats__media"
+                style={contentImageSrc && treatment.contentImageDims ? { aspectRatio: `${treatment.contentImageDims.width} / ${treatment.contentImageDims.height}` } : undefined}
+              >
                 {contentImageSrc ? (
-                  <Image src={contentImageSrc} alt={treatment.name} fill sizes="(min-width: 780px) 40vw, 90vw" />
+                  <Image src={contentImageSrc} alt={treatment.contentImageAlt || treatment.name} fill sizes="(min-width: 780px) 480px, 90vw" />
                 ) : (
                   <span className="detail-placeholder-caption">content image — {treatment.name}</span>
                 )}
