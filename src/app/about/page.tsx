@@ -89,7 +89,8 @@ export default async function AboutPage() {
             <div className="credential-grid__cell"><div className="credential-grid__key">Credential</div><div className="credential-grid__value">Board-certified MD</div></div>
             <div className="credential-grid__cell"><div className="credential-grid__key">Experience</div><div className="credential-grid__value">25 years</div></div>
             <div className="credential-grid__cell"><div className="credential-grid__key">Focus</div><div className="credential-grid__value">Non-surgical only</div></div>
-            <div className="credential-grid__cell"><div className="credential-grid__key">Injects</div><div className="credential-grid__value">Every plan herself</div></div>
+            <div className="credential-grid__cell"><div className="credential-grid__key">Injectables</div><div className="credential-grid__value">Done by Dr. Barrett</div></div>
+            <div className="credential-grid__cell"><div className="credential-grid__key">Plans</div><div className="credential-grid__value">Designed by Dr. Barrett</div></div>
           </div>
         </div>
       </div>

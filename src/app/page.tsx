@@ -1,12 +1,13 @@
 import Link from '@/components/Link';
 import Image from 'next/image';
 import type { Metadata } from 'next';
-import { getAllTreatments, getTreatmentBySlug, getGalleryTiles, getHomepageFeaturedBeforeAfters, getAboutPageMedia } from '@/sanity/lib/queries';
+import { getAllTreatments, getTreatmentBySlug, getGalleryTiles, getAgeInReverseSlides, getAboutPageMedia } from '@/sanity/lib/queries';
 import { imageSrc } from '@/sanity/lib/image';
-import { resolveBeforeAfter } from '@/lib/before-after';
 import { getCombinedReviews } from '@/data/site-data';
 import BookingLink from '@/components/BookingLink';
 import GalleryMasonry from '@/components/GalleryMasonry';
+import AgeInReverseCarousel, { type CarouselSlide } from '@/components/AgeInReverseCarousel';
+import { MOST_RECOMMENDED } from '@/data/recommended';
 
 export const metadata: Metadata = {
   alternates: { canonical: '/' }
@@ -16,14 +17,16 @@ export const metadata: Metadata = {
 // order. The full set lives on /gallery.
 const HOMEPAGE_GALLERY_LIMIT = 12;
 
-const FAVORITE_IDS = ['botox', 'renulift', 'ultherapy', 'sculptra', 'resurfacing', 'lips'];
+// The first six of the client's most recommended treatments.
+const FAVORITE_IDS = MOST_RECOMMENDED.slice(0, 6);
 const FAVORITE_CTA_LABELS: Record<string, string> = {
-  botox: 'Erase Fine Lines',
-  renulift: 'Get Your RENUlift',
-  ultherapy: 'Lift & Tighten Naturally',
-  sculptra: 'Restore Facial Volume',
   resurfacing: 'Renew Your Glow',
-  lips: 'Get Luscious Lips'
+  ultherapy: 'Lift & Tighten Naturally',
+  coollaser: 'Get Flawless Skin',
+  necklift: 'Redefine Your Neck',
+  eyelid: 'Lift Your Lids',
+  browlift: 'Raise Your Brow',
+  tightening: 'Tighten Your Skin'
 };
 
 export default async function HomePage() {
@@ -31,11 +34,13 @@ export default async function HomePage() {
   const reviews = getCombinedReviews();
   const favorites = (await Promise.all(FAVORITE_IDS.map((slug) => getTreatmentBySlug(slug)))).filter((t) => t !== null);
   const galleryTiles = await getGalleryTiles();
-  const featuredBeforeAfters = await getHomepageFeaturedBeforeAfters();
+  const ageInReverseSlides = await getAgeInReverseSlides();
   const about = await getAboutPageMedia();
-  const ageInReverse = featuredBeforeAfters
-    .map((f) => ({ key: f.key, timeframe: f.entry.timeframe, resolved: resolveBeforeAfter(f.entry) }))
-    .filter((t) => t.resolved.mode !== 'placeholder');
+  // "2017–2025" → 8 years apart (only when the field holds two years).
+  const yearsApart = (t?: string) => { const m = t?.match(/(\d{4})\D+(\d{4})/); return m ? Math.abs(+m[2] - +m[1]) || undefined : undefined; };
+  const ageInReverse: CarouselSlide[] = ageInReverseSlides
+    .map((s) => ({ key: s.key, src: imageSrc(s.photo) || '', alt: s.alt || `Before and after photos of a RENU patient${s.timeframe ? `, ${s.timeframe}` : ''}`, timeframe: s.timeframe, yearsApart: yearsApart(s.timeframe), treatments: s.treatments }))
+    .filter((s) => s.src);
 
   return (
     <>
@@ -54,7 +59,7 @@ export default async function HomePage() {
 
         <div className="hero__content">
           <span className="hero__eyebrow"><span className="dot" aria-hidden="true"></span>Stuart &amp; Tequesta, Florida</span>
-          <h1 className="hero__title">Look like you,<br /><em>only rested.</em></h1>
+          <h1 className="hero__title">Look like you,<br /><em>only younger.</em></h1>
           <p className="hero__subhead">
             25 years of board-certified, non-surgical care from Dr. Valerie Barrett —
             tailored to your face, your goals, your timeline.
@@ -154,12 +159,18 @@ export default async function HomePage() {
           sizes="100vw"
           style={{ width: '100%', height: 'auto' }}
         />
+        {/* The banner is one image; each panel gets an invisible link laid
+            over it, sized to the photo seams (31.94% and 67.14% across). */}
+        <nav className="full-bleed-banner__links" aria-label="Browse treatments by area">
+          <Link href="/treatments/?area=Face" className="full-bleed-banner__link" style={{ left: 0, width: '31.94%' }} aria-label="Face treatments"><span className="full-bleed-banner__label" aria-hidden="true">Face</span></Link>
+          <Link href="/treatments/?area=Skin" className="full-bleed-banner__link" style={{ left: '31.94%', width: '35.2%' }} aria-label="Skin treatments"><span className="full-bleed-banner__label" aria-hidden="true">Skin</span></Link>
+          <Link href="/treatments/?area=Body" className="full-bleed-banner__link" style={{ left: '67.14%', width: '32.86%' }} aria-label="Body treatments"><span className="full-bleed-banner__label" aria-hidden="true">Body</span></Link>
+        </nav>
       </section>
 
-      {/* "Age in Reverse" — just the photos and the time between them; no
-          treatment names or links (those Studio fields are optional and not
-          shown yet). Tiles without uploaded photos are skipped, and the
-          section stays hidden until at least one tile has them. */}
+      {/* "Age in Reverse" carousel — one slide per patient (before & after
+          photo, years, treatments used with links). Sanity: Homepage →
+          "Age in Reverse slides". Hidden until at least one slide has a photo. */}
       {ageInReverse.length > 0 && (
       <section className="section section--bg-alt" id="age-in-reverse" aria-labelledby="ba-heading">
         <div className="container">
@@ -169,32 +180,7 @@ export default async function HomePage() {
             <p className="section-sub">Results that hold up — some of these photos are years apart, not weeks, and patients still look younger than their own starting point.</p>
           </div>
 
-          <div className="ba-grid">
-            {ageInReverse.map(({ key, timeframe, resolved }) => {
-              const alt = timeframe ? ` (${timeframe})` : '';
-              return (
-                <figure className="ba-tile" key={key}>
-                  <div className={`ba-tile__media${resolved.mode === 'paired' ? ' ba-tile__media--paired' : ''}`}>
-                    {resolved.mode === 'paired' ? (
-                      <div className="ba-tile__paired">
-                        <Image src={resolved.src} alt={`Patient before and after${alt}`} fill sizes="(min-width: 980px) 33vw, (min-width: 640px) 50vw, 100vw" />
-                      </div>
-                    ) : resolved.mode === 'separate' ? (
-                      <>
-                        <div className="ba-tile__split">
-                          <div><Image src={resolved.beforeSrc} alt={`Patient before${alt}`} fill sizes="(min-width: 980px) 17vw, (min-width: 640px) 25vw, 50vw" /></div>
-                          <div><Image src={resolved.afterSrc} alt={`Patient after${alt}`} fill sizes="(min-width: 980px) 17vw, (min-width: 640px) 25vw, 50vw" /></div>
-                        </div>
-                        <div className="ba-tile__divider" aria-hidden="true"></div>
-                        <div className="ba-tile__labels" aria-hidden="true"><span>Before</span><span>After</span></div>
-                      </>
-                    ) : null}
-                  </div>
-                  {timeframe && <figcaption className="ba-tile__caption">{timeframe}</figcaption>}
-                </figure>
-              );
-            })}
-          </div>
+          <AgeInReverseCarousel slides={ageInReverse} />
 
           <div className="ba-footer">
             <Link href="/treatments/" className="btn btn--secondary">View All Treatments</Link>

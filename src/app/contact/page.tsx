@@ -67,7 +67,7 @@ export default function ContactPage() {
           <div className="contact-panel">
             <h3>Both clinics</h3>
             <div className="contact-panel__row"><strong>Phone &amp; Text</strong><a href="tel:5614066123">561-406-6123</a></div>
-            <div className="contact-panel__row"><strong>Email</strong><a href="mailto:info@RENUforyou.com">info@RENUforyou.com</a></div>
+            <div className="contact-panel__row"><strong>Email</strong><a href="mailto:info@renuforyou.com">info@renuforyou.com</a></div>
             <div className="contact-panel__row"><strong>Hours</strong><span>Mon–Fri 9:00–5:00, weekends by appointment</span></div>
             <div className="contact-panel__row"><BookingLink className="contact-panel__link">Ready to book? →</BookingLink></div>
           </div>

@@ -8,6 +8,7 @@ import type { Treatment } from '@/sanity/lib/queries';
 import { imageSrc } from '@/sanity/lib/image';
 import BookingLink from '@/components/BookingLink';
 import { AREAS, CONCERNS, TECHS } from '@/data/taxonomy';
+import { MOST_RECOMMENDED } from '@/data/recommended';
 
 const AXES = [
   { key: 'area', label: 'Area', values: AREAS },
@@ -51,6 +52,13 @@ export default function TreatmentsGrid({ treatments }: { treatments: Treatment[]
     router.replace('/treatments/', { scroll: false });
   }
 
+  // Client's most recommended treatments lead (in their order); the rest
+  // follow. Filters apply to both groups.
+  const recommended = useMemo(
+    () => new Map(MOST_RECOMMENDED.map((slug, i) => [slug, i])),
+    []
+  );
+
   const shown = useMemo(
     () =>
       treatments.filter(
@@ -62,6 +70,30 @@ export default function TreatmentsGrid({ treatments }: { treatments: Treatment[]
           (filters.tech === 'All' || (t.techs as string[]).includes(filters.tech))
       ),
     [treatments, filters]
+  );
+  const top = shown.filter((t) => recommended.has(t.slug)).sort((a, b) => recommended.get(a.slug)! - recommended.get(b.slug)!);
+  const rest = shown.filter((t) => !recommended.has(t.slug));
+
+  const card = (t: Treatment) => (
+    <article className="idx-card" key={t._id}>
+      <div className="idx-card__media">
+        {imageSrc(t.image) && <Image src={imageSrc(t.image)!} alt={t.name} fill sizes="(min-width: 1080px) 33vw, (min-width: 620px) 50vw, 90vw" />}
+      </div>
+      <div className="idx-card__body">
+        <div className="idx-card__chips">
+          {/* Show the tag the visitor filtered by (e.g. "Body" for Sculptra®
+              under Area: Body), else the treatment's primary tag. */}
+          <span className="idx-chip idx-chip--area">{filters.area !== 'All' ? filters.area : t.areas[0]}</span>
+          <span className="idx-chip idx-chip--tech">{filters.tech !== 'All' ? filters.tech : t.techs[0]}</span>
+        </div>
+        <h3 className="idx-card__name">{t.name}</h3>
+        <p className="idx-card__blurb">{t.blurb}</p>
+        <div className="idx-card__actions">
+          <Link href={`/treatments/${t.slug}/`} className="btn btn--primary">See treatment</Link>
+          <BookingLink className="btn btn--secondary">Book visit</BookingLink>
+        </div>
+      </div>
+    </article>
   );
 
   return (
@@ -96,29 +128,20 @@ export default function TreatmentsGrid({ treatments }: { treatments: Treatment[]
           </div>
 
           {shown.length > 0 ? (
-            <div className="idx-grid">
-              {shown.map((t) => (
-                <article className="idx-card" key={t._id}>
-                  <div className="idx-card__media">
-                    {imageSrc(t.image) && <Image src={imageSrc(t.image)!} alt={t.name} fill sizes="(min-width: 1080px) 33vw, (min-width: 620px) 50vw, 90vw" />}
-                  </div>
-                  <div className="idx-card__body">
-                    <div className="idx-card__chips">
-                      {/* Show the tag the visitor filtered by (e.g. "Body" for Sculptra®
-                          under Area: Body), else the treatment's primary tag. */}
-                      <span className="idx-chip idx-chip--area">{filters.area !== 'All' ? filters.area : t.areas[0]}</span>
-                      <span className="idx-chip idx-chip--tech">{filters.tech !== 'All' ? filters.tech : t.techs[0]}</span>
-                    </div>
-                    <h3 className="idx-card__name">{t.name}</h3>
-                    <p className="idx-card__blurb">{t.blurb}</p>
-                    <div className="idx-card__actions">
-                      <Link href={`/treatments/${t.slug}/`} className="btn btn--primary">See treatment</Link>
-                      <BookingLink className="btn btn--secondary">Book visit</BookingLink>
-                    </div>
-                  </div>
-                </article>
-              ))}
-            </div>
+            <>
+              {top.length > 0 && (
+                <section className="idx-group" aria-labelledby="idx-group-top">
+                  <h2 className="idx-group__title" id="idx-group-top">Most sought-after treatments</h2>
+                  <div className="idx-grid">{top.map(card)}</div>
+                </section>
+              )}
+              {rest.length > 0 && (
+                <section className="idx-group" aria-labelledby={top.length > 0 ? 'idx-group-rest' : undefined}>
+                  {top.length > 0 && <h2 className="idx-group__title" id="idx-group-rest">More treatments</h2>}
+                  <div className="idx-grid">{rest.map(card)}</div>
+                </section>
+              )}
+            </>
           ) : (
             <div className="idx-empty">
               <p>No treatment matches that combination.</p>

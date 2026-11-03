@@ -6,8 +6,15 @@ import { QUIZ } from '@/data/site-data';
 import type { Treatment } from '@/sanity/lib/queries';
 import BookingLink from '@/components/BookingLink';
 
-function getRecommendations(treatments: Treatment[], concern: string, noDowntime: boolean, limit = 3) {
-  let recs = treatments.filter((t) => t.concerns.includes(concern));
+// RENU's signature treatments — the ones the clinic most wants to steer
+// patients toward. Badged wherever they come up in results.
+const SIGNATURE = ['ultherapy', 'coollaser'];
+
+function getRecommendations(treatments: Treatment[], answer: string, concern: string, noDowntime: boolean, limit = 3) {
+  const picks = QUIZ[0]?.picks?.[answer];
+  let recs = picks
+    ? picks.map((slug) => treatments.find((t) => t.slug === slug)).filter((t): t is Treatment => !!t)
+    : treatments.filter((t) => t.concerns.includes(concern));
   if (noDowntime) recs = [...recs.filter((t) => !t.techs.includes('Laser')), ...recs.filter((t) => t.techs.includes('Laser'))];
   return recs.slice(0, limit);
 }
@@ -35,7 +42,7 @@ export default function QuizFlow({ treatments }: { treatments: Treatment[] }) {
   if (done) {
     const concern = (answers[0] && QUIZ[0]?.map?.[answers[0]]) || 'Lines & wrinkles';
     const noDowntime = answers[1] === 'None — I have plans this week';
-    const recs = getRecommendations(treatments, concern, noDowntime, 3);
+    const recs = getRecommendations(treatments, answers[0], concern, noDowntime, 3);
 
     return (
       <div style={{ display: 'flex', flexDirection: 'column', gap: 24, animation: 'renuFade 320ms ease both' }}>
@@ -49,6 +56,7 @@ export default function QuizFlow({ treatments }: { treatments: Treatment[] }) {
         <div className="detail-related__grid">
           {recs.map((t) => (
             <Link className="detail-related__card" href={`/treatments/${t.slug}/`} key={t._id}>
+              {SIGNATURE.includes(t.slug) && <span className="quiz-signature">RENU signature treatment</span>}
               <div className="detail-related__area">{t.areas[0]} · {t.techs[0]}</div>
               <div className="detail-related__name">{t.name}</div>
               <div className="detail-related__blurb">{t.blurb}</div>

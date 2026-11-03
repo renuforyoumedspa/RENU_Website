@@ -11,8 +11,11 @@ export default function GalleryMasonry({ tiles }: { tiles: GalleryTile[] }) {
       {tiles.map((tile) => {
         if (tile.kind === 'photo') {
           const src = imageSrc(tile.image);
+          // "Full photo" tiles take the photo's own proportions, so
+          // side-by-side before & afters are never cropped.
+          const ratio = tile.shape === 'full' && tile.dims ? { aspectRatio: `${tile.dims.width} / ${tile.dims.height}` } : undefined;
           return (
-            <div className={`gallery-tile gallery-tile--photo gallery-tile--${tile.shape}`} key={tile._id}>
+            <div className={`gallery-tile gallery-tile--photo gallery-tile--${tile.shape}`} style={ratio} key={tile._id}>
               {src && <Image src={src} alt={tile.alt} fill sizes="(min-width: 1080px) 25vw, (min-width: 640px) 33vw, 90vw" />}
             </div>
           );

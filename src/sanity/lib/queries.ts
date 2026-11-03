@@ -50,7 +50,7 @@ export interface TeamMember {
 }
 
 export type GalleryTile =
-  | { _id: string; kind: 'photo'; order: number; image: unknown; alt: string; shape: 'wide' | 'tall' | 'square' }
+  | { _id: string; kind: 'photo'; order: number; image: unknown; alt: string; shape: 'wide' | 'tall' | 'square' | 'full'; dims?: { width: number; height: number } }
   | { _id: string; kind: 'review'; order: number; quote: string; reviewerName: string; source?: string };
 
 // Homepage "Age in Reverse" tile. Only `entry` (photos + timeframe) is shown
@@ -199,13 +199,39 @@ export async function getTeamMembers(): Promise<TeamMember[]> {
 export async function getGalleryTiles(): Promise<GalleryTile[]> {
   if (!isSanityConfigured) return [...MOCK_GALLERY_TILES].sort((a, b) => a.order - b.order);
   return client.fetch(
-    `*[_type == "galleryTile"] | order(order asc) { _id, kind, order, image, alt, shape, quote, reviewerName, source }`
+    `*[_type == "galleryTile"] | order(order asc) { _id, kind, order, image, alt, shape, "dims": image.asset->metadata.dimensions{ width, height }, quote, reviewerName, source }`
   );
 }
 
-// Homepage's "Age in Reverse" tiles — a singleton document (_id ==
-// "homepage"), each tile its own beforeAfterEntry (independent of any
-// treatment's beforeAfters). Treatment and caption are optional.
+// Homepage "Age in Reverse" carousel — Homepage → "Age in Reverse slides".
+// Treatments are references, so their names/links/blurbs stay in sync with
+// the treatment pages (and a deleted treatment simply drops off the slide).
+export interface AgeInReverseSlide {
+  key: string;
+  photo: unknown;
+  alt?: string;
+  timeframe?: string;
+  treatments: { name: string; slug: string; blurb?: string }[];
+}
+
+export async function getAgeInReverseSlides(): Promise<AgeInReverseSlide[]> {
+  if (!isSanityConfigured) return [];
+  const slides = await client.fetch<{ _key: string; photo?: { asset?: unknown; alt?: string }; timeframe?: string; treatments?: ({ name: string; slug: string; blurb?: string } | null)[] }[] | null>(
+    `*[_id == "homepage"][0].ageInReverseSlides[]{ _key, photo, timeframe, "treatments": treatments[]->{ name, "slug": slug.current, blurb } }`
+  );
+  return (slides || [])
+    .filter((s) => s.photo?.asset)
+    .map((s) => ({
+      key: s._key,
+      photo: s.photo,
+      alt: s.photo?.alt,
+      timeframe: s.timeframe,
+      treatments: (s.treatments || []).filter((t): t is { name: string; slug: string; blurb?: string } => Boolean(t?.slug))
+    }));
+}
+
+// Previous "Age in Reverse" tiles (Homepage → featuredBeforeAfters, now
+// hidden in the Studio). No longer shown on the site; kept for reference.
 export async function getHomepageFeaturedBeforeAfters(): Promise<FeaturedBeforeAfter[]> {
   if (!isSanityConfigured) return MOCK_HOMEPAGE_FEATURED_BEFORE_AFTERS;
   const doc = await client.fetch<{ featuredBeforeAfters?: { _key: string; label?: string; treatment?: { name: string; slug: string }; entry?: BeforeAfterEntry }[] }>(

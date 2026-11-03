@@ -36,7 +36,7 @@ export default async function Footer() {
           <Image src="/assets/renu-logo.png" alt="RENU Medical Aesthetics" width={184} height={46} className="chrome-footer__logo" />
           <p className="chrome-footer__tagline">Non-surgical medical aesthetics in Stuart &amp; Tequesta, led by Dr. Valerie Barrett, MD.</p>
           <a href="tel:5614066123" className="chrome-footer__phone">561-406-6123</a>
-          <a href="mailto:info@RENUforyou.com" className="chrome-footer__email">info@RENUforyou.com</a>
+          <a href="mailto:info@renuforyou.com" className="chrome-footer__email">info@renuforyou.com</a>
         </div>
 
         {FOOTER_COLS.map((col) => (

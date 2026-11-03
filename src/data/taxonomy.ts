@@ -18,16 +18,14 @@ export const CONCERNS = [
   'Jowls',
   'Nasolabial folds / Marionette lines',
   'Texture & tone',
-  'Pigment',
   'Acne',
   'Scars',
   'Lips',
   'Contour',
-  'Hair loss',
-  'Cellulite'
+  'Hair loss'
 ] as const;
 
-export const TECHS = ['Injectable', 'Thread', 'Laser', 'Energy', 'Microneedling', 'Skin Care'] as const;
+export const TECHS = ['Injectable', 'Thread', 'Laser', 'Energy', 'Microneedling'] as const;
 
 export type Area = (typeof AREAS)[number];
 export type Concern = (typeof CONCERNS)[number];

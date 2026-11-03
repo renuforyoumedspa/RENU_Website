@@ -7,6 +7,7 @@ import { getAllTreatments, getTreatmentBySlug, getRelatedTreatments } from '@/sa
 import { imageSrc } from '@/sanity/lib/image';
 import { resolveBeforeAfter } from '@/lib/before-after';
 import { DEFAULT_VISIT_STEPS, DEFAULT_FAQS, getDefaultAccordions } from '@/data/shared-content';
+import { EXOSOME_ADDON } from '@/data/add-ons';
 import BookingLink from '@/components/BookingLink';
 import { abs, breadcrumbJsonLd, faqJsonLd, jsonLdScript } from '@/lib/seo';
 
@@ -134,14 +135,23 @@ export default async function TreatmentDetailPage({ params }: { params: Promise<
                 <div className="detail-treats__prose">
                   {treatment.body ? <PortableText value={treatment.body as never} /> : <p>{treatment.blurb}</p>}
                 </div>
+                {/* What it is / How it works / How it helps / Treatable areas —
+                    always shown (were click-to-open drop-downs). */}
                 <div className="detail-accordion">
                   {accordions.map((a, i) => (
-                    <details key={i}>
-                      <summary>{a.q}</summary>
+                    <div className="detail-accordion__item" key={i}>
+                      <h3 className="detail-accordion__title">{a.q}</h3>
                       <p>{a.a}</p>
-                    </details>
+                    </div>
                   ))}
                 </div>
+                {EXOSOME_ADDON.slugs.includes(treatment.slug) && (
+                  <div className="detail-addon">
+                    <span className="detail-addon__eyebrow">Optional add-on</span>
+                    <h3 className="detail-addon__title">{EXOSOME_ADDON.title}</h3>
+                    <p>{EXOSOME_ADDON.text}</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>

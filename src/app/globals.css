@@ -1059,6 +1059,44 @@ input { font-family: inherit; }
 @media (min-width: 620px) { .idx-grid { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 1080px) { .idx-grid { grid-template-columns: repeat(3, 1fr); } }
 
+/* Find My Treatment: badge on RENU's signature treatments. */
+.quiz-signature {
+  align-self: flex-start;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--renu-bronze);
+  background: var(--renu-champagne);
+  padding: 4px 10px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+  display: inline-block;
+}
+
+/* Treatment page: exosome add-on note. */
+.detail-addon {
+  margin-top: 28px;
+  padding: 22px 24px;
+  border: 1px solid var(--renu-border-muted);
+  border-left: 3px solid var(--renu-bronze);
+  border-radius: 12px;
+  background: var(--renu-champagne);
+}
+.detail-addon__eyebrow { display: block; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--renu-bronze); margin-bottom: 6px; }
+.detail-addon__title { font-family: var(--font-display); font-weight: var(--weight-medium); font-size: 22px; margin: 0 0 8px; }
+.detail-addon p { margin: 0; }
+
+/* "Most sought-after" group, then the rest. */
+.idx-group + .idx-group { margin-top: 56px; }
+.idx-group__title {
+  font-family: var(--font-display);
+  font-weight: var(--weight-medium);
+  font-size: clamp(24px, 3vw, 32px);
+  margin: 0 0 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--renu-border-muted);
+}
+
 /* Floating-card treatment — same pattern as .favorite-card / .team-card
    (referencing beverlyhillsmedispa.com): rounded photo box overlapping a
    rounded content box filled with the page's own background, only a
@@ -1146,6 +1184,73 @@ input { font-family: inherit; }
    desktop, in a wider container than the default 1240px. */
 #age-in-reverse .container { max-width: 1560px; padding-inline: var(--space-sm); }
 
+/* ---- "Age in Reverse" carousel (AgeInReverseCarousel.tsx) --------------
+   Native horizontal scroll-snap track; each slide fills the track width.
+   Desktop: photo | years + treatments. Phones: stacked. */
+.air-carousel { max-width: 1080px; margin: 0 auto; }
+.air-carousel__track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  border-radius: 22px;
+  background: var(--renu-white);
+  border: 1px solid var(--renu-border);
+}
+.air-carousel__track::-webkit-scrollbar { display: none; }
+.air-carousel__track:focus-visible { outline: 3px solid var(--renu-gold); outline-offset: 3px; }
+.air-slide {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+  padding: var(--space-lg) var(--space-md);
+}
+@media (min-width: 900px) {
+  .air-slide { grid-template-columns: 320px 1fr; gap: var(--space-xl); padding: var(--space-xl); align-items: center; }
+}
+/* The photos are tall before/after panels (~1:2); contained, never cropped. */
+.air-slide__photo { position: relative; width: 100%; max-width: 300px; margin: 0 auto; aspect-ratio: 1 / 2.05; border-radius: 14px; overflow: hidden; background: var(--renu-ivory); }
+.air-slide__photo img { object-fit: contain; }
+.air-slide__years { margin: 0; font-family: var(--font-display); font-size: clamp(2rem, 1.6rem + 1.6vw, 3rem); line-height: 1.05; color: var(--renu-espresso); }
+.air-slide__apart { margin: 6px 0 0; font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--renu-bronze); }
+.air-slide__heading { margin: var(--space-lg) 0 var(--space-sm); font-family: var(--font-body); font-size: 12px; font-weight: var(--weight-medium); letter-spacing: 0.16em; text-transform: uppercase; color: var(--renu-taupe-deep); }
+.air-slide__treatments { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.air-slide__treatment { display: flex; flex-direction: column; gap: 4px; height: 100%; padding: 14px 16px; border: 1px solid var(--renu-border); border-radius: 12px; background: var(--renu-ivory); transition: border-color var(--transition-fast), background-color var(--transition-fast); }
+.air-slide__treatment:hover { border-color: var(--renu-bronze); background: var(--renu-white); }
+.air-slide__treatment-name { font-family: var(--font-display); font-size: 18px; color: var(--renu-ink); }
+.air-slide__treatment-blurb { font-size: 13.5px; line-height: 1.5; color: var(--renu-ink-muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.air-slide__treatment-more { margin-top: auto; padding-top: 4px; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--renu-bronze); }
+.air-carousel__controls { display: flex; align-items: center; justify-content: center; gap: var(--space-md); margin-top: var(--space-md); }
+.air-carousel__pause { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--renu-border); background: transparent; color: var(--renu-taupe-deep); font-size: 11px; letter-spacing: -1px; }
+.air-carousel__pause:hover { border-color: var(--renu-bronze); color: var(--renu-espresso); }
+.air-carousel__arrow { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--renu-border-muted); background: var(--renu-white); color: var(--renu-espresso); font-size: 18px; transition: border-color var(--transition-fast), background-color var(--transition-fast); }
+.air-carousel__arrow:hover { border-color: var(--renu-bronze); background: var(--renu-champagne); }
+.air-carousel__dots { display: flex; gap: 8px; }
+/* 24px tap target around a 10px dot. */
+.air-carousel__dot { width: 24px; height: 24px; padding: 0; background: none; position: relative; }
+.air-carousel__dot::after { content: ''; position: absolute; inset: 7px; border-radius: 50%; background: var(--renu-border-muted); transition: background-color var(--transition-fast), transform var(--transition-fast); }
+.air-carousel__dot[aria-current='true']::after { background: var(--renu-bronze); transform: scale(1.25); }
+
+/* Phones: a slide was ~1,350px tall (full-size photo + four stacked cards
+   with descriptions). Smaller photo, compact two-across cards without the
+   descriptions, tighter spacing, and controls that fit a 360px screen. */
+@media (max-width: 599px) {
+  .air-slide { gap: var(--space-md); padding: var(--space-md) var(--space-sm) var(--space-lg); }
+  .air-slide__photo { max-width: 200px; }
+  .air-slide__info { text-align: center; }
+  .air-slide__years { font-size: 1.85rem; }
+  .air-slide__heading { margin: var(--space-md) 0 var(--space-xs); }
+  .air-slide__treatments { gap: 8px; text-align: left; }
+  .air-slide__treatment { padding: 10px 12px; gap: 2px; }
+  .air-slide__treatment-name { font-size: 15.5px; }
+  .air-slide__treatment-blurb { display: none; }
+  .air-slide__treatment-more { font-size: 10.5px; }
+  .air-carousel__controls { gap: 8px; }
+  .air-carousel__dots { gap: 2px; }
+}
+
 .ba-grid {
   display: grid;
   grid-template-columns: 1fr;
@@ -1220,8 +1325,29 @@ input { font-family: inherit; }
   .provider { grid-template-columns: 0.85fr 1.15fr; }
 }
 
-.full-bleed-banner { width: 100%; line-height: 0; }
+.full-bleed-banner { width: 100%; line-height: 0; position: relative; }
 .full-bleed-banner img { width: 100%; height: auto; display: block; }
+/* Invisible per-panel links over the Face / Skin / Body banner image. A
+   soft lift on hover/focus shows each panel is clickable. */
+.full-bleed-banner__links { position: absolute; inset: 0; }
+.full-bleed-banner__link { position: absolute; top: 0; bottom: 0; display: block; transition: background-color var(--transition-base); }
+@media (hover: hover) { .full-bleed-banner__link:hover { background-color: rgba(255, 255, 255, 0.12); } }
+/* Touch: no sticky hover; a brief press highlight instead of the grey tap flash. */
+.full-bleed-banner__link { -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
+.full-bleed-banner__link:active { background-color: rgba(255, 255, 255, 0.2); }
+/* Phones: the FACE / SKIN / BODY words printed in the image shrink to ~8px,
+   so a readable label sits over each (covering the printed word, which is
+   at ~67% of the image height). Desktop shows the printed words as-is. */
+.full-bleed-banner__label { display: none; }
+@media (max-width: 767px) {
+  .full-bleed-banner__label {
+    display: block; position: absolute; left: 50%; top: 67%; transform: translate(-50%, -50%);
+    padding: 7px 14px; border-radius: var(--radius-pill); background: rgba(28, 24, 22, 0.55);
+    color: var(--renu-white); font-size: 11px; line-height: 1; letter-spacing: 0.18em; text-transform: uppercase; white-space: nowrap;
+  }
+  .full-bleed-banner__label::after { content: " →"; letter-spacing: 0; }
+}
+.full-bleed-banner__link:focus-visible { outline: 3px solid var(--renu-gold); outline-offset: -3px; background-color: rgba(255, 255, 255, 0.12); }
 
 .provider__media {
   aspect-ratio: 3 / 4;
@@ -1320,6 +1446,7 @@ input { font-family: inherit; }
 .gallery-tile--wide { aspect-ratio: 4 / 3; }
 .gallery-tile--square { aspect-ratio: 1 / 1; }
 .gallery-tile--tall { aspect-ratio: 3 / 4; }
+.gallery-tile--full { aspect-ratio: 3 / 2; } /* fallback; the tile sets the photo's own ratio */
 .gallery-tile--photo img { object-fit: cover; }
 
 .gallery-tile--review {
@@ -1536,7 +1663,10 @@ input { font-family: inherit; }
 .detail-treats__info { flex: 1 1 380px; display: flex; flex-direction: column; gap: 22px; }
 
 .detail-accordion { display: flex; flex-direction: column; }
-.detail-accordion details { border-bottom: 1px solid var(--renu-border); padding: 16px 0; }
+.detail-accordion details,
+.detail-accordion__item { border-bottom: 1px solid var(--renu-border); padding: 16px 0; }
+/* Always-open sections (same look as the old drop-down titles). */
+.detail-accordion__title { margin: 0; font-family: var(--font-body); font-weight: var(--weight-medium); font-size: 16.5px; line-height: 1.4; color: var(--renu-ink); }
 .detail-accordion summary { cursor: pointer; font-size: 16.5px; color: var(--renu-ink); list-style: none; }
 .detail-accordion summary::-webkit-details-marker { display: none; }
 .detail-accordion p { margin: 12px 0 0; font-size: 15.5px; line-height: 1.7; color: var(--renu-ink-muted); }
@@ -1723,7 +1853,10 @@ input { font-family: inherit; }
 /* Credential grid — "a 4-cell credential grid (repeat(auto-fit,
    minmax(150px, 1fr)), gap: 1px, background: border color — the 1px gap over a
    gray background creates hairline dividers between white cells)". */
-.credential-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1px; background: var(--renu-border); border: 1px solid var(--renu-border); }
+.credential-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--renu-border); border: 1px solid var(--renu-border); }
+/* Odd number of boxes: the last one spans the row instead of leaving an
+   empty (border-colored) gap. */
+.credential-grid__cell:last-child:nth-child(odd) { grid-column: 1 / -1; }
 .credential-grid__cell { background: var(--renu-white); padding: 18px 20px; }
 .credential-grid__key { font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--renu-taupe-deep); }
 .credential-grid__value { margin-top: 6px; font-family: var(--font-display); font-size: 18px; color: var(--renu-espresso); }

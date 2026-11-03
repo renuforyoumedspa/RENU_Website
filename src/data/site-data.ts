@@ -34,13 +34,22 @@ export const INTEREST_OPTIONS = [
 export const QUIZ = [
   {
     q: "What bothers you most when you look in the mirror?",
-    options: ["Lines and wrinkles", "Sagging or a softening jawline", "Skin texture, pores or scarring", "Volume loss — I look tired or hollow"],
+    options: ["Lines and wrinkles", "Sagging or a softening jawline", "Jawline definition or stubborn fat", "Skin texture, pores or scarring", "Volume loss — I look tired or hollow"],
     map: {
       "Lines and wrinkles": "Lines & wrinkles",
       "Sagging or a softening jawline": "Sagging & laxity",
+      "Jawline definition or stubborn fat": "Jawline & contour", // heading only — this answer uses picks
       "Skin texture, pores or scarring": "Texture & tone",
       "Volume loss — I look tired or hollow": "Volume loss"
-    } as Record<string, string>
+    } as Record<string, string>,
+    // The client's own picks for each answer, in order (treatment slugs).
+    // Answers not listed fall back to every treatment tagged with the concern.
+    picks: {
+      "Lines and wrinkles": ["botox", "ultherapy", "coollaser"],
+      "Sagging or a softening jawline": ["ultherapy", "renulift", "necklift"],
+      "Jawline definition or stubborn fat": ["kybella", "ultherapy"],
+      "Skin texture, pores or scarring": ["coollaser", "microneedling", "acnescar"]
+    } as Record<string, string[]>
   },
   { q: "How much downtime can you take?", options: ["None — I have plans this week", "A weekend", "A week if the result is worth it"] },
   { q: "Have you had aesthetic treatment before?", options: ["Never — this would be my first", "A little Botox or filler", "Regularly, for years"] },

@@ -129,7 +129,7 @@
   },
   {
     "source": "/before-after-cellulite-treatment-jupiter",
-    "destination": "/treatments/cellulite/"
+    "destination": "/treatments/?area=Body"
   },
   {
     "source": "/before-after-kybella-jupiter",
@@ -309,11 +309,11 @@
   },
   {
     "source": "/category/cellulite-reduction-procedures",
-    "destination": "/treatments/cellulite/"
+    "destination": "/treatments/?area=Body"
   },
   {
     "source": "/category/cellulite-reduction-treatment",
-    "destination": "/treatments/cellulite/"
+    "destination": "/treatments/?area=Body"
   },
   {
     "source": "/category/cosmetic-spa",
@@ -421,11 +421,11 @@
   },
   {
     "source": "/cellulite-reduction",
-    "destination": "/treatments/cellulite/"
+    "destination": "/treatments/?area=Body"
   },
   {
     "source": "/cellulite-treatment-jupiter",
-    "destination": "/treatments/cellulite/"
+    "destination": "/treatments/?area=Body"
   },
   {
     "source": "/chemical-peels-jupiter",
@@ -501,11 +501,11 @@
   },
   {
     "source": "/dermaplaing-in-stuart-and-jupiter",
-    "destination": "/treatments/dermaplane/"
+    "destination": "/treatments/?area=Skin"
   },
   {
     "source": "/dermaplaning-jupiter",
-    "destination": "/treatments/dermaplane/"
+    "destination": "/treatments/?area=Skin"
   },
   {
     "source": "/discover-botox-in-stuart",
@@ -581,11 +581,11 @@
   },
   {
     "source": "/facial-vessels-2",
-    "destination": "/treatments/pigment/"
+    "destination": "/treatments/resurfacing/"
   },
   {
     "source": "/facial-vessels",
-    "destination": "/treatments/pigment/"
+    "destination": "/treatments/resurfacing/"
   },
   {
     "source": "/facials-jupiter",
@@ -645,7 +645,7 @@
   },
   {
     "source": "/how-to-get-rid-of-cellulite-with-ilipo-laser-in-stuart-fl",
-    "destination": "/blog/how-to-get-rid-of-cellulite-with-ilipo-laser-in-stuart-fl/"
+    "destination": "/treatments/?area=Body"
   },
   {
     "source": "/ilipo.html",
@@ -661,7 +661,7 @@
   },
   {
     "source": "/ipl-photofacial-jupiter",
-    "destination": "/treatments/pigment/"
+    "destination": "/treatments/resurfacing/"
   },
   {
     "source": "/is-clinical-3",
@@ -733,7 +733,7 @@
   },
   {
     "source": "/ktplaser.html",
-    "destination": "/treatments/pigment/"
+    "destination": "/treatments/resurfacing/"
   },
   {
     "source": "/kybella",
@@ -961,15 +961,15 @@
   },
   {
     "source": "/pdo-thread-lift-cost",
-    "destination": "/treatments/pdo/"
+    "destination": "/treatments/renulift/"
   },
   {
     "source": "/pdo-threads-the-latest-trends",
-    "destination": "/blog/pdo-threads-the-latest-trends/"
+    "destination": "/treatments/renulift/"
   },
   {
     "source": "/pdo-threads",
-    "destination": "/treatments/pdo/"
+    "destination": "/treatments/renulift/"
   },
   {
     "source": "/permanent-laser-hair-removal-in-jupiter-fl",
@@ -1185,7 +1185,7 @@
   },
   {
     "source": "/services/ktp-laser",
-    "destination": "/treatments/pigment/"
+    "destination": "/treatments/resurfacing/"
   },
   {
     "source": "/services/liquid-facelift",
@@ -1257,7 +1257,7 @@
   },
   {
     "source": "/stuart-residents-ask-who-is-a-good-candidate-for-dermaplaning",
-    "destination": "/blog/stuart-residents-ask-who-is-a-good-candidate-for-dermaplaning/"
+    "destination": "/treatments/?area=Skin"
   },
   {
     "source": "/summer-savings",
@@ -1277,7 +1277,7 @@
   },
   {
     "source": "/tequesta-residents-ask-who-is-a-good-candidate-for-an-ipl-photofacial",
-    "destination": "/blog/tequesta-residents-ask-who-is-a-good-candidate-for-an-ipl-photofacial/"
+    "destination": "/treatments/resurfacing/"
   },
   {
     "source": "/tequesta",
@@ -1398,5 +1398,37 @@
   {
     "source": "/zo-skin-health",
     "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/treatments/pdo",
+    "destination": "/treatments/renulift/"
+  },
+  {
+    "source": "/treatments/pigment",
+    "destination": "/treatments/resurfacing/"
+  },
+  {
+    "source": "/treatments/dermaplane",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/treatments/cellulite",
+    "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/blog/pdo-threads-the-latest-trends",
+    "destination": "/treatments/renulift/"
+  },
+  {
+    "source": "/blog/tequesta-residents-ask-who-is-a-good-candidate-for-an-ipl-photofacial",
+    "destination": "/treatments/resurfacing/"
+  },
+  {
+    "source": "/blog/stuart-residents-ask-who-is-a-good-candidate-for-dermaplaning",
+    "destination": "/treatments/?area=Skin"
+  },
+  {
+    "source": "/blog/how-to-get-rid-of-cellulite-with-ilipo-laser-in-stuart-fl",
+    "destination": "/treatments/?area=Body"
   }
 ]
