@@ -32,15 +32,21 @@ export const DEFAULT_BEFORE_AFTERS = [
 // DEFAULT_FAQS/DEFAULT_VISIT_STEPS above. Real, treatment-specific copy for
 // these four sections is Sanity content to be authored later; this keeps
 // every treatment page functional and non-generic-looking until then.
-export function getDefaultAccordions(treatment: { name: string; areas: readonly string[]; techs: readonly string[]; concerns: readonly string[]; blurb: string }) {
+//
+// Any section written for the treatment in Sanity (whatItIs, howItWorks,
+// howItHelps, treatableAreas) replaces its generated default.
+export function getDefaultAccordions(treatment: {
+  name: string; areas: readonly string[]; techs: readonly string[]; concerns: readonly string[]; blurb: string;
+  whatItIs?: string; howItWorks?: string; howItHelps?: string; treatableAreas?: string;
+}) {
   const areaLower = listToSentence(treatment.areas).toLowerCase();
   const concernLower = listToSentence(treatment.concerns).toLowerCase();
   const tech = treatment.techs[0].toLowerCase();
   const article = /^[aeiou]/.test(tech) ? 'an' : 'a';
   return [
-    { q: "What it is", a: `${treatment.name} is ${article} ${tech}-based treatment offered at both RENU clinics, performed personally by Dr. Barrett rather than handed off to a technician.` },
-    { q: "How it works", a: treatment.blurb },
-    { q: "How it helps", a: `Patients choose ${treatment.name} to address ${concernLower} — dosing and technique are staged conservatively so the change reads as rested, not "done."` },
-    { q: "Treatable areas", a: `Most commonly used for ${areaLower} concerns. Dr. Barrett will confirm the exact areas that make sense for you at your consultation.` }
+    { q: "What it is", a: treatment.whatItIs || `${treatment.name} is ${article} ${tech}-based treatment offered at both RENU clinics, performed personally by Dr. Barrett rather than handed off to a technician.` },
+    { q: "How it works", a: treatment.howItWorks || treatment.blurb },
+    { q: "How it helps", a: treatment.howItHelps || `Patients choose ${treatment.name} to address ${concernLower} — dosing and technique are staged conservatively so the change reads as rested, not "done."` },
+    { q: "Treatable areas", a: treatment.treatableAreas || `Most commonly used for ${areaLower} concerns. Dr. Barrett will confirm the exact areas that make sense for you at your consultation.` }
   ];
 }

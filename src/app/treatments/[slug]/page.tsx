@@ -150,6 +150,13 @@ export default async function TreatmentDetailPage({ params }: { params: Promise<
                     </div>
                   ))}
                 </div>
+                {treatment.signature?.text && (
+                  <div className="detail-addon detail-addon--signature">
+                    <span className="detail-addon__eyebrow">RENU signature</span>
+                    {treatment.signature.title && <h3 className="detail-addon__title">{treatment.signature.title}</h3>}
+                    <p>{treatment.signature.text}</p>
+                  </div>
+                )}
                 {EXOSOME_ADDON.slugs.includes(treatment.slug) && (
                   <div className="detail-addon">
                     <span className="detail-addon__eyebrow">Optional add-on</span>

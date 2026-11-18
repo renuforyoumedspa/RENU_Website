@@ -27,7 +27,7 @@ export const SOURCES = [
 ];
 
 export const INTEREST_OPTIONS = [
-  "Botox / neurotoxin", "Filler", "RENUlift™", "Ultherapy", "Laser resurfacing",
+  "Botox / neurotoxin", "Filler", "RENUlift™", "Ultherapy", "RENU Cool Laser",
   "Lips", "Microneedling", "Body contouring", "Hair restoration", "Not sure yet"
 ];
 
@@ -48,7 +48,7 @@ export const QUIZ = [
       "Lines and wrinkles": ["botox", "ultherapy", "coollaser"],
       "Sagging or a softening jawline": ["ultherapy", "renulift", "necklift"],
       "Jawline definition or stubborn fat": ["kybella", "ultherapy"],
-      "Skin texture, pores or scarring": ["coollaser", "microneedling", "acnescar"]
+      "Skin texture, pores or scarring": ["coollaser", "microneedling"]
     } as Record<string, string[]>
   },
   { q: "How much downtime can you take?", options: ["None — I have plans this week", "A weekend", "A week if the result is worth it"] },

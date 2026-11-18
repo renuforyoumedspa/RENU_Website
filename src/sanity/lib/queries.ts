@@ -35,6 +35,11 @@ export interface Treatment {
   contentImage?: unknown;
   contentImageDims?: { width: number; height: number };
   contentImageAlt?: string;
+  whatItIs?: string;
+  howItWorks?: string;
+  howItHelps?: string;
+  treatableAreas?: string;
+  signature?: { title?: string; text?: string };
   facts?: { visitLength?: string; downtime?: string; resultsShow?: string; lasts?: string };
   beforeAfters?: BeforeAfterEntry[];
   visitSteps?: { text: string }[];
@@ -94,6 +99,7 @@ export interface Product {
 const TREATMENT_PROJECTION = `{
   _id, _updatedAt, name, "slug": slug.current, legacyUrls, areas, concerns, techs, cta, blurb, image, contentImage,
   "contentImageDims": contentImage.asset->metadata.dimensions{ width, height }, "contentImageAlt": contentImage.alt,
+  whatItIs, howItWorks, howItHelps, treatableAreas, signature,
   facts, beforeAfters, visitSteps, faqs, body
 }`;
 

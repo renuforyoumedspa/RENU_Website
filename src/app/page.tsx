@@ -20,13 +20,12 @@ const HOMEPAGE_GALLERY_LIMIT = 12;
 // The first six of the client's most recommended treatments.
 const FAVORITE_IDS = MOST_RECOMMENDED.slice(0, 6);
 const FAVORITE_CTA_LABELS: Record<string, string> = {
-  resurfacing: 'Renew Your Glow',
   ultherapy: 'Lift & Tighten Naturally',
   coollaser: 'Get Flawless Skin',
   necklift: 'Redefine Your Neck',
-  eyelid: 'Lift Your Lids',
   browlift: 'Raise Your Brow',
-  tightening: 'Tighten Your Skin'
+  tightening: 'Sculpt & Tighten',
+  sculptra: 'Restore Natural Volume'
 };
 
 export default async function HomePage() {

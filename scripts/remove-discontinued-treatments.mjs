@@ -19,15 +19,22 @@ const client = createClient({
   useCdn: false
 });
 
-// Cellulite Treatment, Dermaplaning, PDO Threads, Pigment & Sun Damage.
-const TREATMENTS = ['treatment-cellulite', 'treatment-dermaplane', 'treatment-pdo', 'treatment-pigment'];
+// Round 1 (early Nov 2026): Cellulite Treatment, Dermaplaning, PDO Threads,
+// Pigment & Sun Damage. Round 2 (mid Nov 2026): Laser Skin Resurfacing,
+// Juvéderm, Laser Eyelid Lift, Acne Scarring, Belotero, RENU Temple Lift.
+const TREATMENTS = [
+  'treatment-cellulite', 'treatment-dermaplane', 'treatment-pdo', 'treatment-pigment',
+  'treatment-resurfacing', 'treatment-juvederm', 'treatment-eyelid', 'treatment-acnescar', 'treatment-belotero', 'treatment-templelift'
+];
 // Blog posts about them — hidden (draft: true), not deleted, so they can
 // come back by switching "Hide from site" off in the Studio.
 const POSTS = [
   'blogPost-how-to-get-rid-of-cellulite-with-ilipo-laser-in-stuart-fl',
   'blogPost-stuart-residents-ask-who-is-a-good-candidate-for-dermaplaning',
   'blogPost-pdo-threads-the-latest-trends',
-  'blogPost-tequesta-residents-ask-who-is-a-good-candidate-for-an-ipl-photofacial'
+  'blogPost-tequesta-residents-ask-who-is-a-good-candidate-for-an-ipl-photofacial',
+  'blogPost-belotero-eyes-in-jupiter-and-port-st-lucie-fl',
+  'blogPost-tequesta-residents-ask-what-does-juvederm-cost-and-how-long-does-it-last'
 ];
 
 const ids = [...TREATMENTS, ...TREATMENTS.map((id) => `drafts.${id}`)];

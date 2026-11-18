@@ -69,15 +69,15 @@
   },
   {
     "source": "/acne-scarring",
-    "destination": "/treatments/acnescar/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/acne-treatments-jupiter",
-    "destination": "/treatments/acnescar/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/advanced-laser-peel-treatment-for-co2-resurfacing-of-skin",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/aesthetic-procedures-for-different-life-stages",
@@ -137,7 +137,7 @@
   },
   {
     "source": "/before-after-laser-skin-resurfacing-jupiter",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/before-after-laser-skin-tightening-jupiter",
@@ -169,19 +169,19 @@
   },
   {
     "source": "/belotera",
-    "destination": "/treatments/belotero/"
+    "destination": "/treatments/restylane/"
   },
   {
     "source": "/belotero-eyes-in-jupiter-and-port-st-lucie-fl",
-    "destination": "/blog/belotero-eyes-in-jupiter-and-port-st-lucie-fl/"
+    "destination": "/treatments/restylane/"
   },
   {
     "source": "/belotero-in-stuart-and-jupiter",
-    "destination": "/treatments/belotero/"
+    "destination": "/treatments/restylane/"
   },
   {
     "source": "/belotero-jupiter",
-    "destination": "/treatments/belotero/"
+    "destination": "/treatments/restylane/"
   },
   {
     "source": "/benefits-of-a-non-surgical-facelift-in-stuart-fl",
@@ -285,7 +285,7 @@
   },
   {
     "source": "/category/acne-treatment",
-    "destination": "/treatments/acnescar/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/category/anti-aging-skin-care-treatments",
@@ -337,7 +337,7 @@
   },
   {
     "source": "/category/juvederm",
-    "destination": "/treatments/juvederm/"
+    "destination": "/treatments/restylane/"
   },
   {
     "source": "/category/laser-hair-removal",
@@ -393,7 +393,7 @@
   },
   {
     "source": "/category/skin-resurfacing",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/category/stretch-mark-reduction",
@@ -513,15 +513,15 @@
   },
   {
     "source": "/dot-fractional-co2-laser",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/dot-laser-lunchtime-peel",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/dottherapy.html",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/dysport-before-and-after-pictures-in-jupiter-and-port-st-lucie-fl-2",
@@ -561,11 +561,11 @@
   },
   {
     "source": "/eyes-beleph-renu",
-    "destination": "/treatments/eyelid/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/eyes-renu",
-    "destination": "/treatments/eyelid/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/face-lifts-non-surgical-solutions",
@@ -581,11 +581,11 @@
   },
   {
     "source": "/facial-vessels-2",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/facial-vessels",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/facials-jupiter",
@@ -661,7 +661,7 @@
   },
   {
     "source": "/ipl-photofacial-jupiter",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/is-clinical-3",
@@ -725,15 +725,15 @@
   },
   {
     "source": "/juvederm-jupiter",
-    "destination": "/treatments/juvederm/"
+    "destination": "/treatments/restylane/"
   },
   {
     "source": "/juvederm-ultra",
-    "destination": "/treatments/juvederm/"
+    "destination": "/treatments/restylane/"
   },
   {
     "source": "/ktplaser.html",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/kybella",
@@ -753,7 +753,7 @@
   },
   {
     "source": "/laser-eyelid-tightening",
-    "destination": "/treatments/eyelid/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/laser-hair-growth-jupiter",
@@ -773,15 +773,15 @@
   },
   {
     "source": "/laser-resurfacing",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/laser-skin-resurfacing-in-jupiter-and-stuart",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/laser-skin-resurfacing-jupiter",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/laser-treatments-jupiter",
@@ -1045,11 +1045,11 @@
   },
   {
     "source": "/rentemple-lift",
-    "destination": "/treatments/templelift/"
+    "destination": "/treatments/renulift/"
   },
   {
     "source": "/renu-brow-templeliftgallery",
-    "destination": "/treatments/templelift/"
+    "destination": "/treatments/renulift/"
   },
   {
     "source": "/renu-facelift-jupiter",
@@ -1057,7 +1057,7 @@
   },
   {
     "source": "/renu-laser-eyelid-lift-jupiter",
-    "destination": "/treatments/eyelid/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/renu-lift-gallery",
@@ -1077,7 +1077,7 @@
   },
   {
     "source": "/renu-temple-lift",
-    "destination": "/treatments/templelift/"
+    "destination": "/treatments/renulift/"
   },
   {
     "source": "/renulift",
@@ -1165,7 +1165,7 @@
   },
   {
     "source": "/services/dot-fractional-co2-laser",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/services/endymed-3deep",
@@ -1185,7 +1185,7 @@
   },
   {
     "source": "/services/ktp-laser",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/services/liquid-facelift",
@@ -1273,11 +1273,11 @@
   },
   {
     "source": "/tequesta-residents-ask-what-does-juvederm-cost-and-how-long-does-it-last",
-    "destination": "/blog/tequesta-residents-ask-what-does-juvederm-cost-and-how-long-does-it-last/"
+    "destination": "/treatments/restylane/"
   },
   {
     "source": "/tequesta-residents-ask-who-is-a-good-candidate-for-an-ipl-photofacial",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/tequesta",
@@ -1353,7 +1353,7 @@
   },
   {
     "source": "/voluma",
-    "destination": "/treatments/juvederm/"
+    "destination": "/treatments/restylane/"
   },
   {
     "source": "/weight-loss-in-tequesta-ilipo-non-surgical-laser-liposuction",
@@ -1405,7 +1405,7 @@
   },
   {
     "source": "/treatments/pigment",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/treatments/dermaplane",
@@ -1421,7 +1421,7 @@
   },
   {
     "source": "/blog/tequesta-residents-ask-who-is-a-good-candidate-for-an-ipl-photofacial",
-    "destination": "/treatments/resurfacing/"
+    "destination": "/treatments/coollaser/"
   },
   {
     "source": "/blog/stuart-residents-ask-who-is-a-good-candidate-for-dermaplaning",
@@ -1430,5 +1430,37 @@
   {
     "source": "/blog/how-to-get-rid-of-cellulite-with-ilipo-laser-in-stuart-fl",
     "destination": "/treatments/?area=Body"
+  },
+  {
+    "source": "/treatments/resurfacing",
+    "destination": "/treatments/coollaser/"
+  },
+  {
+    "source": "/treatments/eyelid",
+    "destination": "/treatments/coollaser/"
+  },
+  {
+    "source": "/treatments/acnescar",
+    "destination": "/treatments/coollaser/"
+  },
+  {
+    "source": "/treatments/juvederm",
+    "destination": "/treatments/restylane/"
+  },
+  {
+    "source": "/treatments/belotero",
+    "destination": "/treatments/restylane/"
+  },
+  {
+    "source": "/treatments/templelift",
+    "destination": "/treatments/renulift/"
+  },
+  {
+    "source": "/blog/belotero-eyes-in-jupiter-and-port-st-lucie-fl",
+    "destination": "/treatments/restylane/"
+  },
+  {
+    "source": "/blog/tequesta-residents-ask-what-does-juvederm-cost-and-how-long-does-it-last",
+    "destination": "/treatments/restylane/"
   }
 ]
